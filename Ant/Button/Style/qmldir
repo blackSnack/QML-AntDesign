@@ -1,0 +1,9 @@
+module Ant.Button.Style
+
+ButtonStyle 1.0 ButtonStyle.qml
+ButtonSizeStyle 1.0 ButtonSizeStyle.qml
+
+Default 1.0 Default.qml
+Primary 1.0 Primary.qml
+Dashed 1.0 Dashed.qml
+singleton AntButtonStyle 1.0 AntButtonStyle.qml

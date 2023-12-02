@@ -1,0 +1,6 @@
+StateColor 1.0 StateColor.qml
+ButtonSizeStyle 1.0 ButtonSizeStyle.qml
+ButtonFontStyle 1.0 ButtonFontStyle.qml
+ButtonBorderStyle 1.0 ButtonBorderStyle.qml
+ButtonBasicSize 1.0 ButtonBasicSize.qml
+ButtonBackgroundStyle 1.0 ButtonBackgroundStyle.qml

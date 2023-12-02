@@ -1,0 +1,5 @@
+module Ant.Core
+
+AntShadowL1Down 1.0 Shadow/ShadowL1Down.qml
+singleton AntFont 1.0 Font/AntFont.qml
+singleton AntColors 1.0  Colors/AntColors.qml

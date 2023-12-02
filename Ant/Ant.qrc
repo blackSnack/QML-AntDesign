@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/Ant">
+        <file>Button/AntButton.qml</file>
+        <file>Button/qmldir</file>
+        <file>Button/Style/Default.qml</file>
+        <file>Button/Style/qmldir</file>
+        <file>Button/Style/private/StateColor.qml</file>
+        <file>Button/Style/private/qmldir</file>
+        <file>Button/Style/ButtonStyle.qml</file>
+        <file>Button/Style/private/ButtonBackgroundStyle.qml</file>
+        <file>Button/Style/private/ButtonBorderStyle.qml</file>
+        <file>Button/Style/private/ButtonFontStyle.qml</file>
+        <file>Button/Utils/Utils.js</file>
+        <file>Button/Utils/qmldir</file>
+        <file>Button/Style/Primary.qml</file>
+        <file>Button/Style/AntButtonStyle.qml</file>
+        <file>Button/Style/ButtonSizeStyle.qml</file>
+        <file>Core/Colors/AntColors.qml</file>
+        <file>Core/Colors/qmldir</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-Medium.otf</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-MediumItalic.otf</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-Regular.otf</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-RegularItalic.otf</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-Semibold.otf</file>
+        <file>Core/Font/SF_Font/SF-Pro-Text-SemiboldItalic.otf</file>
+        <file>Core/Font/AntFont.qml</file>
+        <file>Core/Font/qmldir</file>
+        <file>Core/Shadow/qmldir</file>
+        <file>Core/Shadow/ShadowBase.qml</file>
+        <file>Core/Shadow/ShadowL1Down.qml</file>
+        <file>Core/qmldir</file>
+        <file>Button/Style/Dashed.qml</file>
+    </qresource>
+</RCC>

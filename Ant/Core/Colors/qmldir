@@ -1,0 +1,3 @@
+module Ant.Core.Colors
+
+singleton AntColors 1.0 AntColors.qml
