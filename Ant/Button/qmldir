@@ -1,3 +1,2 @@
-module Ant.Button
-
-AntButton 1.0 AntButton.qml
+module AntButton
+plugin AntButton

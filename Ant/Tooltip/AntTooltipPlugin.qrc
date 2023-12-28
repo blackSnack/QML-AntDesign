@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntTooltip">
+        <file>AntTooltip.qml</file>
+    </qresource>
+</RCC>

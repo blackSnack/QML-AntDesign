@@ -1,7 +1,5 @@
 import QtQuick 2.15
 
-import "./private"
-
 QtObject {
     required property ButtonBorderStyle borderStyle
 
@@ -10,4 +8,12 @@ QtObject {
     required property ButtonFontStyle fontStyle
 
     required property size compSize
+
+    required property size compOnlyIconSize
+
+    required property int onlyIconSize
+
+    required property int paddingInline
+
+    required property int spacing
 }

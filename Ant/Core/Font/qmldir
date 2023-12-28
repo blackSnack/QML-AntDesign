@@ -1,3 +1,1 @@
-module Ant.Core.Font
-
 singleton AntFont 1.0 AntFont.qml

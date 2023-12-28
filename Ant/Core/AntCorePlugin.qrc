@@ -1,0 +1,22 @@
+﻿<RCC>
+    <qresource prefix="/AntCore">
+        <file>Theme/AntTheme.qml</file>
+        <file>Colors/AntColors.qml</file>
+        <file>Font/AntFont.qml</file>
+        <file>Font/FA_Font/Font Awesome 6 Brands-Regular-400.otf</file>
+        <file>Font/FA_Font/Font Awesome 6 Free-Regular-400.otf</file>
+        <file>Font/FA_Font/Font Awesome 6 Free-Solid-900.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-Medium.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-MediumItalic.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-Regular.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-RegularItalic.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-Semibold.otf</file>
+        <file>Font/SF_Font/SF-Pro-Text-SemiboldItalic.otf</file>
+        <file>Shadow/ShadowBase.qml</file>
+        <file>Shadow/ShadowL1Down.qml</file>
+        <file>Colors/qmldir</file>
+        <file>Font/qmldir</file>
+        <file>Shadow/qmldir</file>
+        <file>Theme/qmldir</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,23 @@
+﻿<RCC>
+    <qresource prefix="/AntButton">
+        <file>AntButton.qml</file>
+        <file>qmldir</file>
+        <file>Style/AntButtonStyle.qml</file>
+        <file>Style/AntButtonStyleToken.qml</file>
+        <file>Style/ButtonSizeStyle.qml</file>
+        <file>Style/ButtonStyle.qml</file>
+        <file>Style/DashedStyle.qml</file>
+        <file>Style/DefaultStyle.qml</file>
+        <file>Style/LinkStyle.qml</file>
+        <file>Style/PrimaryStyle.qml</file>
+        <file>Style/qmldir</file>
+        <file>Style/TextStyle.qml</file>
+        <file>Style/private/ButtonBackgroundStyle.qml</file>
+        <file>Style/private/ButtonBorderStyle.qml</file>
+        <file>Style/private/ButtonFontStyle.qml</file>
+        <file>Style/private/qmldir</file>
+        <file>Style/private/StateColor.qml</file>
+        <file>Utils/qmldir</file>
+        <file>Utils/Utils.js</file>
+    </qresource>
+</RCC>

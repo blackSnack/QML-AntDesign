@@ -7,4 +7,6 @@ QtObject {
     required property ButtonSizeStyle largeStyle
 
     required property ButtonSizeStyle smallStyle
+
+    required property bool hasGhost
 }

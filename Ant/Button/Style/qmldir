@@ -1,9 +1,14 @@
-module Ant.Button.Style
+ButtonBackgroundStyle 1.0 ./private/ButtonBackgroundStyle.qml
+ButtonBorderStyle 1.0 ./private/ButtonBorderStyle.qml
+ButtonFontStyle 1.0 ./private/ButtonFontStyle.qml
+StateColor 1.0 ./private/StateColor.qml
 
 ButtonStyle 1.0 ButtonStyle.qml
 ButtonSizeStyle 1.0 ButtonSizeStyle.qml
 
-Default 1.0 Default.qml
-Primary 1.0 Primary.qml
-Dashed 1.0 Dashed.qml
+DefaultStyle 1.0 DefaultStyle.qml
+PrimaryStyle 1.0 PrimaryStyle.qml
+DashedStyle 1.0 DashedStyle.qml
+TextStyle 1.0 TextStyle.qml
 singleton AntButtonStyle 1.0 AntButtonStyle.qml
+singleton AntButtonStyleToken 1.0 AntButtonStyleToken.qml
