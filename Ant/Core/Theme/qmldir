@@ -2,3 +2,4 @@ singleton AntTheme 1.0 AntTheme.qml
 
 # Fix cyclic dependency error
 AntColors 1.0 ../Colors/AntColors.qml
+AntFont 1.0 ../Font/AntFont.qml

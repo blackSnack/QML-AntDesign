@@ -23,9 +23,17 @@ QtObject {
 
     property int borderRadiusSM: 4
 
+    property int borderRadiusXS: 2
+
     property int paddingContentHorizontal: 16
 
     property int paddingXS: 8
+
+    property int paddingSM: 12
+
+    property size sizePopupArrow: Qt.size(16, 8)
+
+    property font defaultFont: AntFont.reuglar14
 
     property color colorBgContainer: AntColors.gray_1
 
@@ -64,4 +72,6 @@ QtObject {
     property color colorTextLightSolid: AntColors.gray_1
 
     property color colorTextDisabled: AntColors.gray_13_A25
+
+    property color colorBgSpotlight: AntColors.gray_13_A85
 }
