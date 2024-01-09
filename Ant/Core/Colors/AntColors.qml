@@ -23,11 +23,41 @@ QtObject {
     readonly property color blue_6: "#1677ff"
     readonly property color blue_7: "#0958d9"
 
+    // geekblue
+    readonly property color geekblue_6: "#2f54eb"
+
     // red
     readonly property color red_1: "#fff1f0"
     readonly property color red_3: "#ffa39e"
     readonly property color red_4: "#ff7875"
     readonly property color red_5: "#ff4d4f"
+
+    // green
+    readonly property color green_6: "#52c41a"
+
+    // glod
+    readonly property color gold_6: "#faad14"
+
+    // magenta
+    readonly property color magenta_6: "#EB2F96"
+
+    // yellow
+    readonly property color yellow_6: "#fadb14"
+
+    // orange
+    readonly property color orange_6: "#fa8c16"
+
+    // cyan
+    readonly property color cyan_6: "#13c2c2"
+
+    // purple
+    readonly property color purple_6: "#722ed1"
+
+    // volcano
+    readonly property color volcano_6: "#fa541c"
+
+    // lime
+    readonly property color lime_6: "#a0d911"
 
     readonly property color errorActiveColor: "#d9363e"
 

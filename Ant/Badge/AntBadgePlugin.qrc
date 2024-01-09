@@ -1,0 +1,7 @@
+﻿<RCC>
+    <qresource prefix="/AntBadge">
+        <file>AntBadge.qml</file>
+        <file>Style/AntBadgeStyle.qml</file>
+        <file>Style/qmldir</file>
+    </qresource>
+</RCC>

@@ -17,6 +17,8 @@ QtObject {
 
     property int lineWidth: 1
 
+    property real lineHeight: 1.5714285714285714
+
     property int borderRadius: 6
 
     property int borderRadiusLG: 8
@@ -31,6 +33,8 @@ QtObject {
 
     property int paddingSM: 12
 
+    property int marginXS: 8
+
     property size sizePopupArrow: Qt.size(16, 8)
 
     property font defaultFont: AntFont.reuglar14
@@ -42,6 +46,8 @@ QtObject {
     property color colorBgTextActive: AntColors.gray_13_A15
 
     property color colorBorder: AntColors.gray_5
+
+    property color colorSuccess: AntColors.green_6
 
     property color colorError: AntColors.red_5
 
@@ -74,4 +80,8 @@ QtObject {
     property color colorTextDisabled: AntColors.gray_13_A25
 
     property color colorBgSpotlight: AntColors.gray_13_A85
+
+    property color colorTextPlaceholder: AntColors.gray_13_A25
+
+    property color colorWarning: AntColors.gold_6
 }
