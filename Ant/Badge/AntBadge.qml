@@ -2,11 +2,11 @@ import QtQuick 2.15
 
 import AntCore 1.0
 import "./Style"
-import "qrc:/AntBadge/Utils/Utils.js" as Utils
 
 Row {
     id: root
 
+    property Item target: null
     property int dotSize: 6
     property int indicatorHeight: 20
     property int indicatorHeightSM: 14
@@ -22,8 +22,17 @@ Row {
     property bool dot: false
     property string size: "default" // default | small
     property bool showZero: false
+    property point offset: Qt.point(0, 0)
 
     spacing: AntTheme.marginXS
+    parent: target ?? parent
+
+    anchors {
+        left: target ? target.right : undefined
+        top: target ? target.top : undefined
+        leftMargin: target ?  (- width / 2) + offset.x : 0
+        topMargin: target ?  (- height / 2) + offset.y : 0
+    }
 
     Rectangle {
         id: badge

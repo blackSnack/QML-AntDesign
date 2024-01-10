@@ -35,6 +35,7 @@ Window {
     }
 
     Column {
+        id: layout2
         anchors.left: top.left
         anchors.top: top.bottom
         anchors.topMargin: 20
@@ -95,4 +96,54 @@ Window {
             count: 999
         }
     }
+
+   Row {
+        anchors.top: layout2.bottom
+        anchors.topMargin: 20
+        anchors.left: layout2.left
+        spacing: 20
+        Rectangle {
+            id: rect
+            width: 50
+            height: 50
+            color: "gray"
+            radius: 8
+        }
+
+        AntBadge {
+            target: rect
+            size: "small"
+            count: 999
+        }
+
+        Rectangle {
+            id: dotRect
+            width: 50
+            height: 50
+            color: "gray"
+            radius: 8
+        }
+
+        AntBadge {
+            target: dotRect
+            size: "small"
+            dot: true
+            count: 999
+        }
+
+        Rectangle {
+            id: offsetRect
+            width: 50
+            height: 50
+            color: "gray"
+            radius: 8
+        }
+
+        AntBadge {
+            target: offsetRect
+            size: "small"
+            offset: Qt.point(10, 10)
+            count: 999
+        }
+   }
 }
