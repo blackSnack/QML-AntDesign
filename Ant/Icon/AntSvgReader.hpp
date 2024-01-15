@@ -16,6 +16,7 @@ public:
     QColor secondaryColor() const;
 
     bool load(const QString& filePath);
+    bool loadData(const QString& rawData);
 
     QByteArray data() const;
 signals:

@@ -42,6 +42,14 @@ bool AntSvgReader::load(const QString &filePath)
 
     dataM = file.readAll();
     parseData();
+    return true;
+}
+
+bool AntSvgReader::loadData(const QString& rawData)
+{
+    dataM = rawData;
+    parseData();
+    return true;
 }
 
 QByteArray AntSvgReader::data() const {

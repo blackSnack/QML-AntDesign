@@ -12,6 +12,7 @@ class AntSvgIcon : public QQuickPaintedItem
     Q_OBJECT
 
     CREATE_QML_PROPERTY(QString, source, Source)
+    CREATE_QML_PROPERTY(QString, sourceData, SourceData)
     Q_PROPERTY(QColor primaryColor READ primaryColor WRITE setPrimaryColor)
     Q_PROPERTY(QColor secondaryColor READ secondaryColor WRITE setSecondaryColor)
 

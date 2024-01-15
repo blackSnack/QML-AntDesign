@@ -29,11 +29,15 @@ AntSvgIcon::AntSvgIcon(QQuickItem* parent): QQuickPaintedItem(parent)
 
         svgReaderM.load(resultFileName);
         svgRenderM.load(svgReaderM.data());
-        svgRenderM.setViewBox(boundingRect());
-
     });
     connect(&svgRenderM, &QSvgRenderer::repaintNeeded, this, &QQuickItem::update);
     connect(&svgReaderM, &AntSvgReader::dataChanged, [this](){
+        svgRenderM.load(svgReaderM.data());
+        emit svgRenderM.repaintNeeded();
+    });
+
+    connect(this, &AntSvgIcon::sourceDataChanged, [this](){
+        svgReaderM.loadData(sourceData());
         svgRenderM.load(svgReaderM.data());
         emit svgRenderM.repaintNeeded();
     });
