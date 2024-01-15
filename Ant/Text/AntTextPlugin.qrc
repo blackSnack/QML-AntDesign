@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntText">
+        <file>AntText.qml</file>
+    </qresource>
+</RCC>
