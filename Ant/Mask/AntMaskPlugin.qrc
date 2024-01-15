@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntMask">
+        <file>AntMask.qml</file>
+    </qresource>
+</RCC>
