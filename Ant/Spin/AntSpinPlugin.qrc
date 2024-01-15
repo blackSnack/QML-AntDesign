@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntSpin">
+        <file>AntSpin.qml</file>
+    </qresource>
+</RCC>

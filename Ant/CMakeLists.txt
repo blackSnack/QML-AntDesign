@@ -12,6 +12,7 @@ add_subdirectory(Tooltip)
 add_subdirectory(Badge)
 add_subdirectory(Text)
 add_subdirectory(Mask)
+add_subdirectory(Spin)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
