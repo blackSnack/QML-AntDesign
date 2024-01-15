@@ -8,7 +8,7 @@ endif()
 
 function(add_ant_qml_plugin)    
     #parse args PLUGIN_NAME SOURCES are required args
-    cmake_parse_arguments("ARG" "" "PLUGIN_NAME;LIB_NAME" "SOURCES;QT_COMPONENTS" ${ARGN})
+    cmake_parse_arguments("ARG" "" "PLUGIN_NAME;LIB_NAME" "SOURCES;QT_COMPONENTS;LIBS" ${ARGN})
 
     if (NOT ARG_PLUGIN_NAME)
         message(FATAL_ERROR "PLUGIN_NAME is required")
@@ -18,6 +18,10 @@ function(add_ant_qml_plugin)
     endif()
     if (NOT ARG_LIB_NAME)
         set(ARG_LIB_NAME ${ARG_PLUGIN_NAME})
+    endif()
+
+    if (NOT ARG_LIBS)
+        set(ARG_LIBS "")
     endif()
 
     # default Qt quick deps
@@ -43,6 +47,11 @@ function(add_ant_qml_plugin)
     foreach(dep ${ARG_QT_COMPONENTS})
         list(APPEND target_deps "Qt::${dep}")
     endforeach(dep ${ARG_QT_COMPONENTS})
+
+    foreach(dep ${ARG_LIBS})
+        list(APPEND target_deps ${dep})
+    endforeach(dep ${ARG_LIBS})
+    
 
     find_package(ant-qt COMPONENTS ${ARG_QT_COMPONENTS} REQUIRED)
     

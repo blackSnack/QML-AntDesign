@@ -35,6 +35,8 @@ QtObject {
 
     property int marginXS: 8
 
+    property int zIndexPopupBase: 1000
+
     property size sizePopupArrow: Qt.size(16, 8)
 
     property font defaultFont: AntFont.reuglar14
@@ -48,6 +50,8 @@ QtObject {
     property color colorBorder: AntColors.gray_5
 
     property color colorSuccess: AntColors.green_6
+
+    property color colorSuccessText: AntColors.green_6
 
     property color colorError: AntColors.red_5
 
@@ -84,4 +88,8 @@ QtObject {
     property color colorTextPlaceholder: AntColors.gray_13_A25
 
     property color colorWarning: AntColors.gold_6
+
+    property color colorSplit: AntColors.gray_13_A6
+
+    property color colorBgMask: AntColors.gray_13_A45
 }

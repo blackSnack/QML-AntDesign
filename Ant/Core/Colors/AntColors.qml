@@ -5,6 +5,13 @@ import QtQuick 2.15
 QtObject {
     // gray
     readonly property color gray_1: "#ffffff"
+    readonly property color gray_1_A85: "#D9ffffff"
+    readonly property color gray_1_A96: "#f5ffffff"
+    readonly property color gray_3: "#f5f5f5"
+    readonly property color gray_3_A45: "#73f5f5f5"
+    readonly property color gray_4: "#f0f0f0"
+    readonly property color gray_4_A45: "#73f0f0f0"
+    readonly property color gray_4_A88: "#e0f0f0f0"
     readonly property color gray_5: "#d9d9d9"
     readonly property color gray_13: "#000000"
     readonly property color gray_13_A0: "#00000000"
@@ -13,8 +20,10 @@ QtObject {
     readonly property color gray_13_A15: "#26000000"
     readonly property color gray_13_A25: "#40000000"
     readonly property color gray_13_A40: "#0A000000"
+    readonly property color gray_13_A45: "#73000000"
     readonly property color gray_13_A85: "#D9000000"
     readonly property color gray_13_A88: "#E0000000"
+
 
     // blue
     readonly property color blue_3: "#91caff"
