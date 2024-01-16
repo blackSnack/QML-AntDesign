@@ -18,5 +18,6 @@
         <file>Font/qmldir</file>
         <file>Shadow/qmldir</file>
         <file>Theme/qmldir</file>
+        <file>Utils/Utils.js</file>
     </qresource>
 </RCC>
