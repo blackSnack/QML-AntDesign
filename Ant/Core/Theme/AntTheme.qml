@@ -11,6 +11,8 @@ QtObject {
 
     property int controlHeightSM: 24
 
+    property int controlInteractiveSize: 16
+
     property int lineType: Qt.SolidLine
 
     property int lineWidthFocus: 4

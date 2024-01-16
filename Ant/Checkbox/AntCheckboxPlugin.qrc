@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntCheckbox">
+        <file>AntCheckbox.qml</file>
+        <file>icon/checked.svg</file>
+    </qresource>
+</RCC>

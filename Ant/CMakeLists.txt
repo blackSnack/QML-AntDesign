@@ -14,6 +14,7 @@ add_subdirectory(Text)
 add_subdirectory(Mask)
 add_subdirectory(Spin)
 add_subdirectory(QRCode)
+add_subdirectory(Checkbox)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
