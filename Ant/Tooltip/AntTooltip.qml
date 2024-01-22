@@ -2,8 +2,9 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import AntCore 1.0
+import "qrc:/AntCore/Utils/Utils.js" as Utils
 
-Popup {
+Control {
     id: root
 
     enum Placement {
@@ -26,6 +27,7 @@ Popup {
         Click = 0x4
     }
     required property Item target
+    property bool arrow: true
     property size arrowSize: AntTheme.sizePopupArrow
     property int radius: AntTheme.borderRadius
     property int arrowRadius: AntTheme.borderRadiusXS
@@ -36,6 +38,7 @@ Popup {
     property int mouseEnterDelay: 100 // unit ms
     property int mouseLeaveDelay: 100 // unit ms
     property bool defaultOpen: false
+    property bool autoPlacement: true
 
     z: 1070
     implicitWidth : implicitContentWidth + leftPadding + rightPadding
@@ -45,59 +48,9 @@ Popup {
     leftPadding: (d.placement >= AntTooltip.Placement.Right && d.placement <= AntTooltip.Placement.RightBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
     rightPadding: (d.placement >= AntTooltip.Placement.Left && d.placement <= AntTooltip.Placement.LeftBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
 
-    parent: target
+    parent: Overlay.overlay
     visible: defaultOpen
 
-    x: {
-        switch (d.placement) {
-            // center align
-        case AntTooltip.Placement.Bottom:
-        case AntTooltip.Placement.Top:
-            return -(width - parent.width) / 2
-            // left align
-        case AntTooltip.Placement.BottomLeft:
-        case AntTooltip.Placement.TopLeft:
-            return parent.x
-            // right align
-        case AntTooltip.Placement.BottomRight:
-        case AntTooltip.Placement.TopRight:
-            return -(width - parent.width)
-        case AntTooltip.Placement.Left:
-        case AntTooltip.Placement.LeftTop:
-        case AntTooltip.Placement.LeftBottom:
-            return parent.x - width
-        case AntTooltip.Placement.Right:
-        case AntTooltip.Placement.RightTop:
-        case AntTooltip.Placement.RightBottom:
-            return parent.x + parent.width
-        default:
-            return 0
-        }
-    }
-
-    y: {
-        switch (d.placement) {
-        case AntTooltip.Placement.Bottom:
-        case AntTooltip.Placement.BottomLeft:
-        case AntTooltip.Placement.BottomRight:
-            return parent.height
-        case AntTooltip.Placement.Top:
-        case AntTooltip.Placement.TopLeft:
-        case AntTooltip.Placement.TopRight:
-            return parent.y - height
-        case AntTooltip.Placement.Left:
-        case AntTooltip.Placement.Right:
-            return -(height - parent.height) / 2
-        case AntTooltip.Placement.LeftTop:
-        case AntTooltip.Placement.RightTop:
-            return parent.y
-        case AntTooltip.Placement.LeftBottom:
-        case AntTooltip.Placement.RightBottom:
-            return -(height - parent.height)
-        default:
-            return 0
-        }
-    }
 
     contentItem: Text {
         id: content
@@ -107,7 +60,7 @@ Popup {
     }
 
     background:  Canvas {
-        id: background
+        id: canvasBg
 
         readonly property point leftTopP: {
             switch (d.placement) {
@@ -351,8 +304,13 @@ Popup {
         onPaint: {
             var ctx = getContext("2d");
             ctx.save();
+            ctx.clearRect(0, 0, width, height)
             drawBackground(ctx)
             ctx.restore();
+        }
+
+        ShadowL1Down {
+            target: canvasBg
         }
     }
 
@@ -371,42 +329,17 @@ Popup {
     QtObject {
         id: d
 
+        readonly property var window: Utils.getRoot(root)
+        readonly property size windowSize: Qt.size(window.width, window.height)
+        readonly property var windowRect: new Utils.Rect(Qt.rect(0, 0, window.width, window.height))
         readonly property size maxSize: Qt.size(20, 20)
-        readonly property size arrowSize: root.arrowSize > maxSize ? maxSize : root.arrowSize
+        readonly property size arrowSize: root.arrow ? (root.arrowSize > maxSize ? maxSize : root.arrowSize) : Qt.size(0, 0)
         readonly property int defaultVPadding: AntTheme.paddingSM
         readonly property int defaultHPadding: AntTheme.paddingContentHorizontal
         readonly property int arrowRadius: root.arrowRadius > d.arrowSize.width ? d.arrowSize.width : root.arrowRadius
         readonly property int miniLength: (radius + d.arrowTransitionRadius) * 2 +  d.arrowSize.width
         readonly property int arrowTransitionRadius: radius * 1.5
-        readonly property int placement: {
-            switch(root.placement) {
-            case AntTooltip.Placement.TopLeft:
-            case AntTooltip.Placement.TopRight:
-                if (width < miniLength) {
-                    return AntTooltip.Placement.Top
-                }
-                break;
-            case AntTooltip.Placement.BottomLeft:
-            case AntTooltip.Placement.BottomRight:
-                if (width < miniLength) {
-                    return AntTooltip.Placement.Bottom
-                }
-                break;
-            case AntTooltip.Placement.LeftTop:
-            case AntTooltip.Placement.LeftBottom:
-                if (height < miniLength) {
-                    return AntTooltip.Placement.Left
-                }
-                break;
-            case AntTooltip.Placement.RightTop:
-            case AntTooltip.Placement.RightBottom:
-                if (height < miniLength) {
-                    return AntTooltip.Placement.Right
-                }
-                break;
-            }
-            return root.placement
-        }
+        property int placement: root.placement
 
         readonly property bool isVisible: {
             switch (trigger) {
@@ -424,19 +357,132 @@ Popup {
             return false
         }
 
+        function getRealPlacement() {
+            let tempPlacement = root.placement
+            if (autoPlacement) {
+                const newPlacement = adjustPlacement()
+                if (newPlacement !== -1) {
+                    tempPlacement = newPlacement
+                }
+            }
+            switch(tempPlacement) {
+            case AntTooltip.Placement.TopLeft:
+            case AntTooltip.Placement.TopRight:
+                if (width < d.miniLength) {
+                    return AntTooltip.Placement.Top
+                }
+                break;
+            case AntTooltip.Placement.BottomLeft:
+            case AntTooltip.Placement.BottomRight:
+                if (width < d.miniLength) {
+                    return AntTooltip.Placement.Bottom
+                }
+                break;
+            case AntTooltip.Placement.LeftTop:
+            case AntTooltip.Placement.LeftBottom:
+                if (height < d.miniLength) {
+                    return AntTooltip.Placement.Left
+                }
+                break;
+            case AntTooltip.Placement.RightTop:
+            case AntTooltip.Placement.RightBottom:
+                if (height < d.miniLength) {
+                    return AntTooltip.Placement.Right
+                }
+                break;
+            }
+            return tempPlacement
+        }
+
+        function adjustPlacement() {
+            const rect = getTargetRect()
+            let expectArea = getAbsArea(getTargetRect(), root.placement)
+            // recalculate
+            let newPlacement = -1
+            if (!windowRect.contains(expectArea)) {
+                for (var i = 0; i < Ant.RightBottom; i++) {
+                    if (i !== 0) {
+                        expectArea = getAbsArea(rect, i)
+                        if (windowRect.contains(expectArea)) {
+                            newPlacement = i
+                            break;
+                        }
+                    }
+                }
+            }
+            return newPlacement
+        }
+
+        function getImplicitSize(placement) {
+            const bottomPadding = (placement >= Ant.Top && placement <= Ant.TopRight) ? d.arrowSize.height + d.defaultVPadding : d.defaultVPadding
+            const topPadding = (placement >= Ant.Bottom && placement <= Ant.BottomRight) ? d.arrowSize.height + d.defaultVPadding : d.defaultVPadding
+            const leftPadding = (placement >= Ant.Right && placement <= Ant.RightBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
+            const rightPadding = (placement >= Ant.Left && placement <= Ant.LeftBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
+
+            return Qt.size(root.contentItem.width + leftPadding + rightPadding,
+                           root.contentItem.height + topPadding + bottomPadding)
+        }
+
+        function getAbsArea(targetRect, p) {
+            const implSize = getImplicitSize(p)
+            switch(p) {
+            case Ant.TopLeft:
+                return Qt.rect(targetRect.x, targetRect.y - implSize.height, implSize.width, implSize.height)
+            case Ant.TopRight:
+                return Qt.rect(targetRect.rightTop.x - implSize.width, targetRect.rightTop.y - implSize.height, implSize.width, implSize.height)
+            case Ant.Top:
+                return Qt.rect(targetRect.leftTop.x + (targetRect.width - implSize.width) / 2, targetRect.rightTop.y - implSize.height, implSize.width, implSize.height)
+            case Ant.BottomLeft:
+                return Qt.rect(targetRect.leftBottom.x, targetRect.leftBottom.y, implSize.width, implSize.height)
+            case Ant.BottomRight:
+                return Qt.rect(targetRect.rightBottom.x - implSize.width, targetRect.rightBottom.y, implSize.width, implSize.height)
+            case Ant.Bottom:
+                return Qt.rect(targetRect.leftBottom.x + (targetRect.width - implSize.width) / 2, targetRect.rightBottom.y, implSize.width, implSize.height)
+            case Ant.LeftTop:
+                return Qt.rect(targetRect.x - implSize.width, targetRect.leftTop.y, implSize.width, implSize.height)
+            case Ant.LeftBottom:
+                return Qt.rect(targetRect.leftBottom.x - implSize.width, targetRect.leftBottom.y - implSize.height, implSize.width, implSize.height)
+            case Ant.Left:
+                return Qt.rect(targetRect.leftBottom.x - implSize.width, targetRect.leftTop.y + (targetRect.height - implSize.height) / 2, implSize.width, implSize.height)
+            case Ant.RightTop:
+                return Qt.rect(targetRect.rightTop.x + d.arrowSize.height, targetRect.rightTop.y, implSize.width, implSize.height)
+            case Ant.RightBottom:
+                return Qt.rect(targetRect.rightBottom.x + d.arrowSize.height, targetRect.rightBottom.y - implSize.height, implSize.width, implSize.height)
+            case Ant.Right:
+                return Qt.rect(targetRect.rightBottom.x + d.arrowSize.height, targetRect.rightTop.y + (targetRect.height - implSize.height) / 2, implSize.width, implSize.height)
+            }
+            return Qt.rect(0, 0, 0, 0)
+        }
+
+        function getTargetRect() {
+            const targetLeftTopP = root.target.mapToItem(null, 0, 0)
+            return new Utils.Rect(Qt.rect(targetLeftTopP.x, targetLeftTopP.y, root.target.width, root.target.height))
+        }
+
+        function updatePoistion() {
+            d.placement = getRealPlacement()
+            const targetLeftTopP = root.target.mapToItem(null, 0, 0)
+            const popupPoint = getAbsArea(getTargetRect(), d.placement)
+            root.x = popupPoint.x
+            root.y = popupPoint.y
+        }
+
+        onWindowRectChanged: root.visible ? updatePoistion() : undefined
+        onPlacementChanged: root.visible ? canvasBg.requestPaint() : undefined
+
         onIsVisibleChanged: {
             if(isVisible) {
                 delayTimer.interval = root.mouseEnterDelay
                 delayTimer.triggerHandler = function(){
-                    if(!root.opened) {
-                        root.open()
+                    if(!root.visible) {
+                        root.visible = true
                     }
                 }
             }else {
                 delayTimer.interval = root.mouseLeaveDelay
                 delayTimer.triggerHandler = function(){
-                    if(root.opened) {
-                        root.close()
+                    if(root.visible) {
+                        root.visible = false
                     }
                 }
             }
@@ -444,12 +490,14 @@ Popup {
         }
     }
 
+    onVisibleChanged: visible ? d.updatePoistion() : undefined
+
     Connections {
-        target: parent
+        target: root.target
 
         function onClicked() {
             if (trigger >= AntTooltip.Trigger.Click && trigger <= AntTooltip.Trigger.Click | AntTooltip.Trigger.Hover | AntTooltip.Trigger.Focus) {
-                root.open()
+                root.visible = !root.visible
             }
         }
     }

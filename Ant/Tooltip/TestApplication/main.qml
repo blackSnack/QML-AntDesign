@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import AntCore 1.0
 import AntButton 1.0
 import AntTooltip 1.0
 
@@ -15,6 +16,31 @@ Window {
     //     height:100
     //     color: "pink"
     // }
+
+    AntTooltip {
+        target: t
+
+        title: "Top"
+        placement: Ant.Top
+    }
+
+    AntButton {
+        id: t
+        y: 100
+        text: "TL"
+    }
+
+    Row {
+
+        Rectangle {
+            width: 100
+            height: 100
+
+            color: "red"
+        }
+
+    }
+
 
     Item {
 
@@ -115,56 +141,54 @@ Window {
         }
     }
 
-
-
     AntTooltip {
         target: top
         height: 100
         title: "Top"
-        placement: AntTooltip.Placement.Top
+        placement: Ant.Top
     }
 
     AntTooltip {
         target: topLeft
         title: "Top Left"
-        placement: AntTooltip.Placement.TopLeft
+        placement: Ant.TopLeft
     }
 
     AntTooltip {
         target: topRight
         title: "Top Right"
-        placement: AntTooltip.Placement.TopRight
+        placement: Ant.TopRight
     }
 
     AntTooltip {
         target: bottom
         title: "Bottom Tooltip"
-        placement: AntTooltip.Placement.Bottom
+        placement: Ant.Bottom
     }
 
     AntTooltip {
         target: bottomLeft
         title: "Bottom left"
-        placement: AntTooltip.Placement.BottomLeft
+        placement: Ant.BottomLeft
     }
 
     AntTooltip {
         target: bottomRight
         title: "Bottom Right"
-        placement: AntTooltip.Placement.BottomRight
+        placement: Ant.BottomRight
     }
 
     AntTooltip {
         target: left
         title: "Left Tooltip"
-        placement: AntTooltip.Placement.Left
+        placement: Ant.Left
     }
 
     AntTooltip {
         target: leftTop
         height: 80
         title: "Left Top"
-        placement: AntTooltip.Placement.LeftTop
+        placement: Ant.LeftTop
     }
 
     AntTooltip {
@@ -172,20 +196,21 @@ Window {
         height: 80
         title: "Left bottom"
         trigger: AntTooltip.Trigger.Click
-        placement: AntTooltip.Placement.LeftBottom
+        placement: Ant.LeftBottom
     }
 
     AntTooltip {
         target: right
         title: "Right Tooltip"
-        placement: AntTooltip.Placement.Right
+        placement: Ant.Right
+        arrow: false
     }
 
     AntTooltip {
         target: rightTop
-        height: 80
+        height: 0
         title: "Right Top"
-        placement: AntTooltip.Placement.RightTop
+        placement: Ant.RightTop
     }
 
     AntTooltip {
@@ -193,8 +218,9 @@ Window {
         target: rightBottom
         height: 80
         title: "Right bottom"
-        placement: AntTooltip.Placement.RightBottom
+        placement: Ant.RightBottom
         trigger: AntTooltip.Trigger.Click
+        arrow: false
     }
 
 }
