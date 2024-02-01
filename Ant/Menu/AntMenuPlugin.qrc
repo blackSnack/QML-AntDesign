@@ -1,0 +1,9 @@
+﻿<RCC>
+    <qresource prefix="/AntMenu">
+        <file>AntMenu.qml</file>
+        <file>MenuItemType.qml</file>
+        <file>SubMenuType.qml</file>
+        <file>ItemLoader.qml</file>
+        <file>MenuItemGroupType.qml</file>
+    </qresource>
+</RCC>
