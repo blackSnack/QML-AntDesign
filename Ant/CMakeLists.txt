@@ -15,6 +15,7 @@ add_subdirectory(Mask)
 add_subdirectory(Spin)
 add_subdirectory(QRCode)
 add_subdirectory(Checkbox)
+add_subdirectory(Popover)
 add_subdirectory(Menu)
 
 # set QML plugin import dir
