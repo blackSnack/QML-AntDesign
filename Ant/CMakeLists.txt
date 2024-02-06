@@ -17,6 +17,7 @@ add_subdirectory(QRCode)
 add_subdirectory(Checkbox)
 add_subdirectory(Popover)
 add_subdirectory(Menu)
+add_subdirectory(Dropdown)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
