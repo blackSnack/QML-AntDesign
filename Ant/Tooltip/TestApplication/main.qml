@@ -195,7 +195,7 @@ Window {
         target: leftBottom
         height: 80
         title: "Left bottom"
-        trigger: AntTooltip.Trigger.Click
+        trigger: Ant.Click
         placement: Ant.LeftBottom
     }
 
@@ -219,8 +219,7 @@ Window {
         height: 80
         title: "Right bottom"
         placement: Ant.RightBottom
-        trigger: AntTooltip.Trigger.Click
+        trigger: Ant.Click
         arrow: false
     }
-
 }
