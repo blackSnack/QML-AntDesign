@@ -15,10 +15,18 @@ add_ant_qml_plugin(
     SOURCES
         Rectangle/AntRectangle.cpp
         Rectangle/BorderConfig.cpp
-        Awesome/AntAwesome.hpp
         Awesome/AntAwesomeUtils.cpp
+        Enums/AntAwesome.hpp
+        Enums/AntEnums.hpp
+        Ant.hpp
         AntCorePlugin.cpp
         AntCorePlugin.qrc
+)
+
+target_include_directories(AntCore
+        PUBLIC
+                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
+                $<INSTALL_INTERFACE:include>
 )
 
 # add test application

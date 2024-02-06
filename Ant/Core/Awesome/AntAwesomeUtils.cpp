@@ -2,6 +2,7 @@
 
 #include <QFont>
 #include <QSet>
+using namespace Ant::FA;
 namespace Ant {
 static QSet<FontAwesomeType> RegularS {
     FA_address_book,

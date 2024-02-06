@@ -10,27 +10,27 @@ class ControlColorStyle {
         this.checkedColor = checkedColor
         this.hoverColor = hoverColor
         this.focusColor = focusColor
-     }
+    }
 }
 
 class Rect {
     constructor(qrect) {
         this.rect = qrect
     }
-    get width() {return this.rect.width}
-    get hfWidth() { return this.rect.width / 2}
-    get height() {return this.rect.height}
-    get hfHeight() {return this.rect.height / 2}
-    get x() {return this.rect.x}
-    get y() {return this.rect.y}
-    get topMid() {return {x: this.rect.x + this.rect.width / 2, y: this.rect.y}}
-    get centre() {return {x: this.rect.x + this.rect.width / 2, y: this.rect.y + this.height / 2}}
-    get leftTop() {return {x: this.rect.x, y: this.rect.y } }
-    get leftBottom() { return {x: this.rect.x, y: this.rect.y + this.rect.height} }
-    get rightTop() { return {x: this.rect.x + this.rect.width, y: this.rect.y} }
-    get rightBottom() { return {x: this.rect.x + this.rect.width, y: this.rect.y + this.rect.height} }
+    get width() { return this.rect.width }
+    get hfWidth() { return this.rect.width / 2 }
+    get height() { return this.rect.height }
+    get hfHeight() { return this.rect.height / 2 }
+    get x() { return this.rect.x }
+    get y() { return this.rect.y }
+    get topMid() { return { x: this.rect.x + this.rect.width / 2, y: this.rect.y } }
+    get centre() { return { x: this.rect.x + this.rect.width / 2, y: this.rect.y + this.height / 2 } }
+    get leftTop() { return { x: this.rect.x, y: this.rect.y } }
+    get leftBottom() { return { x: this.rect.x, y: this.rect.y + this.rect.height } }
+    get rightTop() { return { x: this.rect.x + this.rect.width, y: this.rect.y } }
+    get rightBottom() { return { x: this.rect.x + this.rect.width, y: this.rect.y + this.rect.height } }
 
-    contains (rect) {
+    contains(rect) {
         var tempRect = new Rect(rect)
         return this.x <= tempRect.x && this.y <= tempRect.y && this.rightTop.x >= tempRect.rightTop.x && this.rightBottom.y >= tempRect.rightBottom.y
     }
@@ -46,14 +46,14 @@ function rotatePoint(cx, cy, x, y, angle) {
     var xNew = tx * cosTheta - ty * sinTheta;
     var yNew = tx * sinTheta + ty * cosTheta;
 
-    return {x: xNew + cx, y: yNew + cy};
+    return { x: xNew + cx, y: yNew + cy };
 }
 
 // centre translate
 function translatePoint(x, y, dx, dy) {
     const offsetX = x - dx
     const offsetY = y - dy
-    return {x: x - offsetX, y: y - offsetY};
+    return { x: x - offsetX, y: y - offsetY };
 }
 
 // centre translate
@@ -66,11 +66,20 @@ function getRoot(item) {
     return item.parent ? getRoot(item.parent) : item
 }
 
-function getControlColor(control, colorStyle)
-{
+function getControlColor(control, colorStyle) {
     if (!control) {
         return colorStyle.disableColor
     }
 
     return !control.enabled ? colorStyle.disableColor : (control.checked ? colorStyle.checkedColor : (control.pressed ? colorStyle.pressedColor : (control.hovered ? colorStyle.hoverColor : (control.focus ? colorStyle.focusColor : colorStyle.enableColor))))
+}
+
+function getItem(key, label, icon, children, type) {
+    return {
+        key,
+        label,
+        icon,
+        children,
+        type
+    }
 }

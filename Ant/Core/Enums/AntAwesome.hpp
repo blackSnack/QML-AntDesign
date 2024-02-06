@@ -1,8 +1,10 @@
 #pragma once
 #include <QObject>
 namespace Ant {
+namespace FA {
 Q_NAMESPACE
-enum FontAwesomeType {
+enum FontAwesomeType
+{
     FA_0 = 0x30,
     FA_1 = 0x31,
     FA_2 = 0x32,
@@ -1861,4 +1863,5 @@ enum FontAwesomeType {
     FA_zhihu = 0xf63f,
 };
 Q_ENUMS(FontAwesomeType);
-}
+} // namespace FA
+} // namespace Ant

@@ -1,31 +1,31 @@
 import QtQuick 2.15
 import Qt5Compat.GraphicalEffects
 
-Item {
+QtObject {
     required property Item target
 
-    readonly property alias shadow1: s1
-    readonly property alias shadow2: s2
-    readonly property alias shadow3: s3
-
-    parent: target.parent
-
-    anchors.fill: target
-
-    DropShadow {
+    readonly property DropShadow shadow1: DropShadow {
         id: s1
-        anchors.fill: parent
+        parent: target.parent
+        width: target.width
+        height: target.height
         source: target
+        z: -1070
     }
-
-    DropShadow {
+    readonly property DropShadow shadow2: DropShadow {
         id: s2
-        anchors.fill: parent
+        parent: target.parent
+        width: target.width
+        height: target.height
         source: target
+        z: -1070
     }
-    DropShadow {
+    readonly property DropShadow shadow3: DropShadow {
         id: s3
-        anchors.fill: parent
+        parent: target.parent
+        width: target.width
+        height: target.height
         source: target
+        z: -1070
     }
 }

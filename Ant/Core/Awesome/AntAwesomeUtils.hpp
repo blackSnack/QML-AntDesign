@@ -2,7 +2,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "AntAwesome.hpp"
+#include "Enums/AntAwesome.hpp"
 
 namespace Ant {
 class AntAwesomeUtils: public QObject
@@ -21,9 +21,9 @@ public:
         });
     }
 
-    Q_INVOKABLE QVariantMap getFAObject(FontAwesomeType id);
+    Q_INVOKABLE QVariantMap getFAObject(FA::FontAwesomeType id);
 
-    Q_INVOKABLE QChar getFAUnicode(FontAwesomeType id);
+    Q_INVOKABLE QChar getFAUnicode(FA::FontAwesomeType id);
 };
 }
 

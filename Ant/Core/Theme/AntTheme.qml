@@ -35,6 +35,8 @@ QtObject {
 
     property int paddingSM: 12
 
+    property int margin: 16
+
     property int marginXS: 8
 
     property int zIndexPopupBase: 1000
@@ -43,7 +45,13 @@ QtObject {
 
     property font defaultFont: AntFont.reuglar14
 
+    property font fontWeightStrong: AntFont.semibold14
+
+    property color colorBgElevated: AntColors.gray_1
+
     property color colorBgContainer: AntColors.gray_1
+
+    property color colorTextHeading: AntColors.gray_13_A88
 
     property color colorBgContainerDisabled: AntColors.gray_13_A4
 
