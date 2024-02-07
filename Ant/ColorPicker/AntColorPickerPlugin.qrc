@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntColorPicker">
+        <file>AntColorPicker.qml</file>
+    </qresource>
+</RCC>
