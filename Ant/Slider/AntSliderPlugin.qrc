@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntSlider">
+        <file>AntSlider.qml</file>
+    </qresource>
+</RCC>

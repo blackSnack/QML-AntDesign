@@ -31,6 +31,9 @@ MouseArea {
     z: 1070
     propagateComposedEvents: true
 
+    implicitWidth: control.implicitWidth
+    implicitHeight: control.implicitHeight
+
     onPressed: (event)=> {
                    if (closeOnPressedOutside && !d.isContains(event) ) {
                        d.close()

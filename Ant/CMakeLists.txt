@@ -18,6 +18,7 @@ add_subdirectory(Checkbox)
 add_subdirectory(Popover)
 add_subdirectory(Menu)
 add_subdirectory(Dropdown)
+add_subdirectory(Slider)
 add_subdirectory(ColorPicker)
 
 # set QML plugin import dir
