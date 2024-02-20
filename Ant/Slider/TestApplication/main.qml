@@ -8,5 +8,76 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    AntSlider { }
+    FocusScope {
+        anchors.fill: parent
+
+        MouseArea {
+            anchors.fill: parent
+
+            onClicked: {
+                parent.forceActiveFocus()
+            }
+        }
+    }
+
+    AntSlider {
+        width: 100
+        height: 20
+    }
+
+    AntSlider {
+        x: 10
+        y: 40
+        width: 100
+        height: 20
+    }
+
+    AntSlider {
+        x: 10
+        y: 60
+        disabled: true
+        width: 100
+        height: 20
+        value: 50
+    }
+
+    Column {
+        y: 100
+        AntSlider {
+            // disabled: true
+            width: 100
+            value: 30
+        }
+        AntSlider {
+            // disabled: true
+            width: 100
+            value: 50
+        }
+        AntSlider {
+            // disabled: true
+            width: 100
+            value: 80
+        }
+    }
+
+    Row {
+        x: 300
+        y: 100
+
+        AntSlider {
+            vertical: true
+            height: 100
+            value: 30
+        }
+        AntSlider {
+            vertical: true
+            height: 100
+            value: 50
+        }
+        AntSlider {
+            vertical: true
+            height: 100
+            value: 80
+        }
+    }
 }
