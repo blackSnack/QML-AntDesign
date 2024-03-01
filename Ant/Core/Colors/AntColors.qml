@@ -13,6 +13,7 @@ QtObject {
     readonly property color gray_4_A45: "#73f0f0f0"
     readonly property color gray_4_A88: "#e0f0f0f0"
     readonly property color gray_5: "#d9d9d9"
+    readonly property color gray_6: "#bfbfbf"
     readonly property color gray_13: "#000000"
     readonly property color gray_13_A0: "#00000000"
     readonly property color gray_13_A2: "#05000000"
@@ -47,6 +48,7 @@ QtObject {
     readonly property color green_6: "#52c41a"
 
     // glod
+    readonly property color gold_4: "#ffd666"
     readonly property color gold_6: "#faad14"
 
     // magenta

@@ -99,6 +99,8 @@ QtObject {
 
     property color colorWarning: AntColors.gold_6
 
+    property color colorWarningBorderHover: AntColors.gold_4
+
     property color colorSplit: AntColors.gray_13_A6
 
     property color colorBgMask: AntColors.gray_13_A45

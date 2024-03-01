@@ -1,0 +1,9 @@
+﻿<RCC>
+    <qresource prefix="/AntInput">
+        <file>AntInput.qml</file>
+        <file>AntTextField.qml</file>
+        <file>Style/AntInputStyle.qml</file>
+        <file>Style/qmldir</file>
+        <file>Utils/Utils.js</file>
+    </qresource>
+</RCC>

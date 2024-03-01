@@ -20,6 +20,7 @@ add_subdirectory(Menu)
 add_subdirectory(Dropdown)
 add_subdirectory(Slider)
 add_subdirectory(ColorPicker)
+add_subdirectory(Input)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
