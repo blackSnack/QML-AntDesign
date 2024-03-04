@@ -15,6 +15,7 @@ QtObject {
     property color hoverBg: AntTheme.colorBgContainer
     property color textColor: AntTheme.colorText
     property color prefixColor: AntTheme.colorText
+    property color suffixColor: AntTheme.colorText
     // 输入框横向内边距
     property int paddingInline: 11
     // 大号输入框横向内边距

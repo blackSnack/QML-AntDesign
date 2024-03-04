@@ -4,12 +4,14 @@ import QtQuick.Templates 2.15 as T
 
 import AntCore 1.0
 import AntText 1.0
+import AntIcon 1.0
 
 Rectangle {
     id: root
 
     property var antStyle: ({})
     property var prefix: undefined
+    property var suffix: undefined
     property real leftPadding: __styleProxy.horizontalPadding ?? 0
     property real rightPadding: __styleProxy.horizontalPadding ?? 0
     property real topPadding: __styleProxy.verticalPadding ?? 0
@@ -37,20 +39,25 @@ Rectangle {
             id: prefixLoader
             height: parent.height
             sourceComponent: {
-                if (typeof root.prefix  === "string") {
-                    return textComp
+//                console.log("prefix", root.prefix)
+                if (typeof root.prefix === "object") {
+                    return prefixIconComp;
                 }
-            }
-            Rectangle {
-                id: prefixBg
-                anchors.fill: parent
-                color: antStyle.addonBg ?? "transparent"
+                if (typeof root.prefix  === "string") {
+                    return prefixTextComp
+                }
+                return undefined
             }
         }
 
         T.TextField {
             id: textField
-            width: root.width - (root.leftPadding + root.rightPadding + prefixLoader.width + layout.spacing)
+            width: root.width - (root.leftPadding +
+                                 root.rightPadding +
+                                 prefixLoader.width +
+                                 suffixLoader.width)
+                   - (prefixLoader.visible > 0 ? layout.spacing : 0)
+                   - (suffixLoader.visible > 0 ? layout.spacing : 0)
             height: parent.height
             color: antStyle.textColor
             Text {
@@ -69,16 +76,77 @@ Rectangle {
                 color: "transparent"
             }
         }
+
+        Loader {
+            id: suffixLoader
+            height: parent.height
+            sourceComponent: {
+                if (typeof root.suffix === "object") {
+                    return suffixIconComp;
+                }
+                if (typeof root.suffix  === "string") {
+                    return suffixTextComp
+                }
+                return undefined
+            }
+        }
     }
 
     Component {
-        id: textComp
+        id: prefixTextComp
 
         AntText {
             height: parent.height
             text: root.prefix
             font: antStyle.prefixFont ?? textField.font
             color: antStyle.prefixColor ?? textField.color
+        }
+    }
+
+    Component {
+        id: prefixIconComp
+        Item {
+            width: icon.width
+            AntIcon {
+                id: icon
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                height: antStyle.fontSize
+                width: antStyle.fontSize
+                source: root.prefix.icon ?? ""
+                color: antStyle.prefixColor ?? textField.color
+                secondaryColor: antStyle.prefixSecondaryColor ? antStyle.prefixSecondaryColor : "gray"
+            }
+        }
+    }
+
+    Component {
+        id: suffixTextComp
+
+        AntText {
+            height: parent.height
+            text: root.suffix
+            font: antStyle.prefixFont === undefined ? textField.font : antStyle.prefixFont
+            color: antStyle.prefixColor ?? textField.color
+        }
+    }
+
+    Component {
+        id: suffixIconComp
+        Item {
+            width: icon.width
+            AntIcon {
+                id: icon
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                }
+                height: antStyle.fontSize
+                width: antStyle.fontSize
+                source: root.suffix.icon ?? ""
+                color: antStyle.suffixColor ?? textField.color
+                secondaryColor: antStyle.suffixSecondaryColor === undefined ? null : antStyle.suffixSecondaryColor
+            }
         }
     }
 

@@ -10,7 +10,10 @@ Item {
 
     property string placeholder: ""
     property string value: ""
+    // 前缀 & 带图标 string | Item | Component
     property var prefix: undefined
+    // 后缀 & 带图标 string | Item | Component
+    property var suffix: undefined
     property AntInputStyle antStyle: AntInputStyle {}
 
     readonly property var __styleProxy: new Utils.AntInputStyleProxy(root, antStyle)
@@ -35,6 +38,7 @@ Item {
                 font.pixelSize: __styleProxy.fontSize
             }
             prefix: root.prefix
+            suffix: root.suffix
         }
     }
 }
