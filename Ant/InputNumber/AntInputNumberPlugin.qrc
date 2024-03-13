@@ -1,5 +1,7 @@
 ﻿<RCC>
     <qresource prefix="/AntInputNumber">
         <file>AntInputNumber.qml</file>
+        <file>Style/AntInputNumberStyle.qml</file>
+        <file>Utils/Utils.js</file>
     </qresource>
 </RCC>

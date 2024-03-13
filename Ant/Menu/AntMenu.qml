@@ -8,7 +8,8 @@ ListView {
     id: root
 
     property bool selectable: true
-    readonly property var selectedKeys: d.selectedKeys
+    readonly property var selectedItems: d.selectedItems
+    property var selectedKeys: []
 
     property int itemHeight: 40
     property color itemColor: AntTheme.colorTextHeading
@@ -28,7 +29,7 @@ ListView {
     property int iconMarginInlineEnd: 10
     property bool multiple: false // not support multiple selected
 
-    property var submenus: []
+    property var _submenus: []
 
     property var components: ({
                                   Item: itemType,
@@ -46,7 +47,7 @@ ListView {
                                            )
 
     signal click(var item, var key, var keyPath)
-    signal select(var item, var key, var keyPath, var selectedKeys)
+    signal select(var item, var key, var keyPath, var selectedItems)
     signal hovered(var item, var key, var keyPath)
     signal pressed(var item, var key, var keyPath)
 
@@ -98,43 +99,43 @@ ListView {
     QtObject {
         id: d
 
-        property var selectedKeys: []
+        property var selectedItems: []
 
-        function addSelectedKey(key) {
+        function addSelectedItem(key) {
             if (!multiple) {
-                removeAllSelectedKeys()
-                selectedKeys.push(key)
+                removeAllselectedItems()
+                selectedItems.push(key)
             }else {
-                if (selectedKeys.indexOf(key) !== -1) { return }
-                selectedKeys.push(key)
+                if (selectedItems.indexOf(key) !== -1) { return }
+                selectedItems.push(key)
             }
         }
 
-        function removeAllSelectedKeys() {
-            selectedKeys.forEach((key)=> key.checked = false)
-            selectedKeys = []
+        function removeAllselectedItems() {
+            selectedItems.forEach((key)=> key.checked = false)
+            selectedItems = []
         }
 
         function removeSelectedKey(key) {
-            let index = selectedKeys.indexOf(key);
+            let index = selectedItems.indexOf(key);
             if (index !== -1) {
                 key.checked = false
             }
             while (index !== -1) {
-                selectedKeys.splice(index, 1);
-                index = selectedKeys.indexOf(elementToRemove);
+                selectedItems.splice(index, 1);
+                index = selectedItems.indexOf(elementToRemove);
             }
         }
 
         function updateSubMenuListState(keyPath) {
             let paths = keyPath.split("/")
-            submenus.forEach(item=> {
-                                 if (paths.includes(item.key)) {
-                                     item.actived !== undefined ? item.actived = true : undefined
-                                 }else {
-                                     item.actived !== undefined ? item.actived = false : undefined
-                                 }
-                             })
+            _submenus.forEach(item=> {
+                                  if (paths.includes(item.key)) {
+                                      item.actived !== undefined ? item.actived = true : undefined
+                                  }else {
+                                      item.actived !== undefined ? item.actived = false : undefined
+                                  }
+                              })
         }
     }
 
@@ -202,9 +203,9 @@ ListView {
                      item.checked = true
                      const itemPos = item.mapToItem(root, 0, 0)
                      selectedHighlightItem.currentItem = item
-                     d.addSelectedKey(item)
+                     d.addSelectedItem(item)
                      d.updateSubMenuListState(keyPath)
-                     select(item, key, keyPath, selectedKeys)
+                     select(item, key, keyPath, selectedItems)
                  } else if (selectable && item.checked && multiple) {
                      d.removeSelectedKey(item)
                  }
