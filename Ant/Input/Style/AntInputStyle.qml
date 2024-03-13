@@ -2,7 +2,7 @@
 
 import AntCore 1.0
 QtObject {
-    property string size: "middle" // large | middle | small
+    property int size: Ant.Middle // large | middle | small
     // 激活态边框色
     property color activeBorderColor: AntTheme.colorPrimary
     // 悬浮态边框色

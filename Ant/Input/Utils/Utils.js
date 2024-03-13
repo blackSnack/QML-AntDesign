@@ -80,37 +80,50 @@ class AntInputStyleProxy {
 
     get controlHeight() {
         switch(this.style.size) {
-            case "small": return Core.AntTheme.controlHeightSM
-            case "large": return Core.AntTheme.controlHeightLG
-            case "middle":
+            case Core.Ant.Small: return Core.AntTheme.controlHeightSM
+            case Core.Ant.Large: return Core.AntTheme.controlHeightLG
+            case Core.Ant.Middle:
             default: return Core.AntTheme.controlHeight
         }
     }
 
     get fontSize() {
         switch(this.style.size) {
-            case "small": return this.style.inputFontSizeSM
-            case "large": return this.style.inputFontSizeLG
-            case "middle":
+            case Core.Small: return this.style.inputFontSizeSM
+            case Core.Large: return this.style.inputFontSizeLG
+            case Core.Middle:
             default: return this.style.inputFontSize
         }
     }
 
     get horizontalPadding() {
         switch(this.style.size) {
-            case "small": return this.style.paddingInlineSM
-            case "large": return this.style.paddingInlineLG
-            case "middle":
+            case Core.Ant.Small: return this.style.paddingInlineSM
+            case Core.Ant.Large: return this.style.paddingInlineLG
+            case Core.Ant.Middle:
             default: return this.style.paddingInline
         }
     }
 
     get verticalPadding() {
         switch(this.style.size) {
-            case "small": return this.style.paddingBlockSM
-            case "large": return this.style.paddingBlockLG
-            case "middle":
+            case Core.Ant.Small: return this.style.paddingBlockSM
+            case Core.Ant.Large: return this.style.paddingBlockLG
+            case Core.Ant.Middle:
             default: return this.style.paddingBlock
         }
+    }
+
+    get radius() {
+        switch(this.style.size) {
+            case Core.Ant.Small: return Core.AntTheme.borderRadiusSM
+            case Core.Ant.Large: return Core.AntTheme.borderRadiusLG
+            case Core.Ant.Middle:
+            default: return Core.AntTheme.borderRadius
+        }
+    }
+
+    get textColor() {
+        return  this.control.enabled ? this.style.textColor : Core.AntTheme.colorTextDisabled
     }
 }

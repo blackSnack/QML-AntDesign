@@ -26,4 +26,12 @@ enum Trigger
     Click = 0x4
 };
 Q_ENUMS(Trigger);
+
+enum Size
+{
+    Small,
+    Middle,
+    Large,
+};
+Q_ENUMS(Size);
 } // namespace Ant

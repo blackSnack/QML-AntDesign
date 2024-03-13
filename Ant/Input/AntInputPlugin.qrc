@@ -5,5 +5,7 @@
         <file>Style/AntInputStyle.qml</file>
         <file>Style/qmldir</file>
         <file>Utils/Utils.js</file>
+        <file>Component/IconComponent.qml</file>
+        <file>Component/TextComponent.qml</file>
     </qresource>
 </RCC>
