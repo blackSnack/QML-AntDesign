@@ -23,19 +23,24 @@ MouseArea {
     property bool closeOnPressedOutside: true
     property alias contentItem: control.contentItem
     property alias control: control
+    property var closePolicy: d.closePolicy
+    property alias defaultVPadding: d.defaultVPadding
+    property alias defaultHPadding: d.defaultHPadding
 
     parent: Overlay.overlay
     anchors.fill: parent
-    enabled: control.visible
+    enabled: control.enabled
     focus: false
     z: 1070
     propagateComposedEvents: true
 
     implicitWidth: control.implicitWidth
     implicitHeight: control.implicitHeight
+    hoverEnabled: false
+    visible: false
 
     onPressed: (event)=> {
-                   if (closeOnPressedOutside && !d.isContains(event) ) {
+                   if (closeOnPressedOutside && !d.isContains(event)) {
                        d.close()
                    }
                    event.accepted = false
@@ -52,15 +57,45 @@ MouseArea {
     Control {
         id: control
 
+        readonly property bool isHovered: {
+            if (hovered) { return true}
+
+            let filterChild = function(node, targetNode) {
+                let result = node.children.some((child) => {
+                                        if (!(child instanceof Item)) {return false}
+                                        if (child === targetNode) {
+                                            return true
+                                        }
+                                       if (child.children.length > 0) {
+                                            return child.children.some((c)=> {
+                                                                    return filterChild(c, targetNode)
+                                                                })
+                                       }
+                                       return false
+                                   })
+                return result
+            }
+
+            let isChildrenIsHovered = function (node) {
+                let result = node.children.some(child=> {
+                                       if (child instanceof AntTooltip && root !== child) {
+                                           if(!filterChild(root, child.target)) { return false }
+                                           return child.control.hovered
+                                       }
+                                       return false
+                                   })
+                return result
+            }
+            return isChildrenIsHovered(root.parent)
+        }
         implicitWidth : implicitContentWidth + leftPadding + rightPadding
         implicitHeight: implicitContentHeight + topPadding + bottomPadding
         bottomPadding: (d.placement >= Ant.Top && d.placement <= Ant.TopRight) ? d.arrowSize.height + d.defaultVPadding : d.defaultVPadding
         topPadding: (d.placement >= Ant.Bottom && d.placement <= Ant.BottomRight) ? d.arrowSize.height + d.defaultVPadding : d.defaultVPadding
         leftPadding: (d.placement >= Ant.Right && d.placement <= Ant.RightBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
         rightPadding: (d.placement >= Ant.Left && d.placement <= Ant.LeftBottom) ? d.arrowSize.height + d.defaultHPadding : d.defaultHPadding
-        parent: Overlay.overlay
         visible: defaultOpen
-
+        hoverEnabled: true
         contentItem: Text {
             id: content
             verticalAlignment: Text.AlignVCenter
@@ -321,10 +356,24 @@ MouseArea {
             ShadowL1Down {
                 target: canvasBg
             }
+
+            onVisibleChanged: control.visible ? d.updatePoistion() : undefined
         }
 
         Timer {
-            id: delayTimer
+            id: openDelayTimer
+            property var triggerHandler: undefined
+            repeat: false
+            running: false
+            onTriggered: {
+                if (triggerHandler) {
+                    triggerHandler()
+                }
+            }
+        }
+
+        Timer {
+            id: closeDelayTimer
             property var triggerHandler: undefined
             repeat: false
             running: false
@@ -343,35 +392,35 @@ MouseArea {
             readonly property var windowRect: new Utils.Rect(Qt.rect(0, 0, window.width, window.height))
             readonly property size maxSize: Qt.size(20, 20)
             readonly property size arrowSize: root.arrow ? (root.arrowSize > maxSize ? maxSize : root.arrowSize) : Qt.size(0, 0)
-            readonly property int defaultVPadding: AntTheme.paddingSM
-            readonly property int defaultHPadding: AntTheme.paddingContentHorizontal
             readonly property int arrowRadius: root.arrowRadius > d.arrowSize.width ? d.arrowSize.width : root.arrowRadius
             readonly property int miniLength: (radius + d.arrowTransitionRadius) * 2 +  d.arrowSize.width
             readonly property int arrowTransitionRadius: radius * 1.5
             readonly property bool isClickTrigger: trigger >= Ant.Click && trigger <= (Ant.Click | Ant.Hover | Ant.Focus)
             property int placement: root.placement
+            property int defaultVPadding: AntTheme.paddingSM
+            property int defaultHPadding: AntTheme.paddingContentHorizontal
             // target & control
             readonly property var isContains: function(event){
                 const point = Qt.point(event.x, event.y)
                 return target.contains(target.mapFromItem(null, point)) || control.contains(control.mapFromItem(null, point))
             }
-            readonly property bool isClosed: {
-                if (control.hovered) { return false }
+            readonly property bool isClosed: root.closePolicy()
+            readonly property bool isTriggered: triggeredPolicy()
+
+            function closePolicy() {
+                if (control.isHovered) { return false }
                 switch (trigger) {
-                case Ant.Hover | Ant.Focus:
-                    return !target.hovered && !target.focus
                 case Ant.Hover | Ant.Focus:
                     return !target.hovered && !target.focus
                 case Ant.Hover:
                     return !target.hovered
                 case Ant.Focus:
                     return !target.focus
-                case Ant.Focus:
                 default:
-                    return !target.focus
+                    return false
                 }
             }
-            readonly property bool isTriggered: {
+            function triggeredPolicy() {
                 switch (trigger) {
                 case Ant.Hover | Ant.Focus:
                     return target.hovered || target.focus
@@ -498,41 +547,47 @@ MouseArea {
             }
 
             function open() {
-                delayTimer.interval = root.mouseEnterDelay
-                delayTimer.triggerHandler = function(){
+                root.visible = true
+                openDelayTimer.interval = root.mouseEnterDelay
+                openDelayTimer.triggerHandler = function(){
                     if(!control.visible) {
                         control.visible = true
                     }
                 }
-                delayTimer.restart()
+                openDelayTimer.restart()
             }
 
             function close() {
-                delayTimer.interval = root.mouseLeaveDelay
-                delayTimer.triggerHandler = function(){
+                root.visible = false
+                closeDelayTimer.interval = root.mouseLeaveDelay
+                closeDelayTimer.triggerHandler = function(){
                     if(control.visible) {
                         control.visible = false
                     }
                 }
-                delayTimer.restart()
+                closeDelayTimer.restart()
             }
+            function stopClose() { closeDelayTimer.stop() }
+            function stopOpen() { openDelayTimer.stop() }
 
             onWindowRectChanged: control.visible ? updatePoistion() : undefined
             onPlacementChanged: control.visible ? canvasBg.requestPaint() : undefined
 
             onIsTriggeredChanged: isTriggered ? d.open() : undefined
-            onIsClosedChanged: isClosed ? d.close() : undefined
+            onIsClosedChanged: isClosed ? d.close() : d.stopClose()
         }
-
-        onVisibleChanged: control.visible ? d.updatePoistion() : undefined
 
         Connections {
             target: root.target
 
             function onClicked() {
                 if (d.isClickTrigger) {
-                    control.visible = !control.visible
+                    control.visible ? d.close() : d.open()
                 }
+            }
+
+            function onVisibleChanged() {
+                !root.target.visible ? d.close() : undefined
             }
         }
     }
