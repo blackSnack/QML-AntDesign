@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.15
 
 import AntSlider 1.0
+import AntCore 1.0
 
 Window {
     width: 640

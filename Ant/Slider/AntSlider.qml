@@ -19,7 +19,7 @@ Item {
     property real max: 100
     property real min: 0
     property real step: 1
-    property real value
+    property real value: min
 
     property int handleSize: 10
     property int handleSizeHover: 12
@@ -28,6 +28,13 @@ Item {
     property color handleColor: AntColors.blue_3
     property color handleActiveColor: AntColors.blue_6
     property color handleColorDisabled: AntColors.gray_6
+
+    property var antStyle: ({
+                            handleSize: root.handleSize,
+                            handleLineWidth: root.handleLineWidth,
+                            handleLineWidthHover: root.handleLineWidthHover,
+                            handleSizeHover: root.handleSizeHover
+                         })
 
     property Component rail: AntSliderRail {
         hoverEnabled: root.enabled
@@ -44,6 +51,7 @@ Item {
         }
     }
     property Component handle: AntSliderHandle {
+        antStyle: root.antStyle
         hoverEnabled: root.enabled
         content: Rectangle {
             radius: width / 2
@@ -79,12 +87,13 @@ Item {
             implicitWidth: root.vertical ? Math.max(background.implicitWidth, d.handleMaxSize) : root.width
             implicitHeight: root.vertical ? root.height : Math.max(background.implicitHeight, d.handleMaxSize)
             orientation: root.vertical ? Qt.Vertical : Qt.Horizontal
+
             pressed: handleLoader.item.hovered
             background: Loader {
-                x: root.vertical ? (slider.leftPadding + slider.availableWidth / 2 - width / 2) : slider.leftPadding
-                y: root.vertical ? slider.topPadding : (slider.topPadding + slider.availableHeight / 2 - height / 2)
-                width: root.vertical ? railSize : slider.implicitWidth
-                height: root.vertical ? slider.implicitHeight : railSize
+                x: root.vertical ? (slider.leftPadding + slider.availableWidth / 2 - width / 2) : slider.leftPadding + d.handleMaxSize / 2
+                y: root.vertical ? slider.topPadding + d.handleMaxSize / 2 : (slider.topPadding + slider.availableHeight / 2 - height / 2)
+                width: root.vertical ? railSize : slider.implicitWidth - d.handleMaxSize
+                height: root.vertical ? slider.implicitHeight - d.handleMaxSize : railSize
                 sourceComponent: rail
             }
 
@@ -105,8 +114,20 @@ Item {
             }
 
             onVisualPositionChanged: d.visualPosition = visualPosition
-            onValueChanged: root.value = value
+            // onValueChanged: root.value = value
             value: root.value
+
+            Connections {
+                target: root
+
+                function onValueChanged() { slider.value = root.value }
+            }
+
+            Connections {
+                target: slider
+
+                function onValueChanged() { root.value = slider.value }
+            }
         }
     }
 }

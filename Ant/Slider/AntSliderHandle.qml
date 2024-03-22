@@ -5,6 +5,7 @@ import AntCore 1.0
 FocusScope {
     id: root
 
+    property var antStyle: []
     property alias hoverEnabled: mouseArea.hoverEnabled
     property bool hovered: activeFocus || mouseArea.containsMouse
     property bool selected: false
@@ -13,7 +14,7 @@ FocusScope {
     }
     focus: true
 
-    implicitWidth: hovered ? handleSizeHover + handleLineWidthHover * 2 : handleSize + handleLineWidth * 2
+    implicitWidth: hovered ? antStyle.handleSizeHover + antStyle.handleLineWidthHover * 2 : antStyle.handleSize + antStyle.handleLineWidth * 2
     implicitHeight: width
 
     Loader {
