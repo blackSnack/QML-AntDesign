@@ -32,6 +32,7 @@ void AntCorePlugin::registerTypes(const char* uri)
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Font/AntFont.qml"), uri, 1, 0, "AntFont");
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Colors/AntColors.qml"), uri, 1, 0, "AntColors");
     qmlRegisterType(QUrl("qrc:/AntCore/Shadow/ShadowL1Down.qml"), uri, 1, 0, "ShadowL1Down");
+    qmlRegisterType(QUrl("qrc:/AntCore/Background/AntTransparentBg.qml"), uri, 1, 0, "AntTransparentBg");
     // How to register js to qml plugin
     // qmlRegisterType(QUrl("qrc:/AntCore/Utils/Utils.js"), uri, 1, 0, "AntCoreUtils");
 }

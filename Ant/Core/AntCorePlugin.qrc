@@ -19,5 +19,7 @@
         <file>Shadow/qmldir</file>
         <file>Theme/qmldir</file>
         <file>Utils/Utils.js</file>
+        <file>Background/AntTransparentBg.qml</file>
+        <file>Background/qmldir</file>
     </qresource>
 </RCC>
