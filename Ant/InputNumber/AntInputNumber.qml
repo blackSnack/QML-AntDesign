@@ -24,7 +24,7 @@ AntInput {
     }
 
     // current value, info {offset: number, type: 'up' | 'down'}
-    signal onStep(var value, var info)
+    property var onStep: function (value, info) {}
 
     function decrease() {
         value -= step
@@ -67,7 +67,7 @@ AntInput {
         if(value === "") return
         if (!activeFocus) {
             if (!acceptableInput) {
-                let v = parser(value)
+                let v = parser(root.text)
                 if (v < validator.bottom) {return value = validator.bottom}
                 if (v > validator.top) return value = validator.top
             }
@@ -93,10 +93,11 @@ AntInput {
         width: __styleProxy.handleWidth
         Item {
             id: upHandleArea
-
+            anchors.right: parent.right
+            anchors.top: parent.top
+            objectName: "Up"
             height: upHandle.containsMouse ? parent.height * 0.6 : downHandle.containsMouse ? parent.height * 0.4 :  parent.height * 0.5
             width: parent.width
-            visible: root.hovered || root.actived
             enabled: d.handleUpEnabled
 
             AntIcon {
@@ -114,7 +115,6 @@ AntInput {
             width: parent.width
             height: AntTheme.lineWidth
             color: __styleProxy.handleBorderColor
-            visible: root.hovered || root.actived
         }
 
         Rectangle {
@@ -124,16 +124,15 @@ AntInput {
             width: AntTheme.lineWidth
             height: parent.height
             color: __styleProxy.handleBorderColor
-            visible: root.hovered || root.actived
         }
 
         Item {
             id: downHandleArea
+            objectName: "Down"
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             height: downHandle.containsMouse ? parent.height * 0.6 : upHandle.containsMouse ? parent.height * 0.4 :  parent.height * 0.5
             width: parent.width
-            visible: root.hovered || root.actived
             enabled: d.handleDownEnabled
 
             AntIcon {
@@ -159,8 +158,9 @@ AntInput {
     }
 
     component HandleMouseArea: MouseArea {
+        id: handleMouseArea
         required property Item target
-        readonly property point position: target.mapToItem(root.mouseLayer, 0, 0)
+        property point position: Qt.point(0, 0)
         property var handler: null
 
         x: position.x
@@ -171,6 +171,10 @@ AntInput {
         hoverEnabled: enabled
         enabled: target.enabled
         cursorShape: enabled ? Qt.PointingHandCursor : Qt.ForbiddenCursor
+
+        function updatePosition() {
+            position = target.mapToItem(root.mouseLayer, 0, 0)     
+        }
 
         function trigger() {
             if (handler) {
@@ -205,6 +209,23 @@ AntInput {
             interval: 90
             repeat: true
             onTriggered: parent.trigger()
+        }
+
+        Connections {
+            target: handleMouseArea.target
+            function onXChanged() {
+                updatePosition()
+            }
+
+            function onYChanged() {
+                updatePosition()
+            }
+
+            function onVisibleChanged() {
+                if (handleMouseArea.target.visible) {
+                    updatePosition()
+                }
+            }
         }
     }
 }
