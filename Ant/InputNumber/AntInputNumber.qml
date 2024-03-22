@@ -24,19 +24,19 @@ AntInput {
     }
 
     // current value, info {offset: number, type: 'up' | 'down'}
-    property var onStep: function (value, info) {}
+    property var onStep: undefined
 
     function decrease() {
         value -= step
         if (formatter) root.text = formatter(value)
 
-        onStep(root.value, {offset: step, type: "down"})
+        if(onStep) onStep(root.value, {offset: step, type: "down"})
     }
 
     function increase() {
         root.value += step
         if (formatter) root.text = formatter(value)
-        onStep(root.value, {offset: step, type: "up"})
+        if(onStep) onStep(root.value, {offset: step, type: "up"})
     }
     QtObject {
         id: d

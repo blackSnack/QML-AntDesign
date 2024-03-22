@@ -16,7 +16,7 @@ AntSlider {
     handleActiveColor: handleColor
 
     handle: AntSliderHandle {
-        style: slider.style
+        antStyle: slider.antStyle
         content: Rectangle {
             radius: width / 2
             border.width: hovered ? slider.handleLineWidthHover : slider.handleLineWidth

@@ -84,10 +84,13 @@ Item {
         border.color: "#FFFFFF"
         transform: Translate { x: -handle.width / 2; y: -handle.height / 2 }
 
-        onColorChanged: {
+        function updatePosition() {
             x = (color.hsvSaturation) * root.width
             y = root.height - (color.hsvValue * root.height)
         }
+        onColorChanged: updatePosition()
+
+        onVisibleChanged: updatePosition()
     }
 
     MouseArea {

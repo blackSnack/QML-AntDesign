@@ -1,5 +1,6 @@
 ﻿<RCC>
     <qresource prefix="/Ant@Template@">
         <file>Ant@Template@.qml</file>
+        <file>Style/Ant@Template@.qml</file>
     </qresource>
 </RCC>

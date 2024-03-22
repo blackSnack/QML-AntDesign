@@ -25,7 +25,7 @@ function(add_ant_qml_plugin)
     endif()
 
     # default Qt quick deps
-    list(APPEND ARG_QT_COMPONENTS Core Quick)
+    list(APPEND ARG_QT_COMPONENTS Core Quick QuickControls2)
 
     # set plugin dir
     set(plugins_dir "${CMAKE_BINARY_DIR}/plugins")

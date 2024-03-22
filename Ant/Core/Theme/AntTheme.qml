@@ -45,6 +45,8 @@ QtObject {
 
     property font defaultFont: AntFont.reuglar14
 
+    property font defaultFontLG: AntFont.reuglar16
+
     property font fontWeightStrong: AntFont.semibold14
 
     property color colorBgElevated: AntColors.gray_1

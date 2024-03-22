@@ -266,9 +266,9 @@ MouseArea {
                 max: 360
                 value: root.currentColor.hsvHue * max
 
-                onValueChanged: {
-                    d.defaultValue.hsvHue = value / max
-                }
+                onStep: (value, info) => {
+                            d.defaultValue.hsvHue = value / max
+                        }
             }
 
             SmallInputNumberWithPerSuffix {
