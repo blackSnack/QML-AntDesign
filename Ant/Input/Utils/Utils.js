@@ -74,7 +74,7 @@ class AntInputStyleProxy {
     }
 
     get prefixColor() {
-        if (this.control.state === "Default") { return this.style.textColor }
+        if (this.control.state === "Default") { return this.style.prefixColor }
         return this.statusColorMap.get(this.control.state)[this.currentState(this.control)]
     }
 
@@ -89,9 +89,9 @@ class AntInputStyleProxy {
 
     get fontSize() {
         switch(this.style.size) {
-            case Core.Small: return this.style.inputFontSizeSM
-            case Core.Large: return this.style.inputFontSizeLG
-            case Core.Middle:
+            case Core.Ant.Small: return this.style.inputFontSizeSM
+            case Core.Ant.Large: return this.style.inputFontSizeLG
+            case Core.Ant.Middle:
             default: return this.style.inputFontSize
         }
     }
@@ -125,5 +125,21 @@ class AntInputStyleProxy {
 
     get textColor() {
         return  this.control.enabled ? this.style.textColor : Core.AntTheme.colorTextDisabled
+    }
+
+    get leftPadding() {
+        return this.style.leftPadding ?? this.horizontalPadding
+    }
+
+    get rightPadding() {
+        return this.style.rightPadding ?? this.horizontalPadding
+    }
+
+    get topPadding() {
+        return this.style.topPadding ?? this.verticalPadding
+    }
+
+    get bottomPadding() {
+        return this.style.bottomPadding ?? this.verticalPadding
     }
 }

@@ -16,6 +16,12 @@ QtObject {
     property color textColor: AntTheme.colorText
     property color prefixColor: AntTheme.colorText
     property color suffixColor: AntTheme.colorText
+
+    property var leftPadding: undefined
+    property var topPadding: undefined
+    property var rightPadding: undefined
+    property var bottomPadding: undefined
+
     // 输入框横向内边距
     property int paddingInline: 11
     // 大号输入框横向内边距

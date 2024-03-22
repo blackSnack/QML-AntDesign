@@ -15,10 +15,10 @@ AntRectangle {
     property var addonBefore: undefined
     property var prefix: undefined
     property var suffix: undefined
-    property real leftPadding: __styleProxy.horizontalPadding ?? 0
-    property real rightPadding: __styleProxy.horizontalPadding ?? 0
-    property real topPadding: __styleProxy.verticalPadding ?? 0
-    property real bottomPadding: __styleProxy.verticalPadding ?? 0
+    property real leftPadding: __styleProxy.leftPadding
+    property real rightPadding: __styleProxy.rightPadding
+    property real topPadding: __styleProxy.topPadding
+    property real bottomPadding: __styleProxy.bottomPadding
     readonly property bool hovered: mouseArea.containsMouse
     readonly property alias content: textField
     readonly property bool __isShowTextFieldBg: (addonBeforeLoader.visible || addonAfterLoader.visible)
@@ -268,7 +268,7 @@ AntRectangle {
         anchors.fill: parent
         propagateComposedEvents: true
 
-        hoverEnabled: root.enabled
+        hoverEnabled: true
 
         onPressed: (event)=> event.accepted = false
     }
