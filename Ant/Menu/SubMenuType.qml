@@ -179,6 +179,6 @@ Item {
     }
 
     Component.onCompleted: {
-        root.menu.submenus.push(root)
+        root.menu.__submenus.push(root)
     }
 }

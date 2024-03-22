@@ -72,4 +72,10 @@ Item {
         onHoveredChanged: hovered ? menu.hovered(root, key, keyPath) : undefined
         onPressed: pressed ? menu.pressed(root, key, keyPath) : undefined
     }
+
+    Component.onCompleted: {
+        if(menu.selectedKeys.includes(key)) {
+            menu.click(root, key, keyPath)
+        }
+    }
 }

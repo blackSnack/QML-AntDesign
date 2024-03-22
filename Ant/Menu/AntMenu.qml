@@ -29,7 +29,7 @@ ListView {
     property int iconMarginInlineEnd: 10
     property bool multiple: false // not support multiple selected
 
-    property var _submenus: []
+    property var __submenus: []
 
     property var components: ({
                                   Item: itemType,
@@ -129,7 +129,7 @@ ListView {
 
         function updateSubMenuListState(keyPath) {
             let paths = keyPath.split("/")
-            _submenus.forEach(item=> {
+            __submenus.forEach(item=> {
                                   if (paths.includes(item.key)) {
                                       item.actived !== undefined ? item.actived = true : undefined
                                   }else {
