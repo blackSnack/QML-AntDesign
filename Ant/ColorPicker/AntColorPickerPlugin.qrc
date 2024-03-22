@@ -1,5 +1,11 @@
 ﻿<RCC>
     <qresource prefix="/AntColorPicker">
-        <file>AntColorPicker.qml</file>
+        <file>AntColorPicker.qml</file>  
+        <file>AntColorBackground.qml</file>
+        <file>VericalLayout.qml</file>
+        <file>AntPaletteSlider.qml</file>
+        <file>AntAlphaSlider.qml</file>
+        <file>Style/AntColorPickStyle.qml</file>
+        <file>Utils/Utils.js</file>
     </qresource>
 </RCC>
