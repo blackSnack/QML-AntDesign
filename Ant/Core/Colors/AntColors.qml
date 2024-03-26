@@ -1,6 +1,7 @@
 pragma Singleton
 
 import QtQuick 2.15
+import "qrc:/AntCore/Colors/Utils/Colors.js" as Colors;
 
 QtObject {
     // gray
@@ -80,4 +81,23 @@ QtObject {
     // font color
     readonly property color texHeadingColor: gray_13_A88
     readonly property color textDisabledColor: gray_13_A25
+
+    property bool isDark: false
+    readonly property var palettes: isDark ? presetDarkPalettes : presetPalettes
+    readonly property var presetPalettes: Colors.presetPalettes
+    readonly property var presetDarkPalettes: Colors.presetDarkPalettes
+    readonly property var red: Colors.red
+    readonly property var volcano: Colors.volcano
+    readonly property var gold: Colors.gold
+    readonly property var orange: Colors.orange
+    readonly property var yellow: Colors.yellow
+    readonly property var lime: Colors.lime
+    readonly property var green: Colors.green
+    readonly property var cyan: Colors.cyan
+    readonly property var blue: Colors.blue
+    readonly property var geekblue: Colors.geekblue
+    readonly property var purple: Colors.purple
+    readonly property var magenta: Colors.magenta
+    readonly property var grey: Colors.grey
+    readonly property var gray: Colors.gray
 }

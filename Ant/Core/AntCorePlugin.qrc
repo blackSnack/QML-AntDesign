@@ -2,6 +2,8 @@
     <qresource prefix="/AntCore">
         <file>Theme/AntTheme.qml</file>
         <file>Colors/AntColors.qml</file>
+        <file>Colors/Utils/Colors.js</file>
+        <file>Colors/Utils/Generate.js</file>
         <file>Font/AntFont.qml</file>
         <file>Font/FA_Font/Font Awesome 6 Brands-Regular-400.otf</file>
         <file>Font/FA_Font/Font Awesome 6 Free-Regular-400.otf</file>
