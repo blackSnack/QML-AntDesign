@@ -15,19 +15,19 @@ AntRectangle {
     property var addonBefore: undefined
     property var prefix: undefined
     property var suffix: undefined
-    property real leftPadding: __styleProxy.leftPadding
-    property real rightPadding: __styleProxy.rightPadding
-    property real topPadding: __styleProxy.topPadding
-    property real bottomPadding: __styleProxy.bottomPadding
+    property real leftPadding: antStyle.leftPadding
+    property real rightPadding: antStyle.rightPadding
+    property real topPadding: antStyle.topPadding
+    property real bottomPadding: antStyle.bottomPadding
     readonly property bool hovered: mouseArea.containsMouse
     readonly property alias content: textField
     readonly property bool __isShowTextFieldBg: (addonBeforeLoader.visible || addonAfterLoader.visible)
     readonly property alias mouseArea: mouseArea
 
-    border.color: __isShowTextFieldBg ? AntTheme.colorBorder : __styleProxy.borderColor(root)
+    border.color: __isShowTextFieldBg ? AntTheme.colorBorder : antStyle.borderColor(root)
     border.width: AntTheme.lineWidth
     color: root.hovered ? antStyle.hoverBg : antStyle.activeBg
-    border.radius: __styleProxy.radius
+    border.radius: antStyle.radius
 
     AntRectangle {
         visible: __isShowTextFieldBg
@@ -39,12 +39,12 @@ AntRectangle {
                                                                                                      addonAfterLoader.visible ?  root.width - addonAfterContent.width
                                                                                                                               : 0
         height: parent.height
-        border.color: __styleProxy.borderColor(root)
+        border.color: antStyle.borderColor(root)
         border.width: AntTheme.lineWidth
-        border.topLeftRadius: addonBeforeLoader.visible ? 0 : __styleProxy.radius
-        border.bottomLeftRadius: addonBeforeLoader.visible ? 0 :  __styleProxy.radius
-        border.topRightRadius: addonAfterLoader.visible ? 0 : __styleProxy.radius
-        border.bottomRightRadius: addonAfterLoader.visible ? 0 : __styleProxy.radius
+        border.topLeftRadius: addonBeforeLoader.visible ? 0 : antStyle.radius
+        border.bottomLeftRadius: addonBeforeLoader.visible ? 0 :  antStyle.radius
+        border.topRightRadius: addonAfterLoader.visible ? 0 : antStyle.radius
+        border.bottomRightRadius: addonAfterLoader.visible ? 0 : antStyle.radius
         color: "transparent"
     }
 
@@ -57,8 +57,8 @@ AntRectangle {
             id: addonBeforeContent
             width: addonBeforeLoader.visible ? addonBeforeLoader.width + root.leftPadding + root.rightPadding : 0
             height: addonBeforeLoader.height
-            border.topLeftRadius: __styleProxy.radius
-            border.bottomLeftRadius:  __styleProxy.radius
+            border.topLeftRadius: antStyle.radius
+            border.bottomLeftRadius:  antStyle.radius
 
             Loader {
                 id: addonBeforeLoader
@@ -156,8 +156,8 @@ AntRectangle {
             id: addonAfterContent
             width: addonAfterLoader.visible ? addonAfterLoader.width + root.leftPadding + root.rightPadding : 0
             height: addonAfterLoader.height
-            border.topRightRadius: __styleProxy.radius
-            border.bottomRightRadius: __styleProxy.radius
+            border.topRightRadius: antStyle.radius
+            border.bottomRightRadius: antStyle.radius
             border.color: "transparent"
             border.width: 0
             color: antStyle.addonBg

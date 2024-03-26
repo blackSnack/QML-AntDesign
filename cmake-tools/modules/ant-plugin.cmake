@@ -81,6 +81,43 @@ function(add_ant_qml_plugin)
 endfunction(add_ant_qml_plugin)
 
 
+function(add_shaders)
+    #parse args TARGET SOURCES are required args
+    cmake_parse_arguments("ARG" "" "TARGET" "SOURCES;PREFIX" ${ARGN})
+
+    if (NOT ARG_TARGET)
+        message(FATAL_ERROR "PLUGIN_NAME is required")
+    endif()
+    if (NOT ARG_SOURCES)
+        message(FATAL_ERROR "SOURCE is required")
+    endif()
+
+    if (NOT ARG_PREFIX)
+        set(ARG_PREFIX "")
+    endif()
+
+    set(target ${ARG_TARGET})
+    set(sources ${ARG_SOURCES})
+    set(prefix ${ARG_PREFIX})
+    
+    find_package(ant-qt COMPONENTS ShaderTools REQUIRED)
+
+    if (${QtX} STREQUAL "Qt6")
+        qt6_add_shaders(${target}
+            BATCHABLE
+            PRECOMPILE
+            OPTIMIZED
+            PREFIX
+                ${prefix}
+            FILES
+                ${sources}
+        )
+    else()
+        message(FATAL_ERROR "Qt version is less than 6!" ${QtX})
+    endif()
+endfunction()
+
+
 function(add_ant_test_app)
     #parse args PLUGIN_NAME SOURCES are required args
     cmake_parse_arguments("ARG" "" "EXE_NAME" "SOURCES;QT_COMPONENTS" ${ARGN})

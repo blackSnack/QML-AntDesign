@@ -1,6 +1,7 @@
 ﻿import QtQuick 2.15
 
 import AntInput 1.0
+import AntCore 1.0
 
 Window {
     width: 640
@@ -19,7 +20,7 @@ Window {
                     spacing: 8
                     required property string modelData
                     Repeater {
-                        model: ["small", "middle", "large"]
+                        model: [Ant.Small, Ant.Middle, Ant.Large]
                         AntInput {
                             required property string modelData
                             width: 100
@@ -45,16 +46,16 @@ Window {
                     required property string modelData
                     Repeater {
                         model: [{
-                                type: "small",
+                                type: Ant.Small,
                                 prefix: ({icon: "ClockCircleOutlined"}),
                                 suffix: ({icon: "UserOutlined"})
                             },
-                            {type: "middle",
+                            {type: Ant.Middle,
                                 prefix: ({icon: "ClockCircleOutlined"}),
                                 suffix: ({icon: "UserOutlined"})
                             },
                             {
-                                type: "large",
+                                type: Ant.Large,
                                 prefix: ({icon: "ClockCircleOutlined"}),
                                 suffix:  ""
                             }]

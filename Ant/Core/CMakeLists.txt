@@ -23,6 +23,14 @@ add_ant_qml_plugin(
         AntCorePlugin.qrc
 )
 
+add_shaders(
+    TARGET
+        AntCore
+    SOURCES
+        "Shadow/Shaders/shadow.frag"
+        "Shadow/Shaders/blur.frag"
+    )
+
 target_include_directories(AntCore
         PUBLIC
                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>
