@@ -8,6 +8,7 @@ int main(int argc, char* argv[])
 
     QQmlApplicationEngine engine;
     engine.addImportPath("plugins");
+    engine.addImportPath("../plugins");
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,

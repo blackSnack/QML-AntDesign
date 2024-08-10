@@ -35,7 +35,7 @@ function(add_ant_qml_plugin)
     # set plugin name
     set(plugin_name ${ARG_PLUGIN_NAME})
     # set plugin output dir
-    set(plugin_binary_dir "${plugins_dir}/${plugin_name}")
+    set(plugin_binary_dir "$<1:${plugins_dir}/${plugin_name}>")
 
     add_library(${library_name} MODULE ${ARG_SOURCES})
 
@@ -145,7 +145,7 @@ function(add_ant_test_app)
     
     target_link_libraries(${test_app_target} PRIVATE ${target_deps})     
 
-    set_target_properties(${test_app_target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
+    set_target_properties(${test_app_target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "$<1:${CMAKE_BINARY_DIR}>/unittests")
 
     include(GNUInstallDirs)
     install(
