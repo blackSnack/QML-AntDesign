@@ -83,3 +83,11 @@ function getItem(key, label, icon, children, type) {
         type
     }
 }
+
+function pixels(length, font) {
+    if (length.endsWith("em")) {
+        return Number.parseFloat(length.slice(0, -2)) * font.pixelSize
+    }
+
+    return Number.parseFloat(length)
+}
