@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(cmake-tools)
 
-if (NOT TARGET kms-tools)
-    add_subdirectory(kms)
+if (NOT TARGET kms-conan)
+    add_subdirectory(kms-conan)
 endif()
 
 add_subdirectory(Ant)

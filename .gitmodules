@@ -1,3 +1,6 @@
 [submodule "kms"]
 	path = kms
 	url = git@gitee.com:antenna_1/kms.git
+[submodule "kms-conan"]
+	path = kms-conan
+	url = git@gitee.com:antenna_1/kms-conan.git
