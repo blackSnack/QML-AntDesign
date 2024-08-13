@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntDivider">
+        <file>AntDivider.qml</file>
+        <file>Style/AntDividerStyle.qml</file>
+    </qresource>
+</RCC>
