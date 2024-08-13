@@ -11,7 +11,7 @@
 
 void AntCorePlugin::registerTypes(const char* uri)
 {
-    QVector<QString> fontDirs{ { ":/AntCore/Font/FA_Font/" }, { ":/AntCore/Font/FA_Font/" } };
+    QVector<QString> fontDirs{ { ":/AntCore/Font/FA_Font/" }, { ":/AntCore/Font/SF_Font/" } };
     for (auto dirStr : fontDirs)
     {
         QDir fontDir(dirStr);
