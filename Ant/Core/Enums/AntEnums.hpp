@@ -15,7 +15,8 @@ enum Placement
     LeftBottom,
     Right,
     RightTop,
-    RightBottom
+    RightBottom,
+    Center,
 };
 Q_ENUMS(Placement);
 
@@ -34,4 +35,10 @@ enum Size
     Large,
 };
 Q_ENUMS(Size);
+
+enum Orientations {
+    Horizontal,
+    Vertical,
+};
+Q_ENUMS(Orientations);
 } // namespace Ant
