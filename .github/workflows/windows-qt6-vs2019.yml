@@ -99,27 +99,34 @@ jobs:
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ steps.output.outputs.build-output-dir }} --config ${{ matrix.build_type }}
     
-    - name: Generate timestamp
-      id: generate_timestamp
-      run: echo "TIMESTAMP=$(date +'%T')" >> $GITHUB_ENV
-    
     - name: Generate plugin and test application
       working-directory: ${{ steps.output.outputs.build-output-dir }}
       # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: cmake --build . --config ${{ matrix.build_type }} --target ant-test-apps
 
+    - name: Generate timestamp
+      id: time
+      uses: nanzm/get-time-action@master
+      with: 
+        timeZone: UTC+8
+        format: 'YYYY-MM-DD-HH-mm-ss'
+
     - name: Archive plugins
       uses: actions/upload-artifact@v4
+      env:
+        TIME: "${{ steps.time.outputs.time }}"
       with:
-        name: ant-plugins-${{ steps.generate_timestamp.outputs.TIMESTAMP }}
+        name: ant-plugins-${{ env.TIME }}
         path: | 
           ${{ steps.output.outputs.build-output-dir }}/plugins
 
     - name: Archive test application artifacts
       uses: actions/upload-artifact@v4
+      env:
+        TIME: "${{ steps.time.outputs.time }}"
       with:
-        name: ant-test-apps-${{ steps.generate_timestamp.outputs.TIMESTAMP }}
+        name: ant-test-apps-${{ env.TIME }}
         path: | 
           ${{ steps.output.outputs.build-output-dir }}/unittests
           ${{ steps.output.outputs.build-output-dir }}/plugins
