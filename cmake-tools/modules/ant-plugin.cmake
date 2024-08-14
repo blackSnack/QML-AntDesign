@@ -1,26 +1,33 @@
-﻿set(CMAKE_AUTOMOC ON)
+﻿find_package(ant-qt COMPONENTS Core REQUIRED)
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-find_package(ant-qt COMPONENTS Core REQUIRED)
 
-if (NOT TARGET ant-plugins)
+if(NOT TARGET ant-plugins)
     add_custom_target(ant-plugins)
 endif()
 
-function(add_ant_qml_plugin)    
-    #parse args PLUGIN_NAME SOURCES are required args
+if(NOT TARGET ant-test-apps)
+    add_custom_target(ant-test-apps)
+    add_dependencies(ant-test-apps ant-plugins)
+endif()
+
+function(add_ant_qml_plugin)
+    # parse args PLUGIN_NAME SOURCES are required args
     cmake_parse_arguments("ARG" "" "PLUGIN_NAME;LIB_NAME" "SOURCES;QT_COMPONENTS;LIBS" ${ARGN})
 
-    if (NOT ARG_PLUGIN_NAME)
+    if(NOT ARG_PLUGIN_NAME)
         message(FATAL_ERROR "PLUGIN_NAME is required")
     endif()
-    if (NOT ARG_SOURCES)
+
+    if(NOT ARG_SOURCES)
         message(FATAL_ERROR "SOURCE is required")
     endif()
-    if (NOT ARG_LIB_NAME)
+
+    if(NOT ARG_LIB_NAME)
         set(ARG_LIB_NAME ${ARG_PLUGIN_NAME})
     endif()
 
-    if (NOT ARG_LIBS)
+    if(NOT ARG_LIBS)
         set(ARG_LIBS "")
     endif()
 
@@ -32,8 +39,10 @@ function(add_ant_qml_plugin)
 
     # set lib name
     set(library_name ${ARG_LIB_NAME})
+
     # set plugin name
     set(plugin_name ${ARG_PLUGIN_NAME})
+
     # set plugin output dir
     set(plugin_binary_dir "$<1:${plugins_dir}/${plugin_name}>")
 
@@ -44,6 +53,7 @@ function(add_ant_qml_plugin)
 
     # set deps
     set(target_deps "")
+
     foreach(dep ${ARG_QT_COMPONENTS})
         list(APPEND target_deps "Qt::${dep}")
     endforeach(dep ${ARG_QT_COMPONENTS})
@@ -51,10 +61,9 @@ function(add_ant_qml_plugin)
     foreach(dep ${ARG_LIBS})
         list(APPEND target_deps ${dep})
     endforeach(dep ${ARG_LIBS})
-    
 
     find_package(ant-qt COMPONENTS ${ARG_QT_COMPONENTS} REQUIRED)
-    
+
     target_link_libraries(${library_name} PRIVATE ${target_deps})
 
     add_dependencies(ant-plugins ${library_name})
@@ -66,8 +75,8 @@ function(add_ant_qml_plugin)
         COMMAND ${CMAKE_COMMAND} -E copy "${plugin_qmldir_source}" "${plugin_qmldir_target}"
         DEPENDS "${plugin_qmldir_source}"
     )
-    
-    add_custom_target(${plugin_name}_gen_qmldir ALL 
+
+    add_custom_target(${plugin_name}_gen_qmldir ALL
         DEPENDS "${plugin_qmldir_target}"
     )
 
@@ -77,58 +86,57 @@ function(add_ant_qml_plugin)
     install(DIRECTORY ${plugin_binary_dir}
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/qml
     )
-
 endfunction(add_ant_qml_plugin)
 
-
 function(add_shaders)
-    #parse args TARGET SOURCES are required args
+    # parse args TARGET SOURCES are required args
     cmake_parse_arguments("ARG" "" "TARGET" "SOURCES;PREFIX" ${ARGN})
 
-    if (NOT ARG_TARGET)
+    if(NOT ARG_TARGET)
         message(FATAL_ERROR "PLUGIN_NAME is required")
     endif()
-    if (NOT ARG_SOURCES)
+
+    if(NOT ARG_SOURCES)
         message(FATAL_ERROR "SOURCE is required")
     endif()
 
-    if (NOT ARG_PREFIX)
+    if(NOT ARG_PREFIX)
         set(ARG_PREFIX "")
     endif()
 
     set(target ${ARG_TARGET})
     set(sources ${ARG_SOURCES})
     set(prefix ${ARG_PREFIX})
-    
+
     find_package(ant-qt COMPONENTS ShaderTools REQUIRED)
 
-    if (${QtX} STREQUAL "Qt6")
+    if(${QtX} STREQUAL "Qt6")
         qt6_add_shaders(${target}
             BATCHABLE
             PRECOMPILE
             OPTIMIZED
             PREFIX
-                ${prefix}
+            ${prefix}
             FILES
-                ${sources}
+            ${sources}
         )
     else()
         message(FATAL_ERROR "Qt version is less than 6!" ${QtX})
     endif()
 endfunction()
 
-
 function(add_ant_test_app)
-    #parse args PLUGIN_NAME SOURCES are required args
+    # parse args PLUGIN_NAME SOURCES are required args
     cmake_parse_arguments("ARG" "" "EXE_NAME" "SOURCES;QT_COMPONENTS" ${ARGN})
 
-    if (NOT ARG_EXE_NAME)
+    if(NOT ARG_EXE_NAME)
         message(FATAL_ERROR "EXE_NAME is required")
     endif()
-    if (NOT ARG_SOURCES)
+
+    if(NOT ARG_SOURCES)
         message(FATAL_ERROR "SOURCE is required")
     endif()
- 
+
     # default Qt quick deps
     list(APPEND ARG_QT_COMPONENTS Core Quick)
 
@@ -136,24 +144,26 @@ function(add_ant_test_app)
     add_executable(${test_app_target} ${ARG_SOURCES})
     message("target: " ${test_app_target} " Source: " ${ARG_SOURCES})
 
-     # set deps
+    # set deps
     set(target_deps "")
+
     foreach(dep ${ARG_QT_COMPONENTS})
         list(APPEND target_deps "Qt::${dep}")
     endforeach(dep ${ARG_QT_COMPONENTS})
+
     find_package(ant-qt COMPONENTS ${ARG_QT_COMPONENTS} REQUIRED)
-    
-    target_link_libraries(${test_app_target} PRIVATE ${target_deps})     
+
+    target_link_libraries(${test_app_target} PRIVATE ${target_deps})
 
     set_target_properties(${test_app_target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "$<1:${CMAKE_BINARY_DIR}>/unittests")
 
+    add_dependencies(ant-test-apps ${test_app_target})
     include(GNUInstallDirs)
     install(
         TARGETS
-             ${test_app_target}
+        ${test_app_target}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 endfunction(add_ant_test_app)
-
