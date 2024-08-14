@@ -52,7 +52,7 @@ jobs:
         arch: 'win64_msvc2019_64'
         dir: '${{ github.workspace }}/qt6.5.0'
         install-deps: 'true'
-        modules: 'qtquickeffectmaker qtvirtualkeyboard qtquick3d'
+        modules: 'qtshadertools qtquickeffectmaker qtvirtualkeyboard qtquick3d'
         cache: 'true'
         cache-key-prefix: 'install-qt-action-Qt6.5.0'
         setup-python: 'false'
