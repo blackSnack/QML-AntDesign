@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.15)
 
-project(ant-qml-components 
+project(ant-qml-components
     VERSION 1.0.0
     LANGUAGES CXX
 )
@@ -23,6 +23,7 @@ add_subdirectory(ColorPicker)
 add_subdirectory(Input)
 add_subdirectory(InputNumber)
 add_subdirectory(Divider)
+add_subdirectory(Ribbon)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
