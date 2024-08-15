@@ -1,27 +1,54 @@
-﻿# AntDesign
+﻿﻿# AntDesign
 
-#### 介绍
+#### Introduce
 QML component library based on AntDesign
 
-#### AntButton
+#### CI Build Status
 
-![AntButton1](https://foruda.gitee.com/images/1707180097239618535/d4547a3c_1868485.png "")
-![AntButton2](https://foruda.gitee.com/images/1707180133685231926/defa6e84_1868485.png "")
+| [Window][win-link] |
+| ------------------ |
+| ![win-badge]       |
 
-#### AntBadge
-![AntBadge](https://foruda.gitee.com/images/1707180204788062395/bcc82bbb_1868485.png "")
+[win-link]: https://github.com/blackSnack/QML-AntDesign/actions?query=windows-qt6-vs2019 "Windows Action"
+[win-badge]: https://github.com/blackSnack/QML-AntDesign/workflows/windows-qt6-vs2019/badge.svg
 
-#### AntQRCode
-![AntQRCode](https://foruda.gitee.com/images/1707180227965462957/f63c44b8_1868485.png "")
-#### AntCheckBox
-![AntCheckBox](https://foruda.gitee.com/images/1707180253645699966/734d78af_1868485.png "")
-#### AntSpin
-![AntSpin](https://foruda.gitee.com/images/1707180304866781693/3d57f4a1_1868485.png "")
-#### AntTooltip
-![AntTooltip](https://foruda.gitee.com/images/1707180341415311386/0d3022c8_1868485.png "")
-#### AntPopover
-![AntPopover](https://foruda.gitee.com/images/1707180361982653574/f7137fb8_1868485.png "")
-#### AntMenu
-![AntMenu](https://foruda.gitee.com/images/1707180384561153735/5903cd14_1868485.png "")
-#### AntDropdown
-![AntDropdown](https://foruda.gitee.com/images/1707180405692358285/ec85c39e_1868485.png "")
+#### How to build
+##### Required environment
+* Qt >= 6.0
+* Python >= 3.0
+* CMake >= 3.15
+* Conan [1.59, 2.0)
+
+##### Install & Config Conan
+```
+    pip install conan==1.6.0
+    conan config init
+```
+
+##### Build
+* Make sure the required packages is installed and add the path to environment.
+* Clone the code into a folder
+* Sync submodule for kms-conan
+```
+    git submodule update --init
+```
+* Config project with the CMakeLists.txt
+* Run `ant-plugins` target to build all `Ant*Plugin.dll` to plugins folder
+
+#### Components
+* [AntButton](https://gitee.com/antenna_1/ant-design/wikis/AntButton)
+* [AntBadge](https://gitee.com/antenna_1/ant-design/wikis/AntBage)
+* [AntQRCode](https://gitee.com/antenna_1/ant-design/wikis/AntQRCode)
+* [AntCheckBox](https://gitee.com/antenna_1/ant-design/wikis/AntCheckbox)
+* [AntSpin](https://gitee.com/antenna_1/ant-design/wikis/AntSpin)
+* [AntTooltip](https://gitee.com/antenna_1/ant-design/wikis/AntTooltip)
+* [AntPopover](https://gitee.com/antenna_1/ant-design/wikis/AntPopover)
+* [AntMenu](https://gitee.com/antenna_1/ant-design/wikis/AntMenu)
+* [AntDropdown](https://gitee.com/antenna_1/ant-design/wikis/AntDropdown)
+* [AntColorPick](https://gitee.com/antenna_1/ant-design/wikis/AntColorPick)
+* [AntInput](https://gitee.com/antenna_1/ant-design/wikis/AntInput)
+* [AntInputNumber](https://gitee.com/antenna_1/ant-design/wikis/AntInputNumber)
+* [AntMask]()
+* [AntDivider](https://gitee.com/antenna_1/ant-design/wikis/AntDivider)
+* [AntRibbon](https://gitee.com/antenna_1/ant-design/wikis/AntRibbon)
+* [AntSlider](https://gitee.com/antenna_1/ant-design/wikis/AntSlider)
