@@ -1,4 +1,16 @@
 ﻿if (NOT DEFINED CACHE{QT_DEFAULT_MAJOR_VERSION})
+    find_package(Qt6 COMPONENTS Core)
+    if (Qt6_FOUND)
+        set(QT_DEFAULT_MAJOR_VERSION "6")
+    endif()
+
+    if (NOT Qt6_FOUND)
+        find_package(Qt5 COMPONENTS Core QUIET)
+        if (Qt5_FOUND)
+            set(QT_DEFAULT_MAJOR_VERSION "5")
+        endif()
+    endif()
+
     if (NOT QT_DEFAULT_MAJOR_VERSION)
         message(STATUS "Define QT_DEFAULT_MAJOR_VERSION to 6")
         set(QT_DEFAULT_MAJOR_VERSION "6")
