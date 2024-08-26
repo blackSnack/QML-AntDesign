@@ -91,3 +91,8 @@ function pixels(length, font) {
 
     return Number.parseFloat(length)
 }
+
+function tryFetchValue(value, defaultValue)
+{
+    return value === undefined ? defaultValue : value
+}

@@ -14,8 +14,11 @@ add_ant_qml_plugin(
         AntCore
     SOURCES
         Rectangle/AntRectangle.cpp
+        Rectangle/AntRectangle.hpp
         Rectangle/BorderConfig.cpp
+        Rectangle/BorderConfig.hpp
         Awesome/AntAwesomeUtils.cpp
+        Awesome/AntAwesomeUtils.hpp
         Enums/AntAwesome.hpp
         Enums/AntEnums.hpp
         Ant.hpp

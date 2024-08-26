@@ -2031,7 +2031,10 @@ static QSet<FontAwesomeType> BrandsS{
     FA_zhihu,
 };
 
-AntAwesomeUtils::AntAwesomeUtils(QObject* parent): QObject(parent) {}
+AntAwesomeUtils::AntAwesomeUtils(QObject* parent): QObject(parent) 
+{
+    qRegisterMetaType<Ant::FA::FontAwesomeType>("FA::FontAwesomeType");
+}
 
 QVariantMap AntAwesomeUtils::getFAObject(FontAwesomeType id)
 {

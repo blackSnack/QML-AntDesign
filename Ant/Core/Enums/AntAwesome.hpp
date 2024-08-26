@@ -1862,6 +1862,6 @@ enum FontAwesomeType
     FA_z = 0x5a,
     FA_zhihu = 0xf63f,
 };
-Q_ENUMS(FontAwesomeType);
+Q_ENUM_NS(FontAwesomeType);
 } // namespace FA
 } // namespace Ant

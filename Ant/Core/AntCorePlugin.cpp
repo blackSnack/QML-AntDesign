@@ -2,12 +2,14 @@
 #include <QDebug>
 #include <QDir>
 #include <QFontDatabase>
+#include <QQmlFileSelector>
 #include <qqml.h>
 
 #include "Ant.hpp"
 #include "Awesome/AntAwesomeUtils.hpp"
 #include "Rectangle/AntRectangle.hpp"
 #include "Rectangle/BorderConfig.hpp"
+#include <QDebug>
 
 void AntCorePlugin::registerTypes(const char* uri)
 {
@@ -24,7 +26,7 @@ void AntCorePlugin::registerTypes(const char* uri)
     // Awesome register singleton type
     Ant::AntAwesomeUtils::registerType(uri);
     // Registeer Ant enum type
-    // qmlRegisterUncreatableMetaObject(Ant::staticMetaObject, uri, 1, 0, "Ant", "");
+    qmlRegisterUncreatableMetaObject(Ant::staticMetaObject, uri, 1, 0, "Ant", "");
     regiseterAntEnums(uri);
     qmlRegisterType<Ant::AntRectangle>(uri, 1, 0, "AntRectangle");
     qmlRegisterType<Ant::BorderConfig>(uri, 1, 0, "AntBorder");
@@ -35,4 +37,14 @@ void AntCorePlugin::registerTypes(const char* uri)
     qmlRegisterType(QUrl("qrc:/AntCore/Background/AntTransparentBg.qml"), uri, 1, 0, "AntTransparentBg");
     // How to register js to qml plugin
     // qmlRegisterType(QUrl("qrc:/AntCore/Utils/Utils.js"), uri, 1, 0, "AntCoreUtils");
+}
+
+void AntCorePlugin::initializeEngine(QQmlEngine* engine, const char* uri)
+{
+    Q_UNUSED(uri)
+    Q_UNUSED(engine)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QQmlFileSelector* selector = QQmlFileSelector::get(engine);
+    selector->setExtraSelectors({ "qt5" });
+#endif
 }

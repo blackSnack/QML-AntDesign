@@ -1,11 +1,7 @@
 #include "BorderConfig.hpp"
 #include <QMetaType>
-namespace Ant
-{
+namespace Ant {
 
-BorderConfig::BorderConfig(QObject* parent) : QObject{ parent }
-{
-    qRegisterMetaType<BorderConfig>();
-}
+BorderConfig::BorderConfig(QObject* parent) : QObject{ parent } {}
 
-}
+} // namespace Ant
