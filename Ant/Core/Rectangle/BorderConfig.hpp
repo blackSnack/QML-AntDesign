@@ -26,8 +26,7 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <Qt>
-namespace Ant
-{
+namespace Ant {
 class BorderConfig : public QObject
 {
     Q_OBJECT
@@ -47,4 +46,5 @@ public:
         return topLeftRadiusM != 0.0 || topRightRadiusM != 0.0 || bottomLeftRadiusM != 0.0 || bottomRightRadiusM != 0.0;
     }
 };
-}
+} // namespace Ant
+// Q_DECLARE_METATYPE(Ant::BorderConfig)

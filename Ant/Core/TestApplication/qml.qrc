@@ -1,5 +1,7 @@
 ﻿<RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Shader.qml</file>
+        <file>+qt5/Shader.qml</file>
     </qresource>
 </RCC>

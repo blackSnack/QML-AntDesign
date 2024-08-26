@@ -1,5 +1,6 @@
 import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+
+import AntQtCompat.GraphicalEffects 1.0
 
 QtObject {
     id: root
@@ -7,7 +8,7 @@ QtObject {
     required property Item target
     property bool visible: true
 
-    readonly property DropShadow shadow1: DropShadow {
+    readonly property CompatDropShadow shadow1: CompatDropShadow {
         id: s1
         parent: target.parent
         width: target.width
@@ -16,7 +17,7 @@ QtObject {
         z: -1070
         visible: root.visible
     }
-    readonly property DropShadow shadow2: DropShadow {
+    readonly property CompatDropShadow shadow2: CompatDropShadow {
         id: s2
         parent: target.parent
         width: target.width
@@ -25,7 +26,7 @@ QtObject {
         z: -1070
         visible: root.visible
     }
-    readonly property DropShadow shadow3: DropShadow {
+    readonly property CompatDropShadow shadow3: CompatDropShadow {
         id: s3
         parent: target.parent
         width: target.width

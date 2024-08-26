@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+
+import AntQtCompat.GraphicalEffects 1.0
 
 Rectangle {
     id: root
@@ -7,7 +8,7 @@ Rectangle {
     property real squareSize: 4
 
     layer.enabled: true
-    layer.effect: OpacityMask {
+    layer.effect: CompatOpacityMask {
         maskSource: Rectangle {
             width: root.width
             height: root.height
