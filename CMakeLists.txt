@@ -10,11 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(KMS_DEPS "kms-qrcode_generator")
 set(BUILD_KMS_MODULES "")
 set(CMAKE_CXX_STANDARD 17)
-
-add_subdirectory(cmake-tools)
+set(QT_DEFAULT_MAJOR_VERSION 5 CACHE INTERNAL "")
 
 if (NOT TARGET kms-conan)
     add_subdirectory(kms-conan)
 endif()
+
+add_subdirectory(cmake-tools)
 
 add_subdirectory(Ant)

@@ -57,3 +57,6 @@ set(${PROJECT_NAME}_DIR
     "${CMAKE_CURRENT_BINARY_DIR}/as-subdirectory-stub/${PROJECT_NAME}"
     CACHE INTERNAL "" FORCE
 )
+
+# Add ant-test-application to project
+add_subdirectory(ant-test-application)
