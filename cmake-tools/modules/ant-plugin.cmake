@@ -89,6 +89,10 @@ function(add_ant_qml_plugin)
 endfunction(add_ant_qml_plugin)
 
 function(add_shaders)
+    if (QT_DEFAULT_MAJOR_VERSION LESS 6)
+        message(WARNING "Qt version is less than 6!" ${QtX})
+        return()
+    endif()
     # parse args TARGET SOURCES are required args
     cmake_parse_arguments("ARG" "" "TARGET" "SOURCES;PREFIX" ${ARGN})
 
@@ -140,6 +144,10 @@ function(add_ant_test_app)
     # default Qt quick deps
     list(APPEND ARG_QT_COMPONENTS Core Quick)
 
+    if(QT_DEFAULT_MAJOR_VERSION STREQUAL "5")
+        list(APPEND ARG_QT_COMPONENTS Qml Gui)
+    endif()
+
     set(test_app_target ${ARG_EXE_NAME})
     add_executable(${test_app_target} ${ARG_SOURCES})
     message("target: " ${test_app_target} " Source: " ${ARG_SOURCES})
@@ -152,8 +160,12 @@ function(add_ant_test_app)
     endforeach(dep ${ARG_QT_COMPONENTS})
 
     find_package(ant-qt COMPONENTS ${ARG_QT_COMPONENTS} REQUIRED)
+    find_package(ant-test-application REQUIRED)
 
-    target_link_libraries(${test_app_target} PRIVATE ${target_deps})
+    target_link_libraries(${test_app_target} 
+        PRIVATE
+            ${target_deps}
+            ant::test-application)
 
     set_target_properties(${test_app_target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "$<1:${CMAKE_BINARY_DIR}>/unittests")
 
