@@ -1,7 +1,6 @@
 ﻿<RCC>
     <qresource prefix="/AntButton">
         <file>AntButton.qml</file>
-        <file>qmldir</file>
         <file>Style/AntButtonStyle.qml</file>
         <file>Style/AntButtonStyleToken.qml</file>
         <file>Style/ButtonSizeStyle.qml</file>
