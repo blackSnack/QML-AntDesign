@@ -4,6 +4,7 @@ project(ant-qml-components
     VERSION 1.0.0
     LANGUAGES CXX
 )
+add_subdirectory(QtCompat)
 
 add_subdirectory(Core)
 add_subdirectory(Icon)
