@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.15
+import QtQuick.Window 2.15
 
 import AntDropdown 1.0
 import AntMenu 1.0
