@@ -9,7 +9,7 @@ FocusScope {
     id: root
 
     property string placeholder: ""
-    property alias text: textField.content.text
+    property string text: ""
     // 前缀 & 带图标 string | Item | Component
     property var prefix: undefined
     // 后缀 & 带图标 string | Item | Component
@@ -45,7 +45,7 @@ FocusScope {
             verticalAlignment: TextInput.AlignVCenter
             font.pixelSize: __styleProxy.fontSize
             validator: root.validator
-
+            text: root.text
         }
         prefix: root.prefix
         suffix: root.suffix
