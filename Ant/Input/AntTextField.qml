@@ -6,6 +6,7 @@ import AntCore 1.0
 import AntText 1.0
 import AntIcon 1.0
 import "./Component"
+import "qrc:/AntCore/Utils/Utils.js" as CoreUtil
 
 AntRectangle {
     id: root
@@ -15,10 +16,10 @@ AntRectangle {
     property var addonBefore: undefined
     property var prefix: undefined
     property var suffix: undefined
-    property real leftPadding: antStyle.leftPadding
-    property real rightPadding: antStyle.rightPadding
-    property real topPadding: antStyle.topPadding
-    property real bottomPadding: antStyle.bottomPadding
+    property real leftPadding: CoreUtil.tryFetchValue(antStyle.leftPadding, 0)
+    property real rightPadding: CoreUtil.tryFetchValue(antStyle.rightPadding, 0)
+    property real topPadding: CoreUtil.tryFetchValue(antStyle.topPadding, 0)
+    property real bottomPadding: CoreUtil.tryFetchValue(antStyle.bottomPadding, 0)
     readonly property bool hovered: mouseArea.containsMouse
     readonly property alias content: textField
     readonly property bool __isShowTextFieldBg: (addonBeforeLoader.visible || addonAfterLoader.visible)
@@ -27,7 +28,7 @@ AntRectangle {
     border.color: __isShowTextFieldBg ? AntTheme.colorBorder : antStyle.borderColor(root)
     border.width: AntTheme.lineWidth
     color: root.hovered ? antStyle.hoverBg : antStyle.activeBg
-    border.radius: antStyle.radius
+    border.radius: CoreUtil.tryFetchValue(antStyle.radius, 0)
 
     AntRectangle {
         visible: __isShowTextFieldBg
@@ -230,7 +231,7 @@ AntRectangle {
             input: root
             text: root.prefix
             font: antStyle.prefixFont === undefined ? textField.font : antStyle.prefixFont
-            color: antStyle.prefixColor ?? textField.color
+            color: CoreUtil.tryFetchValue(antStyle.prefixColor, textField.color)
         }
     }
 
