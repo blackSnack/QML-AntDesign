@@ -9,7 +9,7 @@ import "./Utils/Utils.js" as Utils
 MouseArea {
     id: root
 
-    property color defaultValue
+    property color defaultValue: "transparent"
     property color currentColor
     property AntColorPickStyle antStyle: AntColorPickStyle {}
     property var showText: false
@@ -19,7 +19,7 @@ MouseArea {
 
     property string defaultFormat: "rgb" // [rgb | hex | hsb/hsv]
     property int size: Ant.Middle
-    readonly property real __colorRectSize: {
+    readonly property int __colorRectSize: {
         if (antStyle.size === Ant.Large) {
             return antStyle.sizeLG
         } else if (antStyle.size === Ant.Small) {
@@ -34,8 +34,8 @@ MouseArea {
 
     Rectangle {
         id: content
-        readonly property real margins: 4
-        readonly property real spacing: 5
+        readonly property int margins: 4
+        readonly property int spacing: 5
         height: __colorRectSize
         width: showText ? layout.width + margins + spacing : __colorRectSize
 

@@ -21,7 +21,8 @@
 //
 //
 import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
+
+import AntQtCompat.GraphicalEffects 1.0
 
 Item {
     id: root
@@ -33,7 +34,7 @@ Item {
     implicitWidth: 256
     implicitHeight: 160
     layer.enabled: true
-    layer.effect: OpacityMask {
+    layer.effect: CompatOpacityMask {
         maskSource: Rectangle {
             width: root.width
             height: root.height
@@ -46,7 +47,7 @@ Item {
         radius: root.radius
         color: Qt.hsva(Math.max(root.color.hsvHue, 0), 1, 1, 1)
 
-        LinearGradient {
+        CompatLinearGradient {
             anchors.fill: parent
             source: parent
             start: Qt.point(0, 0)
@@ -59,7 +60,7 @@ Item {
             }
         }
 
-        LinearGradient {
+        CompatLinearGradient {
             anchors.fill: parent
             source: parent
             start: Qt.point(0, height)

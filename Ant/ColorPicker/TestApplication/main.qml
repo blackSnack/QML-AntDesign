@@ -1,16 +1,15 @@
 ﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Window 2.15
 
 import AntCore 1.0
 import AntColorPicker 1.0
-import Qt5Compat.GraphicalEffects
 import AntText 1.0
 
 Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Test ColorPicker")
 
     Column {
         x: 100
