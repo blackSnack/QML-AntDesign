@@ -1,0 +1,3 @@
+module AntQtCompat.GraphicalEffects
+plugin AntQtCompatGraphicalEffects
+classname AntQtCompatGraphicalEffectsPlugin

@@ -13,7 +13,7 @@ endif()
 
 function(add_ant_qml_plugin)
     # parse args PLUGIN_NAME SOURCES are required args
-    cmake_parse_arguments("ARG" "" "PLUGIN_NAME;LIB_NAME" "SOURCES;QT_COMPONENTS;LIBS" ${ARGN})
+    cmake_parse_arguments("ARG" "" "PLUGIN_NAME;LIB_NAME;PLUGIN_DIR" "SOURCES;QT_COMPONENTS;LIBS" ${ARGN})
 
     if(NOT ARG_PLUGIN_NAME)
         message(FATAL_ERROR "PLUGIN_NAME is required")
@@ -43,8 +43,12 @@ function(add_ant_qml_plugin)
     # set plugin name
     set(plugin_name ${ARG_PLUGIN_NAME})
 
-    # set plugin output dir
-    set(plugin_binary_dir "$<1:${plugins_dir}/${plugin_name}>")
+    if(NOT ARG_PLUGIN_DIR)
+        # set plugin output dir
+        set(plugin_binary_dir "$<1:${plugins_dir}/${plugin_name}>")
+    else()
+        set(plugin_binary_dir "$<1:${plugins_dir}/${ARG_PLUGIN_DIR}>")
+    endif()
 
     add_library(${library_name} MODULE ${ARG_SOURCES})
 
@@ -150,7 +154,6 @@ function(add_ant_test_app)
 
     set(test_app_target ${ARG_EXE_NAME})
     add_executable(${test_app_target} ${ARG_SOURCES})
-    message("target: " ${test_app_target} " Source: " ${ARG_SOURCES})
 
     # set deps
     set(target_deps "")

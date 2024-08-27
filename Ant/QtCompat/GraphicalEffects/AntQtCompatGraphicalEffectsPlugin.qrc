@@ -1,0 +1,10 @@
+﻿<RCC>
+    <qresource prefix="/AntQtCompatGraphicalEffects">
+        <file>CompatDropShadow.qml</file>
+        <file>CompatLinearGradient.qml</file>
+        <file>CompatOpacityMask.qml</file>
+        <file>+qt5/CompatDropShadow.qml</file>
+        <file>+qt5/CompatLinearGradient.qml</file>
+        <file>+qt5/CompatOpacityMask.qml</file>
+    </qresource>
+</RCC>
