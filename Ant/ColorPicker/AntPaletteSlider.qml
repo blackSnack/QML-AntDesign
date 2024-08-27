@@ -1,8 +1,8 @@
 ﻿import QtQuick 2.15
-import Qt5Compat.GraphicalEffects
 
 import AntCore 1.0
 import AntSlider 1.0
+import AntQtCompat.GraphicalEffects 1.0
 
 AntSlider {
     id: slider
@@ -27,10 +27,10 @@ AntSlider {
         }
     }
 
-    rail:  AntSliderRail {
+    rail: AntSliderRail {
         content: Rectangle {
             radius: height / 2
-            LinearGradient {
+            CompatLinearGradient {
                 anchors.fill: parent
                 source: parent
                 start: Qt.point(0, 0)
