@@ -126,9 +126,8 @@ Item {
             visible: height !== 0
             height: {
                 if (!root.opened) {return 0}
-                let h = 0
-                children.forEach(item=>{h+= item.height})
-                return h
+
+                return childrenRect.height
             }
             model: root.model.children
 
