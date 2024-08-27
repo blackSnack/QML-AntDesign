@@ -72,10 +72,7 @@ void QRCodeGen::generateSvg(const QByteArray& data, int ecc, int border, int min
         emit generateFinished(data, "");
     };
 
-    threaPtrM = QSharedPointer<QThread>(QThread::create(func));
-    if (!threaPtrM->isRunning()) {
-        threaPtrM->start();
-    }
+    QThreadPool::globalInstance()->start(func);
 }
 
 void AntQRCodeGen::updateQRCode()

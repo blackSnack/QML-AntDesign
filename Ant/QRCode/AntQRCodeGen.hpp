@@ -65,6 +65,9 @@ private:
 class QRCodeGen: public QObject
 {
     Q_OBJECT
+public:
+    QRCodeGen(QObject * parent = nullptr): QObject{parent} {}
+    ~QRCodeGen() = default;
 public slots:
     void generateSvg(
         const QByteArray& data, int ecc, int border = 0, int minLevel = 1, int maxLevel = 40, int mask = -1, bool boostEcl = true);
@@ -72,7 +75,7 @@ signals:
     void generateFinished(const QString& originData, const QString& svgData);
 
 private:
-    QSharedPointer<QThread> threaPtrM {nullptr};
+    QSharedPointer<QThread> threadPtrM {nullptr};
 };
 
 } // namespace Ant

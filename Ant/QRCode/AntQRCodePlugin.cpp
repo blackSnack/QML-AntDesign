@@ -1,5 +1,5 @@
 ﻿#include "AntQRCodePlugin.hpp"
-#include "AntQRCodeGen.hpp""
+#include "AntQRCodeGen.hpp"
 #include <qqml.h>
 
 void AntQRCodePlugin::registerTypes(const char *uri)

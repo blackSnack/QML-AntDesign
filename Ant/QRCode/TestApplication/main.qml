@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.15
+import QtQuick.Window 2.15
 
 import AntQRCode 1.0
 import AntCore 1.0
