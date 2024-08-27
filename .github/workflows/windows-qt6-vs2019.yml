@@ -94,6 +94,7 @@ jobs:
         -DBUILD_KMS_MODULES=""
         -DBUILD_TESTING=ON
         -DBUILD_ALL_TESTING=ON
+        -DQT_DEFAULT_MAJOR_VERSION=6
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
