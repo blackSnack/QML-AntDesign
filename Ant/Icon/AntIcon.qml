@@ -27,11 +27,11 @@ Item {
         }
         return AntIcon.IconType.AntSvgIcon
     }
-    property var source: null
+    property var source: undefined
     property real rotate: 0
     property bool spin: false
     property color color: AntColors.gray_5
-    property color secondaryColor: null
+    property color secondaryColor: "#D9D9D9"
     property real sourceWidth: root.width
     property real sourceHeight: root.height
 
