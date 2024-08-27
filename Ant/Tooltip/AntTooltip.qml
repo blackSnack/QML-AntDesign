@@ -61,30 +61,28 @@ MouseArea {
             if (hovered) { return true}
 
             let filterChild = function(node, targetNode) {
-                let result = node.children.some((child) => {
-                                        if (!(child instanceof Item)) {return false}
-                                        if (child === targetNode) {
-                                            return true
-                                        }
-                                       if (child.children.length > 0) {
-                                            return child.children.some((c)=> {
-                                                                    return filterChild(c, targetNode)
-                                                                })
-                                       }
-                                       return false
-                                   })
-                return result
+                for(var i in node.children) {
+                    const child = node.children[i]
+                    if (!(child instanceof Item)) {return false}
+                    if (child === targetNode) {
+                        return true
+                    }
+                   if (child.children.length > 0) {
+                        return filterChild(child, targetNode)
+                   }
+                }
+                return false
             }
 
             let isChildrenIsHovered = function (node) {
-                let result = node.children.some(child=> {
-                                       if (child instanceof AntTooltip && root !== child) {
-                                           if(!filterChild(root, child.target)) { return false }
-                                           return child.control.hovered
-                                       }
-                                       return false
-                                   })
-                return result
+                for(var i in node.children) {
+                    const child = node.children[i]
+                    if (child instanceof AntTooltip && root !== child) {
+                        if(!filterChild(root, child.target)) { return false }
+                        return child.control.hovered
+                    }
+                }
+                return false
             }
             return isChildrenIsHovered(root.parent)
         }
@@ -325,9 +323,10 @@ MouseArea {
 
                 // draw arrow
                 ctx.moveTo(startArcToPoint.x, startArcToPoint.y)
-                ctx.arcTo(arrowStartP.x, arrowStartP.y,  arrowMidLP.x, arrowMidLP.y, d.arrowTransitionRadius)
+                ctx.arcTo(arrowStartP.x, arrowStartP.y, arrowMidLP.x, arrowMidLP.y, d.arrowTransitionRadius)
                 ctx.lineTo(arrowMidLP.x, arrowMidLP.y)
-                ctx.arcTo(arrowMidP.x, arrowMidP.y, arrowMidRP.x, arrowMidRP.y, d.arrowRadius);
+                ctx.arcTo(arrowMidP.x, arrowMidP.y, arrowMidRP.x, arrowMidRP.y, d.arrowRadius)
+                ctx.lineTo(arrowMidRP.x, arrowMidRP.y)
                 ctx.arcTo(arrowEndP.x, arrowEndP.y, endArcToPoint.x, endArcToPoint.y, d.arrowTransitionRadius)
 
                 // draw rectangle
@@ -348,6 +347,7 @@ MouseArea {
             onPaint: {
                 var ctx = getContext("2d");
                 ctx.save();
+                ctx.antialias = true;
                 ctx.clearRect(0, 0, width, height)
                 drawBackground(ctx)
                 ctx.restore();
@@ -524,11 +524,11 @@ MouseArea {
                 case Ant.Left:
                     return Qt.rect(targetRect.leftBottom.x - implSize.width, targetRect.leftTop.y + (targetRect.height - implSize.height) / 2, implSize.width, implSize.height)
                 case Ant.RightTop:
-                    return Qt.rect(targetRect.rightTop.x + d.arrowSize.height, targetRect.rightTop.y, implSize.width, implSize.height)
+                    return Qt.rect(targetRect.rightTop.x, targetRect.rightTop.y, implSize.width, implSize.height)
                 case Ant.RightBottom:
-                    return Qt.rect(targetRect.rightBottom.x + d.arrowSize.height, targetRect.rightBottom.y - implSize.height, implSize.width, implSize.height)
+                    return Qt.rect(targetRect.rightBottom.x, targetRect.rightBottom.y - implSize.height, implSize.width, implSize.height)
                 case Ant.Right:
-                    return Qt.rect(targetRect.rightBottom.x + d.arrowSize.height, targetRect.rightTop.y + (targetRect.height - implSize.height) / 2, implSize.width, implSize.height)
+                    return Qt.rect(targetRect.rightBottom.x, targetRect.rightTop.y + (targetRect.height - implSize.height) / 2, implSize.width, implSize.height)
                 }
                 return Qt.rect(0, 0, 0, 0)
             }
@@ -547,9 +547,9 @@ MouseArea {
             }
 
             function open() {
-                root.visible = true
                 openDelayTimer.interval = root.mouseEnterDelay
                 openDelayTimer.triggerHandler = function(){
+                    root.visible = true
                     if(!control.visible) {
                         control.visible = true
                     }
@@ -558,17 +558,22 @@ MouseArea {
             }
 
             function close() {
-                root.visible = false
                 closeDelayTimer.interval = root.mouseLeaveDelay
                 closeDelayTimer.triggerHandler = function(){
+                    root.visible = false
                     if(control.visible) {
                         control.visible = false
                     }
                 }
                 closeDelayTimer.restart()
             }
-            function stopClose() { closeDelayTimer.stop() }
-            function stopOpen() { openDelayTimer.stop() }
+            function stopClose() {
+                closeDelayTimer.triggerHandler = ()=>{}
+                closeDelayTimer.stop()
+            }
+            function stopOpen() {
+                openDelayTimer.triggerHandler = ()=>{}
+                openDelayTimer.stop() }
 
             onWindowRectChanged: control.visible ? updatePoistion() : undefined
             onPlacementChanged: control.visible ? canvasBg.requestPaint() : undefined
