@@ -1,10 +1,10 @@
 import QtQuick 2.15
-import QtQuick.Controls
+import QtQuick.Controls 2.15
 import QtQuick.Templates 2.15 as T
-import Qt5Compat.GraphicalEffects
 
 import AntCore 1.0
 import AntIcon 1.0
+import AntQtCompat.GraphicalEffects 1.0
 import "./Style"
 import "qrc:/AntButton/Utils/Utils.js" as Utils
 
@@ -75,7 +75,7 @@ T.Button
         color: Utils.bindStyleStateColor(root, self.sizeStyle.bgStyle)
 
         layer.enabled: true
-        layer.effect: DropShadow {
+        layer.effect: CompatDropShadow {
             verticalOffset: 2
             radius: 0
             color: Qt.rgba(0, 0,0, 0.02)
