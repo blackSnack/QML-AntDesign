@@ -1,4 +1,4 @@
-﻿name: win-qt5-vs2019
+﻿name: build
 
 on:
   push:

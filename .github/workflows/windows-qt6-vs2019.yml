@@ -1,4 +1,4 @@
-name: windows-qt6-vs2019
+name: build
 
 on:
   push:
