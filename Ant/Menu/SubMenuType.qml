@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQml 2.15
 
 import AntCore 1.0
 import AntText 1.0
@@ -124,14 +125,16 @@ Item {
                 leftMargin: AntTheme.margin
             }
             visible: height !== 0
-            height: {
-                if (!root.opened) {return 0}
-
-                return childrenRect.height
-            }
             model: root.model.children
-
             delegate: delegateComp
+
+            Binding {
+                target: subMenuView
+                when: root.opened
+                property: "height"
+                value: subMenuView.childrenRect.height
+                restoreMode: Binding.RestoreValue
+            }
         }
 
         Component {
