@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntSelect">
+        <file>AntSelect.qml</file>
+        <file>Style/AntSelectStyle.qml</file>
+    </qresource>
+</RCC>
