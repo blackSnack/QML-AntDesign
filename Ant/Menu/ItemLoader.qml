@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQml 2.15
 
 ListView {
     id: root
@@ -14,10 +15,6 @@ ListView {
         leftMargin: 20
     }
     visible: height !== 0
-    height: {
-        if (!root.opened) {return 0}
-        return childrenRect.height
-    }
 
     delegate: delegateComp
 
@@ -48,5 +45,13 @@ ListView {
             leftPadding: AntTheme.margin
             menu: root.menu
         }
+    }
+
+    Binding {
+        target: root
+        when: root.opened
+        property: "height"
+        value: root.childrenRect.height
+        restoreMode: Binding.RestoreValue
     }
 }
