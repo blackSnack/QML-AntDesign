@@ -1,31 +1,34 @@
-﻿﻿# AntDesign
+﻿﻿
+# AntDesign
 
-#### Introduce
+## Introduce
 QML component library based on AntDesign
 
-#### CI Build Status
+## CI Build Status
 
-| [Window][win-link] |
-| ------------------ |
-| ![win-badge]       |
+| [Windows-qt5][win-qt5-link] | [Windows-qt6][win-qt6-link] |
+| --------------------------- | --------------------------- |
+| ![win-qt5-badge]            | ![win-qt6-badge]            |
 
-[win-link]: https://github.com/blackSnack/QML-AntDesign/actions?query=windows-qt6-vs2019 "Windows Action"
-[win-badge]: https://github.com/blackSnack/QML-AntDesign/workflows/windows-qt6-vs2019/badge.svg
+[win-qt6-link]: https://github.com/blackSnack/QML-AntDesign/actions/workflows/windows-qt6-vs2019.yml "Windows Qt6 Action"
+[win-qt5-link]: https://github.com/blackSnack/QML-AntDesign/actions/workflows/windows-qt5-vs2019.yml "Windows Qt5 Action"
+[win-qt6-badge]: https://github.com/blackSnack/QML-AntDesign/actions/workflows/windows-qt6-vs2019.yml/badge.svg
+[win-qt5-badge]: https://github.com/blackSnack/QML-AntDesign/actions/workflows/windows-qt5-vs2019.yml/badge.svg
 
-#### How to build
-##### Required environment
-* Qt >= 6.0
+## How to build
+### Required environment
+* Qt6 or Qt5
 * Python >= 3.0
 * CMake >= 3.15
 * Conan [1.59, 2.0)
 
-##### Install & Config Conan
+### Install & Config Conan
 ```
     pip install conan==1.6.0
     conan config init
 ```
 
-##### Build
+### Build
 * Make sure the required packages is installed and add the path to environment.
 * Clone the code into a folder
 * Sync submodule for kms-conan
@@ -35,7 +38,7 @@ QML component library based on AntDesign
 * Config project with the CMakeLists.txt
 * Run `ant-plugins` target to build all `Ant*Plugin.dll` to plugins folder
 
-#### Components
+## Components
 * [AntButton](https://gitee.com/antenna_1/ant-design/wikis/AntButton)
 * [AntBadge](https://gitee.com/antenna_1/ant-design/wikis/AntBage)
 * [AntQRCode](https://gitee.com/antenna_1/ant-design/wikis/AntQRCode)
