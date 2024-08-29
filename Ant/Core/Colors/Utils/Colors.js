@@ -20,8 +20,8 @@ var presetDarkPalettes = {};
 Object.keys(presetPrimaryColors).forEach(function (key) {
   presetPalettes[key] = Generate.generate(presetPrimaryColors[key]);
   presetPalettes[key].primary = presetPalettes[key][5];
-  for(var i = 0; i < presetPalettes[key].length; i++) {
-    presetPalettes[`${key}_`+i] = presetPalettes[key][i]
+  for (var i = 0; i < presetPalettes[key].length; i++) {
+    presetPalettes[`${key}_` + (i + 1)] = presetPalettes[key][i]
   }
 
   // dark presetPalettes
@@ -30,8 +30,8 @@ Object.keys(presetPrimaryColors).forEach(function (key) {
     backgroundColor: '#141414'
   });
   presetDarkPalettes[key].primary = presetDarkPalettes[key][5];
-  for(var i = 0; i < presetDarkPalettes[key].length; i++) {
-    presetDarkPalettes[`${key}_`+i] = presetDarkPalettes[key][i]
+  for (var i = 0; i < presetDarkPalettes[key].length; i++) {
+    presetDarkPalettes[`${key}_` + (i + 1)] = presetDarkPalettes[key][i]
   }
 });
 
