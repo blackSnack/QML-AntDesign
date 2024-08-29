@@ -1,1 +1,3 @@
 ﻿AntTagStyle 1.0 AntTagStyle.qml
+
+singleton PresetsColors 1.0 PresetsColors.qml

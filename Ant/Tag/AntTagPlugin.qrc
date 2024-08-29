@@ -2,5 +2,6 @@
     <qresource prefix="/AntTag">
         <file>AntTag.qml</file>
         <file>Style/AntTagStyle.qml</file>
+        <file>Style/PresetsColors.qml</file>
     </qresource>
 </RCC>
