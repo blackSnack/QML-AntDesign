@@ -20,7 +20,17 @@
 // SOFTWARE.
 //
 //
+import QtQuick 2.15
+import QtQml 2.15
+
+import AntCore 1.0
 
 QtObject {
+    id: style
 
+    property color defaultBg: AntColors.gray_2
+    property color defaultColor: Qt.rgba(0, 0, 0, 0.88)
+
+    property int height: 22
+    property int iconSize: 10
 }
