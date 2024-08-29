@@ -47,10 +47,10 @@ Control {
     horizontalPadding: AntTheme.paddingXS
 
     background: AntRectangle {
-        color: antStyle.defaultBg
+        color: root.color ? PresetsColors.get(root.color).bgColor : antStyle.defaultBg
         border {
             radius: AntTheme.borderRadiusSM
-            color: AntTheme.colorBorder
+            color: root.color ? PresetsColors.get(root.color).borderColor :AntTheme.colorBorder
             width: bordered ? AntTheme.lineWidth : 0
         }
     }
@@ -60,7 +60,7 @@ Control {
             height: parent.height
             font: AntFont.reuglar12
             text: root.text
-            color: root.antStyle.defaultColor
+            color: root.color ? PresetsColors.get(root.color).textColor : root.antStyle.defaultColor
             verticalAlignment: Text.AlignVCenter
         }
 
