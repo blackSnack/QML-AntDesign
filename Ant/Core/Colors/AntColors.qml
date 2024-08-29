@@ -87,6 +87,7 @@ QtObject {
     readonly property var palettes: isDark ? presetDarkPalettes : presetPalettes
     readonly property var presetPalettes: Colors.presetPalettes
     readonly property var presetDarkPalettes: Colors.presetDarkPalettes
+    readonly property var presetPrimaryColors: Colors.presetPrimaryColors
     readonly property var red: Colors.red
     readonly property var volcano: Colors.volcano
     readonly property var gold: Colors.gold
