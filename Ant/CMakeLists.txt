@@ -25,6 +25,7 @@ add_subdirectory(Input)
 add_subdirectory(InputNumber)
 add_subdirectory(Divider)
 add_subdirectory(Ribbon)
+add_subdirectory(Tag)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)

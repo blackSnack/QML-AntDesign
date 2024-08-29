@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntTag">
+        <file>AntTag.qml</file>
+        <file>Style/AntTagStyle.qml</file>
+    </qresource>
+</RCC>
