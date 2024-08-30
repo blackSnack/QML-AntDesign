@@ -19,6 +19,12 @@ QtObject {
             ["geekblue",{borderColor: AntColors.palettes.geekblue_3, bgColor: AntColors.palettes.geekblue_1, textColor: AntColors.geekblue.primary}],
             ["purple",  {borderColor: AntColors.palettes.purple_3, bgColor: AntColors.palettes.purple_1, textColor: AntColors.purple.primary}],
             ["magenta", {borderColor: AntColors.palettes.magenta_3, bgColor: AntColors.palettes.magenta_1, textColor: AntColors.magenta.primary}],
+
+            ["success", {borderColor: AntColors.palettes.green_3, bgColor: AntColors.palettes.green_1, textColor: AntColors.green.primary}],
+            ["processing", {borderColor: AntColors.palettes.blue_3, bgColor: AntColors.palettes.blue_1, textColor: AntColors.blue.primary}],
+            ["error", {borderColor: AntColors.palettes.red_3, bgColor: AntColors.palettes.red_1, textColor: AntColors.red.primary}],
+            ["default", {borderColor: AntColors.gray_5, bgColor: AntColors.gray_2, textColor: AntTheme.colorTextHeading}],
+            ["warning", {borderColor: AntColors.palettes.gold_3, bgColor: AntColors.palettes.gold_1, textColor: AntColors.gold.primary}],
         ]
     ))
 

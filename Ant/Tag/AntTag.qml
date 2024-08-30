@@ -18,6 +18,8 @@ Control {
     property var closeIcon: false
 
     // Color of the Tag
+    // Preset 5 status colors: success | processing | error | default | warning
+    // Other preset colors @see: PresetsColors.qml
     property var color: undefined
 
     // Set the icon of tag
@@ -152,6 +154,7 @@ Control {
 
         AntIcon {
             source: root.icon
+            color: PresetsColors.get(root.color).textColor
         }
     }
 
@@ -163,7 +166,7 @@ Control {
             source: obj.source ?? ""
             spin: obj.spin ?? false
             rotate: obj.rotate ?? 0
-            color: obj.color ?? AntColors.gray_5
+            color: PresetsColors.get(obj.color ?? root.color).textColor
             secondaryColor: obj.secondaryColor ?? "#D9D9D9"
             sourceWidth: obj.sourceWidth ?? width
             sourceHeight: obj.sourceHeight ?? height
