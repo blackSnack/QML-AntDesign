@@ -6,6 +6,8 @@ import AntIcon 1.0
 Item {
     required property Item input
     property alias source: icon.source
+    property alias color: icon.color
+    property alias secondaryColor: icon.secondaryColor
 
     width: icon.width
     AntIcon {

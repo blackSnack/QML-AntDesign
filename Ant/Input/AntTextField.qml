@@ -261,6 +261,8 @@ AntRectangle {
         IconComponent {
             input: root
             source: root.suffix.icon ?? ""
+            color: antStyle.suffixColor ?? textField.color
+            secondaryColor: antStyle.suffixColorSecondaryColor ?? "#D9D9D9"
         }
     }
 
