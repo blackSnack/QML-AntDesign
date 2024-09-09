@@ -16,12 +16,12 @@ Column {
         anchors {
             left: parent.left
             right: parent.right
-            leftMargin: menu.itemPaddingInline
-            rightMargin: menu.itemPaddingInline
+            leftMargin: menu.antStyle.itemPaddingInline
+            rightMargin: menu.antStyle.itemPaddingInline
         }
         text: model.label
-        color: menu.groupTitleColor
-        font.pixelSize: menu.groupTitleFontSize
+        color: menu.antStyle.groupTitleColor
+        font.pixelSize: menu.antStyle.groupTitleFontSize
     }
 
     ItemLoader {
