@@ -7,8 +7,7 @@ import AntMenu 1.0
 AntPopover {
     id: popover
 
-    property var menu: []
-    property Item menuItem: undefined
+    property LazyItemProxy menu: LazyItemProxy {}
     property var currentSelectedText: []
     property var currentSelectedKey: []
 
@@ -18,13 +17,15 @@ AntPopover {
     content: AntMenu {
         id: menuItem
         width: popover.control.width
-        model: menu
         selectedKeys: currentSelectedKey
-        itemMarginBlock: 0
-        itemHeight: AntTheme.controlHeight
+
+        antStyle {
+            itemMarginBlock: 0
+            itemHeight: AntTheme.controlHeight
+        }
 
         Component.onCompleted: {
-            popover.menuItem = menuItem
+            popover.menu.target = menuItem
         }
 
         onSelect: (item, key, keyPath, selectedItems) => {
