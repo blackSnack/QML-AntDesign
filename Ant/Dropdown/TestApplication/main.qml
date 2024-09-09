@@ -23,11 +23,13 @@ Window {
         id: dropdown
         target: btn
         placement: Ant.BottomLeft
-        menu: [
-            AntCoreUtils.getItem("Key_1_B1", "B1", "", [], "Item"),
-            AntCoreUtils.getItem("Key_1_B2", "B2", "", [], "Item"),
-            AntCoreUtils.getItem("Key_1_B3", "B3", "", [], "Item"),
-            AntCoreUtils.getItem("Key_1_B4", "B4", "", [], "Item"),
-        ]
+        menu.wapper: ({
+            model: [
+                AntCoreUtils.getItem("Key_1_B1", "B1", "", [], "Item"),
+                AntCoreUtils.getItem("Key_1_B2", "B2", "", [], "Item"),
+                AntCoreUtils.getItem("Key_1_B3", "B3", "", [], "Item"),
+                AntCoreUtils.getItem("Key_1_B4", "B4", "", [], "Item")
+            ]
+        })
     }
 }
