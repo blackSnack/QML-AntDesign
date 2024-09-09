@@ -23,5 +23,6 @@
         <file>Utils/Utils.js</file>
         <file>Background/AntTransparentBg.qml</file>
         <file>Background/qmldir</file>
+        <file>LazyItemProxy/Proxy.js</file>
     </qresource>
 </RCC>

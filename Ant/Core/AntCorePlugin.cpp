@@ -7,6 +7,7 @@
 
 #include "Ant.hpp"
 #include "Awesome/AntAwesomeUtils.hpp"
+#include "LazyItemProxy/LazyItemProxy.hpp"
 #include "Rectangle/AntRectangle.hpp"
 #include "Rectangle/BorderConfig.hpp"
 #include <QDebug>
@@ -30,6 +31,7 @@ void AntCorePlugin::registerTypes(const char* uri)
     regiseterAntEnums(uri);
     qmlRegisterType<Ant::AntRectangle>(uri, 1, 0, "AntRectangle");
     qmlRegisterType<Ant::BorderConfig>(uri, 1, 0, "AntBorder");
+    qmlRegisterType<Ant::LazyItemProxy>(uri, 1, 0, "LazyItemProxy");
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Theme/AntTheme.qml"), uri, 1, 0, "AntTheme");
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Font/AntFont.qml"), uri, 1, 0, "AntFont");
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Colors/AntColors.qml"), uri, 1, 0, "AntColors");
