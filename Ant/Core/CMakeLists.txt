@@ -19,6 +19,7 @@ add_ant_qml_plugin(
         Rectangle/BorderConfig.hpp
         Awesome/AntAwesomeUtils.cpp
         Awesome/AntAwesomeUtils.hpp
+        LazyItemProxy/LazyItemProxy.hpp
         Enums/AntAwesome.hpp
         Enums/AntEnums.hpp
         Ant.hpp
