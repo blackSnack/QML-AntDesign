@@ -2,6 +2,7 @@ import QtQuick 2.15
 
 import AntCore 1.0
 
+import "./Style"
 import "qrc:/AntCore/Utils/Utils.js" as Utils
 
 ListView {
@@ -10,24 +11,11 @@ ListView {
     property bool selectable: true
     readonly property var selectedItems: d.selectedItems
     property var selectedKeys: []
-
-    property int itemHeight: 40
-    property color itemColor: AntTheme.colorTextHeading
-    property color itemDisabledColor: AntTheme.colorTextDisabled
-    property int itemPaddingInline: 16
-    property int iconSize: 14
-    property color itemActiveBg: AntColors.blue_1
-    property color itemSelectedBg: AntColors.blue_1
-    property color itemBg: AntColors.gray_1
-    property color itemHoverBg: AntColors.gray_13_A6
-    property color subMenuItemBg: AntColors.gray_13_A2
-    property color groupTitleColor: AntColors.gray_13_A45
-    property int groupTitleFontSize: 14
-    property int itemBorderRadius: 8
-    property int itemMarginBlock: 4
-    property int itemMarginInline: 4
-    property int iconMarginInlineEnd: 10
     property bool multiple: false // not support multiple selected
+    // export mode alias as items
+    // property alias items: mode
+
+    property AntMenuStyle antStyle: AntMenuStyle {}
 
     property var __submenus: []
 
@@ -38,12 +26,12 @@ ListView {
                                   Group: groupMenu
                               })
     property var backgroundColorStyle: new Utils.ControlColorStyle(
-                                           itemBg,
-                                           itemBg,
-                                           itemActiveBg,
-                                           itemSelectedBg,
-                                           itemHoverBg,
-                                           itemActiveBg
+                                           antStyle.itemBg,
+                                           antStyle.itemBg,
+                                           antStyle.itemActiveBg,
+                                           antStyle.itemSelectedBg,
+                                           antStyle.itemHoverBg,
+                                           antStyle.itemActiveBg
                                            )
 
     signal click(var item, var key, var keyPath)
@@ -51,7 +39,8 @@ ListView {
     signal hovered(var item, var key, var keyPath)
     signal pressed(var item, var key, var keyPath)
 
-    spacing: itemMarginBlock
+    objectName: "ANT_MENU"
+    spacing: antStyle.itemMarginBlock
     height: contentHeight
     delegate: Column {
         width: root.width
@@ -142,19 +131,19 @@ ListView {
     Rectangle {
         id: highlightItem
         property var currentItem: undefined
-        x: itemMarginInline
-        width: parent.width - (itemMarginInline * 2)
-        height: itemHeight
-        radius: itemBorderRadius
+        x: antStyle.itemMarginInline
+        width: parent.width - (antStyle.itemMarginInline * 2)
+        height: antStyle.itemHeight
+        radius: antStyle.itemBorderRadius
         visible: currentItem !== undefined && currentItem.hovered && !currentItem.checked
         color: {
             if (!currentItem || !currentItem.enabled) {return "transparent"}
 
             if (currentItem.pressed) {
-                return itemActiveBg
+                return antStyle.itemActiveBg
             }
             if (currentItem.hovered) {
-                return itemHoverBg
+                return antStyle.itemHoverBg
             }
             return "transparent"
         }
@@ -165,15 +154,15 @@ ListView {
     Rectangle {
         id: selectedHighlightItem
         property var currentItem: undefined
-        x: itemMarginInline
-        width: parent.width - (itemMarginInline * 2)
-        height: itemHeight
-        radius: itemBorderRadius
+        x: antStyle.itemMarginInline
+        width: parent.width - (antStyle.itemMarginInline * 2)
+        height: antStyle.itemHeight
+        radius: antStyle.itemBorderRadius
         visible: currentItem !== undefined && currentItem.visible && currentItem.checked
         color: {
             if (!currentItem || !currentItem.enabled) {return "transparent"}
             if (currentItem.checked) {
-                return itemSelectedBg
+                return antStyle.itemSelectedBg
             }
             return "transparent"
         }

@@ -18,40 +18,48 @@ Item {
     property alias text: label.text
     property string key: model ? model.key ?? "" : ""
     property string keyPath: model.keyPath ? `${model.keyPath}/${model.key}` : `/${model.key}`
+    readonly property int iconSize: menu ? menu.antStyle.iconSize : 0
 
     anchors {
         left: parent.left
         right: parent.right
     }
 
-    height: itemHeight
+    height: menu.antStyle.itemHeight
 
     Row {
         id: content
+        enabled: model.disabled === undefined ? true : model.disabled
         anchors {
             left: parent.left
-            leftMargin: menu.itemPaddingInline
+            leftMargin: menu.antStyle.itemPaddingInline
             right: parent.right
-            rightMargin: menu.itemPaddingInline
+            rightMargin: menu.antStyle.itemPaddingInline
             verticalCenter: parent.verticalCenter
         }
 
-        spacing: menu.iconMarginInlineEnd
+        spacing: menu.antStyle.iconMarginInlineEnd
 
         AntIcon {
             id: icon
             y: (content.height - iconSize) / 2
             visible: source !== undefined && source !== ""
-            width: menu ? menu.iconSize : 0
-            height: menu ? menu.iconSize : 0
+            width: iconSize
+            height: iconSize
             source: model.icon
             color: label.color
         }
 
         AntText {
             id: label
-            color: enabled ? (menu ? menu.itemColor : AntColors.gray_13) : menu.itemDisabledColor
             text: model.label
+            color: {
+                if (!menu) { return AntColors.gray_13}
+                if (!enabled) {
+                    return menu.antStyle.itemDisabledColor
+                }
+                return enabled ? (root.checked ? menu.antStyle.itemSelectedColor : hovered ? menu.antStyle.itemHoverColor : menu.antStyle.itemColor) : menu.antStyle.itemDisabledColor
+            }
         }
     }
 
@@ -61,16 +69,18 @@ Item {
         property bool checked: false
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: content.enabled ? Qt.ArrowCursor : Qt.ForbiddenCursor
 
         onEntered: hovered = true
         onExited: hovered = false
 
         onClicked: {
-            menu.click(root, key, keyPath)
+            if (content.enabled)
+                menu.click(root, key, keyPath)
         }
 
-        onHoveredChanged: hovered ? menu.hovered(root, key, keyPath) : undefined
-        onPressed: pressed ? menu.pressed(root, key, keyPath) : undefined
+        onHoveredChanged: content.enabled && hovered ? menu.hovered(root, key, keyPath) : undefined
+        onPressed: content.enabled && pressed ? menu.pressed(root, key, keyPath) : undefined
     }
 
     Component.onCompleted: {
