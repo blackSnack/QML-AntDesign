@@ -20,7 +20,34 @@
 // SOFTWARE.
 //
 //
+import QtQuick 2.15
+
+import AntCore 1.0
 
 QtObject {
+    property int size: Ant.Middle
 
+    // Font size of option
+    property int optionFontSize: 14
+    
+    // Height of option
+    property int optionHeight: 32
+
+    // z-index of dropdown
+    property int zIndexPopup: 1050
+
+    // Font weight when option is selected
+    property int optionSelectedFontWeight: 600
+
+    // Text color when option is selected
+    property color optionSelectedColor: AntColors.gray_13_A88 
+
+    // Background color when option is selected
+    property color optionSelectedBg: AntColors.palettes.blue_1
+
+    // Background color of selector
+    property color selectorBg: AntColors.gray_1
+
+    // Background color when option is active
+    property color optionActiveBg: AntColors.gray_13_A4
 }
