@@ -24,6 +24,7 @@ FocusScope {
     readonly property alias mouseLayer: textField.mouseArea
     readonly property bool acceptableInput: textField.content.acceptableInput
     property var validator: null
+    property bool readOnly: false
 
     property var __styleProxy: new Utils.AntInputStyleProxy(root, antStyle)
 
@@ -46,6 +47,7 @@ FocusScope {
             font.pixelSize: __styleProxy.fontSize
             validator: root.validator
             text: root.text
+            readOnly: root.readOnly
         }
         prefix: root.prefix
         suffix: root.suffix
