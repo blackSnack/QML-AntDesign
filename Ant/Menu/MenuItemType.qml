@@ -19,7 +19,9 @@ Item {
     property string key: model ? model.key ?? "" : ""
     property string keyPath: model.keyPath ? `${model.keyPath}/${model.key}` : `/${model.key}`
     readonly property int iconSize: menu ? menu.antStyle.iconSize : 0
-
+    readonly property int itemLevel: menu.getItemLevel(root.parent)
+    readonly property Item ownMenuGroup: menu.getOwnMenuGroup(root.parent)
+    
     anchors {
         left: parent.left
         right: parent.right
@@ -30,6 +32,7 @@ Item {
     Row {
         id: content
         enabled: model.disabled === undefined ? true : model.disabled
+        leftPadding: itemLevel * AntTheme.margin
         anchors {
             left: parent.left
             leftMargin: menu.antStyle.itemPaddingInline
@@ -63,20 +66,34 @@ Item {
         }
     }
 
-    MouseArea {
+    ItemBackground {
         id: mouseArea
-        property bool hovered: false
-        property bool checked: false
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: content.enabled ? Qt.ArrowCursor : Qt.ForbiddenCursor
+        property bool checked: menu.selectedKeys.includes(key)
 
-        onEntered: hovered = true
-        onExited: hovered = false
+        anchors.fill: parent
+
+        cursorShape: content.enabled ? Qt.ArrowCursor : Qt.ForbiddenCursor
+        radius: antStyle.itemBorderRadius
+        color: {
+            if (!content.enabled) {return "transparent"}
+            if (checked) {
+                return menu.antStyle.itemSelectedBg
+            }
+            if (pressed) {
+                return menu.antStyle.itemActiveBg
+            }
+
+            if (hovered) {
+                return menu.antStyle.itemHoverBg
+            }
+            return "transparent"
+        }
 
         onClicked: {
-            if (content.enabled)
+            if (content.enabled) {
                 menu.click(root, key, keyPath)
+                menu.selectItem(root)
+            }
         }
 
         onHoveredChanged: content.enabled && hovered ? menu.hovered(root, key, keyPath) : undefined
@@ -84,8 +101,10 @@ Item {
     }
 
     Component.onCompleted: {
-        if(menu.selectedKeys.includes(key)) {
-            menu.click(root, key, keyPath)
-        }
+        menu.addChildMenuItem(root)
+    }
+
+    Component.onDestruction: {
+        menu.removeChildMenuItem(root)
     }
 }

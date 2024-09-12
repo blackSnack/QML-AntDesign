@@ -11,9 +11,7 @@ ListView {
     property bool selectable: true
     readonly property var selectedItems: d.selectedItems
     property var selectedKeys: []
-    property bool multiple: false // not support multiple selected
-    // export mode alias as items
-    // property alias items: mode
+    property bool multiple: false
 
     property AntMenuStyle antStyle: AntMenuStyle {}
 
@@ -63,6 +61,8 @@ ListView {
         }
     }
 
+    onSelectedKeysChanged: Qt.callLater(d.syncSelectedItem)
+
     Component {
         id: groupMenu
         MenuItemGroupType { }
@@ -89,122 +89,123 @@ ListView {
         id: d
 
         property var selectedItems: []
+        property var itemMap: new Map()
 
-        function addSelectedItem(key) {
-            if (!multiple) {
-                removeAllselectedItems()
-                selectedItems.push(key)
-            }else {
-                if (selectedItems.indexOf(key) !== -1) { return }
-                selectedItems.push(key)
+        onItemMapChanged: {
+            Qt.callLater(syncSelectedItem)
+        }
+
+        function syncSelectedItem() {
+            if(root.selectedKeys.length === 0 || itemMap.size === 0) {
+                removeAllselectedItems();
+                return
             }
+
+            for(var i = 0; i < root.selectedKeys.length; i++) {
+                if (itemMap.has(root.selectedKeys[i])) {
+                    let item = itemMap.get(root.selectedKeys[i])
+                    if (!item.checked) {
+                        selectItem(item)
+                    }
+                }
+            }
+        }
+
+        function addSelectedItem(item) {
+            if (!multiple) {
+                item.checked = true
+                removeAllselectedItems()
+                selectedItems.push(item)
+            }else {
+                item.checked = !item.checked
+                if (item.checked) {
+                    if (selectedItems.indexOf(item) !== -1) { return }
+                    selectedItems.push(item)
+                } else {
+                    removeSelectedKey(item)
+                }
+            }
+            console.log("addSelectedItem ", item.key, selectedItems.length)
+            d.updateSubMenuListState()
+
+            var selectedKeys = []
+            // sync selected items
+            for (var i = 0; i < selectedItems.length; i++) {
+                selectedKeys.push(selectedItems[i].key)
+            }
+            // sync property
+            root.selectedKeys = selectedKeys
+            Qt.callLater(selectedItemsChanged)
         }
 
         function removeAllselectedItems() {
             selectedItems.forEach((key)=> key.checked = false)
             selectedItems = []
+            Qt.callLater(selectedItemsChanged)
         }
 
-        function removeSelectedKey(key) {
-            let index = selectedItems.indexOf(key);
+        function removeSelectedKey(item) {
+            let index = selectedItems.indexOf(item);
             if (index !== -1) {
-                key.checked = false
-            }
-            while (index !== -1) {
-                selectedItems.splice(index, 1);
-                index = selectedItems.indexOf(elementToRemove);
+                item.checked = false
+                // remove item
+                selectedItems.splice(index, 1)
+                Qt.callLater(selectedItemsChanged)
             }
         }
 
-        function updateSubMenuListState(keyPath) {
-            let paths = keyPath.split("/")
+        function updateSubMenuListState() {
+            var selectedKeys = []
             __submenus.forEach(item=> {
-                                  if (paths.includes(item.key)) {
-                                      item.actived !== undefined ? item.actived = true : undefined
-                                  }else {
-                                      item.actived !== undefined ? item.actived = false : undefined
-                                  }
+                                    item.actived = false
+                                    for(var i = 0; i < selectedItems.length; i++) {
+                                        // sync sub menu actived status
+                                        let keyPath = selectedItems[i].keyPath
+                                        let paths = keyPath.split("/")
+                                        if (paths.includes(item.key)) {
+                                            item.actived !== undefined ? item.actived = true : undefined
+                                            return;
+                                        }else {
+                                            item.actived !== undefined ? item.actived = false : undefined
+                                        }
+                                    } 
                               })
         }
     }
 
-    Rectangle {
-        id: highlightItem
-        property var currentItem: undefined
-        x: antStyle.itemMarginInline
-        width: parent.width - (antStyle.itemMarginInline * 2)
-        height: antStyle.itemHeight
-        radius: antStyle.itemBorderRadius
-        visible: currentItem !== undefined && currentItem.hovered && !currentItem.checked
-        color: {
-            if (!currentItem || !currentItem.enabled) {return "transparent"}
-
-            if (currentItem.pressed) {
-                return antStyle.itemActiveBg
-            }
-            if (currentItem.hovered) {
-                return antStyle.itemHoverBg
-            }
-            return "transparent"
+    function getItemLevel(item, level = 0) {
+        if (item == null || item instanceof AntMenu) {
+            return level
         }
-        z: -1
-        onCurrentItemChanged: updatePosition(highlightItem)
-    }
-
-    Rectangle {
-        id: selectedHighlightItem
-        property var currentItem: undefined
-        x: antStyle.itemMarginInline
-        width: parent.width - (antStyle.itemMarginInline * 2)
-        height: antStyle.itemHeight
-        radius: antStyle.itemBorderRadius
-        visible: currentItem !== undefined && currentItem.visible && currentItem.checked
-        color: {
-            if (!currentItem || !currentItem.enabled) {return "transparent"}
-            if (currentItem.checked) {
-                return antStyle.itemSelectedBg
-            }
-            return "transparent"
+        if (item instanceof SubMenuType || item instanceof MenuItemGroupType) 
+        {
+            return getItemLevel(item.parent, level + 1)
         }
-        z: -1
-
-        onCurrentItemChanged: updatePosition(selectedHighlightItem)
+        return getItemLevel(item.parent, level)
     }
 
-    function updatePosition(item) {
-        if (!item.currentItem) return;
-        const itemPos = item.currentItem.mapToItem(root, 0, 0)
-        item.y = itemPos.y
+    function getOwnMenuGroup(item) {
+        if (item == null || item instanceof AntMenu) {
+            return null
+        }
+
+        if (item instanceof SubMenuType || item instanceof MenuItemGroupType) {
+            return item
+        }
+        return getOwnMenuGroup(item.parent)
     }
 
-    onContentYChanged: {
-        updatePosition(highlightItem)
-        updatePosition(selectedHighlightItem)
+    function addChildMenuItem(item) {
+        d.itemMap.set(item.key, item)
     }
 
-    onContentHeightChanged: {
-        updatePosition(highlightItem)
-        updatePosition(selectedHighlightItem)
+    function removeChildMenuItem(item) {
+        d.itemMap.delete(item.key)
     }
 
-    onClick: (item, key, keyPath) => {
-                 if (selectable && !item.checked) {
-                     item.checked = true
-                     const itemPos = item.mapToItem(root, 0, 0)
-                     selectedHighlightItem.currentItem = item
-                     d.addSelectedItem(item)
-                     d.updateSubMenuListState(keyPath)
-                     select(item, key, keyPath, selectedItems)
-                 } else if (selectable && item.checked && multiple) {
-                     d.removeSelectedKey(item)
-                 }
-             }
-
-    onHovered: (item, key, keyPath) => {
-                   if (item) {
-                       const itemPos = item.mapToItem(root, 0, 0)
-                       highlightItem.y = itemPos.y
-                       highlightItem.currentItem = item
-                   }
-               }
+    function selectItem(item) {
+        if(selectable) {
+            d.addSelectedItem(item)
+        }
+    }
 }
