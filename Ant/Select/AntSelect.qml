@@ -62,9 +62,7 @@ Item {
             function onSelect(item, key, keyPath, selectedItems) {
                 root.select(key, {label: item.model.label, value: item.model.key})
                 root.change(key, {label: item.model.label, value: item.model.key})
-                input.text = item.text
                 // TODO: Update to array values
-                root.value = item.text
                 dropdown.close()
             }
         }
@@ -74,6 +72,13 @@ Item {
         id: input
         width: 200
         readOnly: true
+        text: {
+            let selectedItems = dropdown.menu.target ? dropdown.menu.target.selectedItems : null
+            if (selectedItems) {
+                return selectedItems.length > 0 ? selectedItems[0].text : ""
+            }
+            return "";
+        }
 
         antStyle {
             size: root.antStyle.size
