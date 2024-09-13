@@ -96,23 +96,17 @@ ListView {
         }
 
         function syncSelectedItem() {
-            if(root.selectedKeys.length === 0 || itemMap.size === 0) {
-                removeAllselectedItems();
-                return
-            }
-
             for(var i = 0; i < root.selectedKeys.length; i++) {
                 if (itemMap.has(root.selectedKeys[i])) {
                     let item = itemMap.get(root.selectedKeys[i])
-                    if (!item.checked) {
-                        selectItem(item)
-                    }
+                    selectItem(item)
                 }
             }
         }
 
         function addSelectedItem(item) {
             if (!multiple) {
+                if (selectedItems.indexOf(item) !== -1) { return }
                 item.checked = true
                 removeAllselectedItems()
                 selectedItems.push(item)
@@ -125,7 +119,6 @@ ListView {
                     removeSelectedKey(item)
                 }
             }
-            console.log("addSelectedItem ", item.key, selectedItems.length)
             d.updateSubMenuListState()
 
             var selectedKeys = []
@@ -197,6 +190,7 @@ ListView {
 
     function addChildMenuItem(item) {
         d.itemMap.set(item.key, item)
+        d.itemMapChanged()
     }
 
     function removeChildMenuItem(item) {
@@ -206,6 +200,8 @@ ListView {
     function selectItem(item) {
         if(selectable) {
             d.addSelectedItem(item)
+
+            select(item, item.key, item.keyPath, root.selectedItems)
         }
     }
 }
