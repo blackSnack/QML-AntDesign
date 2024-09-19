@@ -12,6 +12,7 @@ ListView {
     readonly property var selectedItems: d.selectedItems
     property var selectedKeys: []
     property bool multiple: false
+    property alias items: menuModel.values
 
     property AntMenuStyle antStyle: AntMenuStyle {}
 
@@ -38,9 +39,12 @@ ListView {
     signal pressed(var item, var key, var keyPath)
 
     objectName: "ANT_MENU"
+
+    model: AntListModel { id: menuModel }
     spacing: antStyle.itemMarginBlock
     height: contentHeight
     delegate: Column {
+        required property var modelData
         width: root.width
 
         Loader {
