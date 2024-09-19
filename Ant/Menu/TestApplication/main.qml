@@ -18,7 +18,7 @@ Window {
     AntMenu {
         width: parent.width
         height: parent.height
-        model: [
+        items: [
             getItem("Key_1", "Bus", "MailOutlined", [
                         getItem("Key_1_B1", "B1", "", [],"Item"),
                         getItem("Key_1_B2", "B2", "", [
