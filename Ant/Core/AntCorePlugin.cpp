@@ -8,6 +8,7 @@
 #include "Ant.hpp"
 #include "Awesome/AntAwesomeUtils.hpp"
 #include "LazyItemProxy/LazyItemProxy.hpp"
+#include "Model/AntListModel.hpp"
 #include "Rectangle/AntRectangle.hpp"
 #include "Rectangle/BorderConfig.hpp"
 #include <QDebug>
@@ -37,6 +38,7 @@ void AntCorePlugin::registerTypes(const char* uri)
     qmlRegisterSingletonType(QUrl("qrc:/AntCore/Colors/AntColors.qml"), uri, 1, 0, "AntColors");
     qmlRegisterType(QUrl("qrc:/AntCore/Shadow/ShadowL1Down.qml"), uri, 1, 0, "ShadowL1Down");
     qmlRegisterType(QUrl("qrc:/AntCore/Background/AntTransparentBg.qml"), uri, 1, 0, "AntTransparentBg");
+    qmlRegisterType<Ant::AntListModel>(uri, 1, 0, "AntListModel");
     // How to register js to qml plugin
     // qmlRegisterType(QUrl("qrc:/AntCore/Utils/Utils.js"), uri, 1, 0, "AntCoreUtils");
 }

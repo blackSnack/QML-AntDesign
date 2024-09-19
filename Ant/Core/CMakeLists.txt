@@ -22,6 +22,8 @@ add_ant_qml_plugin(
         LazyItemProxy/LazyItemProxy.hpp
         Enums/AntAwesome.hpp
         Enums/AntEnums.hpp
+        Model/AntListModel.hpp
+        Model/AntListModel.cpp
         Ant.hpp
         AntCorePlugin.cpp
         AntCorePlugin.qrc
