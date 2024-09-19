@@ -246,10 +246,15 @@ private:
 
         if (!isQObject(property, target))
         {
-            qWarning() << "The Property type different with JSValue!"
-                       << "Property type is not QObject. JSValue type is QObject";
+            // write object to target
+            QVariant var;
+            var.setValue(object);
+            property.write(target, var);
         }
-        syncProperty(property.read(target).value<QObject*>(), object);
+        else
+        {
+            syncProperty(property.read(target).value<QObject*>(), object);
+        }
     }
 
     QObject* targetM{ nullptr };
