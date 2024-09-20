@@ -11,30 +11,17 @@ Item {
     id: root
 
     // {label, value}[]
-    property var options: []
+    property alias options: selectModel.values
     // Current selected option (considered as a immutable array)
     property var value
     property AntSelectStyle antStyle: AntSelectStyle {}
+    property var selectModel: AntListModel { id: selectModel }
 
     // function(value, option:Option | Array<Option>)
     signal change(var value, var option)
     // function(value: string | number | LabeledValue, option: Option)
     signal select(var value, var option)
 
-    QtObject {
-        id: d
-
-        function createMenuWithOptions() {
-            var menuModel = []
-            for (var i in options) {
-                const option = options[i]
-                const itemObj = CoreUtils.getItem(option.value, option.label, option.children ?? undefined, option.type ?? "Item")
-                itemObj.disabled = option.disabled ?? true
-                menuModel.push(itemObj)
-            }
-            return menuModel
-        }
-    }
 
     width: input.width
     height: input.height
@@ -48,7 +35,7 @@ Item {
         control.width: root.width
 
         menu.wapper: ({
-            model: d.createMenuWithOptions(),
+            items: selectModel,
             antStyle: ({
                 itemSelectedBg: root.antStyle.optionSelectedBg, 
                 itemSelectedColor: root.antStyle.optionSelectedColor,
@@ -107,7 +94,7 @@ Item {
     onValueChanged: {
         let typeStr = typeof value
         if (typeStr === "number") {
-            dropdown.currentSelectedKey = [options[value].value]
+            dropdown.currentSelectedKey = Qt.binding(()=> [options[value]["value"]]) 
         } else if (typeStr === "string") {
             dropdown.currentSelectedKey = [value]
         } else if (typeStr === "object") {
