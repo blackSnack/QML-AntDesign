@@ -62,7 +62,7 @@ class AntInputStyleProxy {
 
     currentState(target) {
         if(!target.enabled) return "disabled"
-        if(target.content && target.content.activeFocus) return "activeFocus"
+        if(target.activeFocus) return "activeFocus"
         if(target.hovered) return "hovered"
         return "default"
     }
