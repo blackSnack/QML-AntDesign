@@ -103,7 +103,9 @@ ListView {
             for(var i = 0; i < root.selectedKeys.length; i++) {
                 if (itemMap.has(root.selectedKeys[i])) {
                     let item = itemMap.get(root.selectedKeys[i])
-                    selectItem(item)
+                    if (!item.checked) {
+                        selectItem(item)
+                    }
                 }
             }
         }

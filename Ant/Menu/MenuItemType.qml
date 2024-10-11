@@ -17,10 +17,12 @@ Item {
     property alias iconSource: icon.source
     property alias text: label.text
     property string key: model ? model.key ?? "" : ""
-    property string keyPath: model.keyPath ? `${model.keyPath}/${model.key}` : `/${model.key}`
+    property string keyPath: model ? (model.keyPath ? `${model.keyPath}/${model.key}` : `/${model.key}`) : ""
     readonly property int iconSize: menu ? menu.antStyle.iconSize : 0
     readonly property int itemLevel: menu.getItemLevel(root.parent)
     readonly property Item ownMenuGroup: menu.getOwnMenuGroup(root.parent)
+    readonly property var icon: model ? model.icon : ""
+    readonly property var disabled: model ? (model.disabled === undefined ? true : model.disabled) : false
     
     anchors {
         left: parent.left
@@ -31,7 +33,7 @@ Item {
 
     Row {
         id: content
-        enabled: model.disabled === undefined ? true : model.disabled
+        enabled: root.disabled
         leftPadding: itemLevel * AntTheme.margin
         anchors {
             left: parent.left
@@ -49,13 +51,13 @@ Item {
             visible: source !== undefined && source !== ""
             width: iconSize
             height: iconSize
-            source: model.icon
+            source: root.icon
             color: label.color
         }
 
         AntText {
             id: label
-            text: model.label
+            text: model ? model.label : ""
             color: {
                 if (!menu) { return AntColors.gray_13}
                 if (!enabled) {
@@ -102,6 +104,7 @@ Item {
 
     Component.onCompleted: {
         menu.addChildMenuItem(root)
+        root.checked ? menu.selectItem(root) : undefined
     }
 
     Component.onDestruction: {
