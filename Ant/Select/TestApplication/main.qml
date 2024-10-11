@@ -10,41 +10,44 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    AntSelect { 
-        options:[
-            {label: "jack", value: "jack"},
-            {label: "lucy", value: "lucy"},
-            {label: "Yiminghe", value: "Yiminghe"},
-            {label: "disabled", value: "disabled", disabled: false},
-        ]
-        value: "jack"
-    }
+    Column {
+        spacing: 8
 
-    AntSelect { 
-        y: 60
-        antStyle {
-            size: Ant.Small
+        AntSelect { 
+            options:[
+                {label: "jack", value: "jack"},
+                {label: "lucy", value: "lucy"},
+                {label: "Yiminghe", value: "Yiminghe"},
+                {label: "disabled", value: "disabled", disabled: false},
+            ]
+            value: "jack"
+            model: "tags"
         }
-        value: 1
-        options:[
-            {label: "jack", value: "jack"},
-            {label: "lucy", value: "lucy"},
-            {label: "Yiminghe", value: "Yiminghe"},
-            {label: "disabled", value: "disabled", disabled: false},
-        ]
-    }
 
-    AntSelect { 
-        y: 120
-        antStyle {
-            size: Ant.Large
+        AntSelect { 
+            antStyle {
+                size: Ant.Small
+            }
+            value: 1
+            options:[
+                {label: "jack", value: "jack"},
+                {label: "lucy", value: "lucy"},
+                {label: "Yiminghe", value: "Yiminghe"},
+                {label: "disabled", value: "disabled", disabled: false},
+            ]
         }
-        options:[
-            {label: "jack", value: "jack"},
-            {label: "lucy", value: "lucy"},
-            {label: "Yiminghe", value: "Yiminghe"},
-            {label: "disabled", value: "disabled", disabled: false},
-        ]
-        value: ({label: "Yiminghe", value: "Yiminghe"})
+
+        AntSelect { 
+            antStyle {
+                size: Ant.Large
+            }
+            options:[
+                {label: "jack", value: "jack"},
+                {label: "lucy", value: "lucy"},
+                {label: "Yiminghe", value: "Yiminghe"},
+                {label: "disabled", value: "disabled", disabled: false},
+            ]
+            value: ({label: "Yiminghe", value: "Yiminghe"})
+        }
     }
 }
