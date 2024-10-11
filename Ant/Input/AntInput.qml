@@ -19,12 +19,14 @@ FocusScope {
     // 前缀带标签
     property var addonBefore: undefined
     property AntInputStyle antStyle: AntInputStyle {}
-    readonly property bool actived: textField.content.activeFocus
-    readonly property bool hovered: textField.hovered
-    readonly property alias mouseLayer: textField.mouseArea
-    readonly property bool acceptableInput: textField.content.acceptableInput
+    property LazyItemProxy contentItem: LazyItemProxy {}
+    readonly property bool actived: contentItem.target ? contentItem.target.content.activeFocus : false
+    readonly property bool hovered: contentItem.target ? contentItem.target.hovered : false
+    readonly property Item mouseLayer: contentItem.target ? contentItem.target.mouseArea : null
+    readonly property bool acceptableInput: contentItem.target ? contentItem.target.content.acceptableInput : false
     property var validator: null
     property bool readOnly: false
+    property Component delegate: defaultInputDelegate
 
     property var __styleProxy: new Utils.AntInputStyleProxy(root, antStyle)
 
@@ -34,22 +36,35 @@ FocusScope {
 
     clip: true
 
-    AntTextField {
-        id: textField
+    Loader {
+        id: contentLoader
         anchors.fill: parent
-        antStyle: __styleProxy
-        addonAfter: root.addonAfter
-        addonBefore: root.addonBefore
 
-        content {
-            placeholderText: root.placeholder
-            verticalAlignment: TextInput.AlignVCenter
-            font.pixelSize: __styleProxy.fontSize
-            validator: root.validator
-            text: root.text
-            readOnly: root.readOnly
+        sourceComponent: delegate
+
+        onItemChanged: {
+            contentItem.target = contentLoader.item
         }
-        prefix: root.prefix
-        suffix: root.suffix
+    }
+
+    Component {
+        id: defaultInputDelegate
+        AntTextField {
+            id: textField
+            antStyle: __styleProxy
+            addonAfter: root.addonAfter
+            addonBefore: root.addonBefore
+
+            content {
+                placeholderText: root.placeholder
+                verticalAlignment: TextInput.AlignVCenter
+                font.pixelSize: __styleProxy.fontSize
+                validator: root.validator
+                text: root.text
+                readOnly: root.readOnly
+            }
+            prefix: root.prefix
+            suffix: root.suffix
+        }
     }
 }
