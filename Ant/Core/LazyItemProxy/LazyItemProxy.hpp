@@ -28,6 +28,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQmlPropertyMap>
+#include <QQmlProperty>
 
 namespace Ant {
 
@@ -120,14 +121,14 @@ private:
 
     void syncProperty(QObject* target, const QJSValue& jsValue)
     {
-        if (!target)
+        if (!target || !jsValue.toVariant().isValid())
         {
             return;
         }
 
         if (!jsValue.isObject() && !jsValue.isQObject())
         {
-            qWarning() << "jsValue should be a Object to convert to QObject";
+            qWarning() << "jsValue should be a Object to convert to QObject!" << jsValue.toVariant();
             return;
         }
 
@@ -190,7 +191,7 @@ private:
             qWarning() << "Origin property type different target property type!";
             return;
         }
-        targetProperty.write(target, originProperty.read(origin));
+        writeProperty(targetProperty, originProperty.read(origin), target);
     }
 
     void syncProperty(const QMetaProperty& property, const QJSValue& jsValue, QObject* target)
@@ -216,7 +217,7 @@ private:
         }
 
         // direct write propertu to QProperty
-        if (!property.write(target, jsValue.toVariant()))
+        if (!writeProperty(property, jsValue.toVariant(), target))
         {
             qWarning() << "Write property faild! target:" << target->objectName() << "Property:" << property.name()
                        << jsValue.toVariant();
@@ -236,7 +237,7 @@ private:
         }
 
         // if the propertyObj is not initlized direct write data;
-        property.write(target, jsValue.toVariant());
+        writeProperty(property, jsValue.toVariant(), target);
     }
 
     void syncQObject(const QMetaProperty& property, const QObject* object, QObject* target)
@@ -249,12 +250,19 @@ private:
             // write object to target
             QVariant var;
             var.setValue(object);
-            property.write(target, var);
+            writeProperty(property, var, target);
         }
         else
         {
             syncProperty(property.read(target).value<QObject*>(), object);
         }
+    }
+
+    bool writeProperty(const QMetaProperty& property, const QVariant& value, QObject* target)
+    {
+        // qDebug() << property.hasNotifySignal() << property.notifySignal().name() << property.name() << value
+        // << value.value<QJSValue>().isCallable() << value.value<QObject*>();
+        return QQmlProperty::write(target, property.name(), value);
     }
 
     QObject* targetM{ nullptr };
