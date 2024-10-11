@@ -14,6 +14,7 @@ AntRectangle::AntRectangle(QQuickItem* parent) : QQuickPaintedItem(parent)
     connect(&borderM, &BorderConfig::topLeftRadiusChanged, this, &QQuickItem::update);
     connect(&borderM, &BorderConfig::topRightRadiusChanged, this, &QQuickItem::update);
     connect(&borderM, &BorderConfig::radiusChanged, this, &QQuickItem::update);
+    connect(this, &AntRectangle::colorChanged, this, &QQuickItem::update);
 }
 
 QPainterPath AntRectangle::getBoundPath(
