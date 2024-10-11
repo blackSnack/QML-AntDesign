@@ -29,7 +29,7 @@ Control {
     // Whether has border style
     property bool bordered: true
 
-    property var antStyle: AntTagStyle {}
+    property AntTagStyle antStyle: AntTagStyle {}
 
     // Callback executed when tag is closed
     signal close()
