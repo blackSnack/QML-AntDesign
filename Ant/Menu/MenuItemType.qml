@@ -22,7 +22,7 @@ Item {
     readonly property int itemLevel: menu.getItemLevel(root.parent)
     readonly property Item ownMenuGroup: menu.getOwnMenuGroup(root.parent)
     readonly property var icon: model ? model.icon : ""
-    readonly property var disabled: model ? (model.disabled === undefined ? true : model.disabled) : false
+    readonly property var disabled: model ? (model.disabled === undefined ? false : model.disabled) : false
     
     anchors {
         left: parent.left
@@ -33,7 +33,7 @@ Item {
 
     Row {
         id: content
-        enabled: root.disabled
+        enabled: !root.disabled
         leftPadding: itemLevel * AntTheme.margin
         anchors {
             left: parent.left
