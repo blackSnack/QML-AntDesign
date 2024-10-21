@@ -38,7 +38,6 @@ int AntListModel::rowCount(const QModelIndex& parent) const
 
 QVariant AntListModel::data(const QModelIndex& index, int role) const
 {
-    // qDebug() << __FUNCTION__ << index << role;
     if (!index.isValid() || index.row() < 0 || index.row() >= rowCount())
     {
         return QVariant{};
@@ -49,16 +48,17 @@ QVariant AntListModel::data(const QModelIndex& index, int role) const
 
 QHash<int, QByteArray> AntListModel::roleNames() const
 {
-    return hasSourceModel() ? sourceModel()->roleNames() : QHash<int, QByteArray>{
-        { Qt::DisplayRole, "display" },
-        { LabelRole, "label" },
-        { ValueRole, "value" },
-        { ItemTypeRole, "type" },
-        { IconRole, "icon" },
-        { KeyRole, "key" },
-        { ChildrenRole, "children" },
-        { DisabledRole, "disabled" },
-    };
+    return hasSourceModel() ? sourceModel()->roleNames()
+                            : QHash<int, QByteArray>{
+                                  { Qt::DisplayRole, "display" },
+                                  { LabelRole, "label" },
+                                  { ValueRole, "value" },
+                                  { ItemTypeRole, "type" },
+                                  { IconRole, "icon" },
+                                  { KeyRole, "key" },
+                                  { ChildrenRole, "children" },
+                                  { DisabledRole, "disabled" },
+                              };
 }
 
 void AntListModel::setValues(const QVariant& values)
@@ -74,10 +74,11 @@ void AntListModel::setValues(const QVariant& values)
     else if (isItemModel)
     {
         bindSourceModel(values.value<QAbstractItemModel*>());
-    }else {
+    }
+    else
+    {
         result = parseValues(values.toList());
     }
-    
     valuesM = result;
     endResetModel();
     emit valuesChanged();
@@ -121,9 +122,9 @@ void AntListModel::bindSourceModel(QAbstractItemModel* model)
     sourceModelM = model;
 }
 
-void AntListModel::unbindSourceModel() 
+void AntListModel::unbindSourceModel()
 {
-    if (sourceModelM) 
+    if (sourceModelM)
     {
         disconnect(sourceModelM, &QAbstractItemModel::modelAboutToBeReset, this, &AntListModel::modelAboutToBeReset);
         disconnect(sourceModelM, &QAbstractItemModel::modelReset, this, &AntListModel::modelReset);
@@ -144,7 +145,7 @@ QString AntListModel::roleToString(int role) const
 
 QVariant AntListModel::getData(const QModelIndex& index, int role) const
 {
-    if (hasSourceModel()) 
+    if (hasSourceModel())
     {
         return sourceModel()->data(index, role);
     }
@@ -156,7 +157,7 @@ QVariant AntListModel::getData(const QModelIndex& index, int role) const
         return keyValue.isValid() ? keyValue : mapValue.value(roleToString(ValueRole));
     }
 
-    if (role == Qt::DisplayRole || role == LabelRole) 
+    if (role == Qt::DisplayRole || role == LabelRole)
     {
         auto displayValue = mapValue.value(roleToString(Qt::DisplayRole));
         return displayValue.isValid() ? displayValue : mapValue.value(roleToString(LabelRole));
@@ -165,14 +166,15 @@ QVariant AntListModel::getData(const QModelIndex& index, int role) const
     return valuesM.at(index.row()).toMap().value(roleToString(role));
 }
 
-QVariant AntListModel::values() 
+QVariant AntListModel::values()
 {
-    if (hasSourceModel()) {
+    if (hasSourceModel())
+    {
         QVariant sourceValues;
-        QMetaObject::invokeMethod(sourceModel(), "values", Qt::BlockingQueuedConnection, Q_RETURN_ARG(QVariant, sourceValues));
+        QMetaObject::invokeMethod(sourceModel(), "values", Qt::DirectConnection, Q_RETURN_ARG(QVariant, sourceValues));
         return sourceValues;
     }
-    return valuesM; 
+    return valuesM;
 }
 
 } // namespace Ant
