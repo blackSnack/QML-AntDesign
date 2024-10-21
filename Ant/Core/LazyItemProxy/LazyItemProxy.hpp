@@ -27,8 +27,8 @@
 #include <QObject>
 #include <QQmlContext>
 #include <QQmlEngine>
-#include <QQmlPropertyMap>
 #include <QQmlProperty>
+#include <QQmlPropertyMap>
 
 namespace Ant {
 
@@ -240,16 +240,20 @@ private:
         writeProperty(property, jsValue.toVariant(), target);
     }
 
-    void syncQObject(const QMetaProperty& property, const QObject* object, QObject* target)
+    void syncQObject(const QMetaProperty& property, QObject* object, QObject* target)
     {
         Q_ASSERT(object);
         Q_ASSERT(target);
 
         if (!isQObject(property, target))
         {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
             // write object to target
+            QVariant var(QMetaType::QObjectStar, &object);
+#else
             QVariant var;
             var.setValue(object);
+#endif
             writeProperty(property, var, target);
         }
         else

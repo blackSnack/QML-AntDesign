@@ -44,12 +44,29 @@ ListView {
     spacing: antStyle.itemMarginBlock
     height: contentHeight
     delegate: Column {
-        required property var modelData
         width: root.width
+        // unpack model property
+        required property var display
+        required property var label
+        required property var value
+        required property var type
+        required property var key
+        required property var icon
+        required property var children
+        required property var disabled
 
         Loader {
             id: loader
-            readonly property var model: modelData
+            readonly property var model: ({
+                display : parent.display,
+                label: parent.label,
+                value: parent.value,
+                type: parent.type,
+                key: parent.key,
+                icon: parent.icon,
+                children: parent.children,
+                disabled: parent.disabled
+            })
             readonly property var menu: root
             width: parent.width
             sourceComponent: {

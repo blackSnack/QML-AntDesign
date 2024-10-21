@@ -18,7 +18,7 @@ Window {
                 {label: "jack", value: "jack"},
                 {label: "lucy", value: "lucy"},
                 {label: "Yiminghe", value: "Yiminghe"},
-                {label: "disabled", value: "disabled", disabled: false},
+                {label: "disabled", value: "disabled", disabled: true},
             ]
             value: "jack"
             model: "tags"
@@ -33,7 +33,7 @@ Window {
                 {label: "jack", value: "jack"},
                 {label: "lucy", value: "lucy"},
                 {label: "Yiminghe", value: "Yiminghe"},
-                {label: "disabled", value: "disabled", disabled: false},
+                {label: "disabled", value: "disabled", disabled: true},
             ]
         }
 
@@ -45,7 +45,7 @@ Window {
                 {label: "jack", value: "jack"},
                 {label: "lucy", value: "lucy"},
                 {label: "Yiminghe", value: "Yiminghe"},
-                {label: "disabled", value: "disabled", disabled: false},
+                {label: "disabled", value: "disabled", disabled: true},
             ]
             value: ({label: "Yiminghe", value: "Yiminghe"})
         }
