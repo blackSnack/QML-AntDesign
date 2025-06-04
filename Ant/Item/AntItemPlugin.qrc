@@ -1,0 +1,5 @@
+﻿<RCC>
+    <qresource prefix="/AntItem">
+        <file>AntItem.qml</file>
+    </qresource>
+</RCC>

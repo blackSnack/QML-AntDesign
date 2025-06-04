@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.15)
 
 project(ant-qml-components
     VERSION 1.0.0
@@ -7,6 +7,7 @@ project(ant-qml-components
 add_subdirectory(QtCompat)
 
 add_subdirectory(Core)
+add_subdirectory(Item)
 add_subdirectory(Icon)
 add_subdirectory(Button)
 add_subdirectory(Tooltip)
