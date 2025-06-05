@@ -1,0 +1,8 @@
+﻿<RCC>
+    <qresource prefix="/AntAvatar">
+        <file>AntAvatar.qml</file>
+        <file>AntAvatarGroup.qml</file>
+        <file>Style/AntAvatarStyle.qml</file>
+        <file>Style/AntAvatarMaxObject.qml</file>
+    </qresource>
+</RCC>

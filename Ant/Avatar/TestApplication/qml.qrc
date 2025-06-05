@@ -1,0 +1,9 @@
+﻿<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>assets/ant.svg</file>
+        <file>assets/avatar_1.svg</file>
+        <file>assets/avatar_2.svg</file>
+        <file>assets/avatar_3.png</file>
+    </qresource>
+</RCC>

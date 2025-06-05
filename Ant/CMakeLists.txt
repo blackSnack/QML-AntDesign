@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+﻿cmake_minimum_required(VERSION 3.15)
 
 project(ant-qml-components
     VERSION 1.0.0
@@ -29,6 +29,7 @@ add_subdirectory(Ribbon)
 add_subdirectory(Tag)
 add_subdirectory(Select)
 add_subdirectory(Space)
+add_subdirectory(Avatar)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
