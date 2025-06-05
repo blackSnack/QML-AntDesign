@@ -1,5 +1,5 @@
 ﻿// MIT License
-// Copyright (c) 2024 Karl
+// Copyright (c) 2025 Karl
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,6 +20,7 @@
 // SOFTWARE.
 //
 //
+import QtQuick 2.15
 
 QtObject {
 
