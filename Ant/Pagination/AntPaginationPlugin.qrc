@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntPagination">
+        <file>AntPagination.qml</file>
+        <file>Style/AntPaginationStyle.qml</file>
+    </qresource>
+</RCC>
