@@ -384,6 +384,18 @@ MouseArea {
             }
         }
 
+        Connections {
+            target: contentItem
+
+            function onWidthChanged() {
+                d.updatePoistion()
+            }
+
+            function onHeightChanged() {
+                d.updatePoistion()
+            }
+        }
+
         QtObject {
             id: d
 
@@ -421,6 +433,7 @@ MouseArea {
                 }
             }
             function triggeredPolicy() {
+                if(!target) { return false }
                 switch (trigger) {
                 case Ant.Hover | Ant.Focus:
                     return target.hovered || target.focus
@@ -585,7 +598,7 @@ MouseArea {
         Connections {
             target: root.target
 
-            function onClicked() {
+            function onClicked(mouse) {
                 if (d.isClickTrigger) {
                     control.visible ? d.close() : d.open()
                 }
