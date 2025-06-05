@@ -30,6 +30,7 @@ add_subdirectory(Tag)
 add_subdirectory(Select)
 add_subdirectory(Space)
 add_subdirectory(Avatar)
+add_subdirectory(Pagination)
 
 # set QML plugin import dir
 set(QML_IMPORT_PATH "${QML_IMPORT_PATH};${CMAKE_BINARY_DIR}/plugins" CACHE STRING "" FORCE)
