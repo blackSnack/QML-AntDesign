@@ -31,11 +31,15 @@ QtObject {
 
     property int paddingContentHorizontal: 16
 
-    property int paddingXS: 8
-
     property int paddingXXS: 4
 
+    property int paddingXS: 8
+
     property int paddingSM: 12
+
+    property int padding: 16
+
+    property int paddingLG: 24
 
     property int margin: 16
 
