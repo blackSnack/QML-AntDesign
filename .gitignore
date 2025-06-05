@@ -4,6 +4,8 @@
 .vscode
 *.autosave
 .SynologyWorkingDirectory
+*.qml.*
+!*.qml
 
 build
 out
