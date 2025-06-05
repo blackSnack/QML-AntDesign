@@ -6,7 +6,7 @@ import "./Style"
 Row {
     id: root
 
-    property Item target: null
+    property Item target: parent
     property int dotSize: 6
     property int indicatorHeight: 20
     property int indicatorHeightSM: 14
