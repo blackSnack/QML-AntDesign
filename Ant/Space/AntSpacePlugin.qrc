@@ -1,0 +1,6 @@
+﻿<RCC>
+    <qresource prefix="/AntSpace">
+        <file>AntSpace.qml</file>
+        <file>Style/AntSpaceStyle.qml</file>
+    </qresource>
+</RCC>
