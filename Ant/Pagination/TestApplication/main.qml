@@ -2,6 +2,7 @@
 import QtQuick.Window 2.15
 
 import AntPagination 1.0
+import AntSpace 1.0
 
 Window {
     width: 640
@@ -9,5 +10,15 @@ Window {
     visible: true
     title: qsTr("Test_Pagination")
 
-    AntPagination { }
+    AntSpace {
+        AntPagination {
+            total: 80
+        }
+
+        AntPagination {
+            size: "small"
+            total: 100
+        }
+    }
+
 }

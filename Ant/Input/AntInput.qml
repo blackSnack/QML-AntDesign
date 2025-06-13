@@ -30,7 +30,7 @@ FocusScope {
 
     property var __styleProxy: new Utils.AntInputStyleProxy(root, antStyle)
 
-    implicitWidth: textField.implicitWidth
+    implicitWidth: contentLoader.item ? contentLoader.item.implicitWidth : 0
     implicitHeight: __styleProxy.controlHeight
     state: "Default" // Default | Error | Warning | Success
 
@@ -54,6 +54,7 @@ FocusScope {
             antStyle: __styleProxy
             addonAfter: root.addonAfter
             addonBefore: root.addonBefore
+            height: root.height
 
             content {
                 placeholderText: root.placeholder

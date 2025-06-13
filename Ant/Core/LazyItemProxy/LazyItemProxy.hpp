@@ -194,7 +194,7 @@ private:
         writeProperty(targetProperty, originProperty.read(origin), target);
     }
 
-    void syncProperty(const QMetaProperty& property, const QJSValue& jsValue, QObject* target)
+    void syncProperty(const QMetaProperty& property, QJSValue& jsValue, QObject* target)
     {
         if (jsValue.isObject())
         {
@@ -224,7 +224,7 @@ private:
         }
     }
 
-    void syncJsObject(const QMetaProperty& property, const QJSValue& jsValue, QObject* target)
+    void syncJsObject(const QMetaProperty& property, QJSValue& jsValue, QObject* target)
     {
         Q_ASSERT(target);
 
@@ -235,9 +235,15 @@ private:
             syncProperty(propertyObj, jsValue);
             return;
         }
-
-        // if the propertyObj is not initlized direct write data;
-        writeProperty(property, jsValue.toVariant(), target);
+        if (jsValue.isCallable())
+        {
+            jsValue.call();
+        }
+        else
+        {
+            // if the propertyObj is not initlized direct write data;
+            writeProperty(property, jsValue.toVariant(), target);
+        }
     }
 
     void syncQObject(const QMetaProperty& property, QObject* object, QObject* target)
