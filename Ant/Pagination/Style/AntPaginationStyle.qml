@@ -22,6 +22,25 @@
 //
 import QtQuick 2.15
 
+import AntCore 1.0
 QtObject {
 
+    ///< Background color of active Pagination item	string
+    property color itemActiveBg: AntTheme.colorBgContainer
+    ///< Background color of disabled active Pagination item
+    property color itemActiveBgDisabled: AntTheme.colorBgTextActive
+    ///< Text color of disabled active Pagination item
+    property color itemActiveColorDisabled: AntTheme.colorTextDisabled
+    ///< Background color of Pagination item
+    property color itemBg: AntTheme.colorBgContainer
+    ///< Background color of input
+    property color itemInputBg: AntTheme.colorBgContainer
+    ///< Background color of Pagination item link
+    property color itemLinkBg: AntTheme.colorBgContainer
+    ///< Size of Pagination item
+    property int itemSize: 32
+    ///< Size of small Pagination item	number
+    property int itemSizeSM: 24
+    ///< Top of Pagination size changer	number
+    property int miniOptionsSizeChangerTop: 0
 }

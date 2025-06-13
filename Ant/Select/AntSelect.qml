@@ -70,7 +70,7 @@ Item {
     AntInput {
         id: input
         height: d.isMultiple ? flowLayout.height : __styleProxy.controlHeight
-        implicitWidth: parent.width
+        width: parent.width
         
         readOnly: true
 
@@ -85,15 +85,18 @@ Item {
         contentItem.wapper: ({
             background:({
                 border: ({
-                    color: Qt.binding(()=>{
-                        if (!d.isMultiple) {
-                          return contentItem.target.__isShowTextFieldBg ? AntTheme.colorBorder : contentItem.target.antStyle.borderColor(contentItem.target)
-                        }
-                        if (contentItem.target.hovered) {
-                            return contentItem.target.antStyle.borderColor(contentItem.target)
-                        }
-                        return contentItem.target.antStyle.borderColor(searchInput)
-                    })
+                    color: ()=>{
+                        contentItem.target.background.border.color = Qt.binding(
+                            ()=> {
+                                if (!d.isMultiple) {
+                                    return contentItem.target.__isShowTextFieldBg ? AntTheme.colorBorder : contentItem.target.antStyle.borderColor(contentItem.target)
+                                }
+                                if (contentItem.target.hovered) {
+                                    return contentItem.target.antStyle.borderColor(contentItem.target)
+                                }
+                                return contentItem.target.antStyle.borderColor(searchInput)
+                            })
+                    }
                 })
             })
         })

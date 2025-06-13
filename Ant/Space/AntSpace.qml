@@ -136,6 +136,8 @@ Item {
                 }
                 
                 preItem = item
+                item.widthChanged.disconnect(self.relayout)
+                item.heightChanged.disconnect(self.relayout)
                 item.widthChanged.connect(self.relayout)
                 item.heightChanged.connect(self.relayout)
             }
@@ -144,10 +146,14 @@ Item {
         }
 
         function relayout() {
-            if (visible) {
-                relayoutH()
-                relayoutV()
-            }
+            Qt.callLater(
+            ()=>{
+                if (visible) {
+                    relayoutH()
+                    relayoutV()
+                }
+            })
+
         }
 
         onSpacingChanged: relayout()

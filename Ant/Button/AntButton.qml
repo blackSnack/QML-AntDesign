@@ -50,7 +50,7 @@ T.Button
 
     implicitWidth: self.size.width
     implicitHeight: self.size.height
-    horizontalPadding: self.sizeStyle.paddingInline
+    horizontalPadding: indicator.visible ? self.sizeStyle.paddingInline : 0
     spacing: indicator.visible ? self.sizeStyle.spacing : 0
 
     indicator: AntIcon {
