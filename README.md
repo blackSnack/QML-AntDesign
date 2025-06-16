@@ -39,19 +39,35 @@ QML component library based on AntDesign
 * Run `ant-plugins` target to build all `Ant*Plugin.dll` to plugins folder
 
 ## Components
+### General
 * [AntButton](https://gitee.com/antenna_1/ant-design/wikis/AntButton)
-* [AntBadge](https://gitee.com/antenna_1/ant-design/wikis/AntBage)
-* [AntQRCode](https://gitee.com/antenna_1/ant-design/wikis/AntQRCode)
-* [AntCheckBox](https://gitee.com/antenna_1/ant-design/wikis/AntCheckbox)
-* [AntSpin](https://gitee.com/antenna_1/ant-design/wikis/AntSpin)
-* [AntTooltip](https://gitee.com/antenna_1/ant-design/wikis/AntTooltip)
-* [AntPopover](https://gitee.com/antenna_1/ant-design/wikis/AntPopover)
+* [AntIcon]()
+
+### Layout
+* [AntDivider]()
+* [AntSpace]()
+  
+### Navigation
 * [AntMenu](https://gitee.com/antenna_1/ant-design/wikis/AntMenu)
 * [AntDropdown](https://gitee.com/antenna_1/ant-design/wikis/AntDropdown)
+* [AntPagination]()
+
+
+### Data Entry
+* [AntCheckBox](https://gitee.com/antenna_1/ant-design/wikis/AntCheckbox)
 * [AntColorPick](https://gitee.com/antenna_1/ant-design/wikis/AntColorPick)
 * [AntInput](https://gitee.com/antenna_1/ant-design/wikis/AntInput)
 * [AntInputNumber](https://gitee.com/antenna_1/ant-design/wikis/AntInputNumber)
-* [AntMask]()
-* [AntDivider](https://gitee.com/antenna_1/ant-design/wikis/AntDivider)
-* [AntRibbon](https://gitee.com/antenna_1/ant-design/wikis/AntRibbon)
+* [AntSelect]()
 * [AntSlider](https://gitee.com/antenna_1/ant-design/wikis/AntSlider)
+
+### Data Display
+* [AntAvatar]()
+* [AntBadge](https://gitee.com/antenna_1/ant-design/wikis/AntBage)
+* [AntRibbon](https://gitee.com/antenna_1/ant-design/wikis/AntRibbon)
+* [AntPopover](https://gitee.com/antenna_1/ant-design/wikis/AntPopover)
+* [AntQRCode](https://gitee.com/antenna_1/ant-design/wikis/AntQRCode)
+* [AntTag]()
+* [AntTooltip](https://gitee.com/antenna_1/ant-design/wikis/AntTooltip)
+* [AntSpin](https://gitee.com/antenna_1/ant-design/wikis/AntSpin)
+* [AntMask]()
