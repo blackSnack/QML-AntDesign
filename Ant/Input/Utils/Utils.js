@@ -14,10 +14,10 @@ class AntInputStyleProxy {
                                           ["Default",
                                            {
                                                default: Core.AntTheme.colorText,
-                                               default_border: Core.AntTheme.colorBorder,
+                                               default_border: proxyStyle.defaultBorderColor ?? Core.AntTheme.colorBorder,
                                                hovered: proxyStyle.hoverBorderColor,
                                                activeFocus: proxyStyle.activeBorderColor,
-                                               disabled: Core.AntTheme.colorBorder,
+                                               disabled: proxyStyle.disableBorderColor,
                                            }
                                           ],
                                           ["Error",
@@ -124,7 +124,7 @@ class AntInputStyleProxy {
     }
 
     get textColor() {
-        return  this.control.enabled ? this.style.textColor : Core.AntTheme.colorTextDisabled
+        return  this.control.enabled ? this.style.textColor : (this.proxyStyle.colorTextDisabled ?? Core.AntTheme.colorTextDisabled)
     }
 
     get leftPadding() {
