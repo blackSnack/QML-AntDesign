@@ -37,13 +37,13 @@ Control {
     ///< Determine whether you can jump to pages directly	boolean | { goButton: Component }	false
     property var showQuickJumper: false
     ///< Determine whether to show pageSize select, it will be true when total > 50	boolean | SelectProps
-    property var showSizeChanger: total > 50
+    property var showSizeChanger: self.isSimple ? false : total > 50
     ///< Show page item's title	boolean
     property bool showTitle: true
     ///< To display the total number and range	function(total, range)	-
     property var showTotal: (total, range) => { return "" }
-    ///< Whether to use simple mode	boolean
-    property bool simple: false
+    ///< Whether to use simple mode	boolean | {readonly?: boolean}
+    property var simple: false
     ///< Specify the size of Pagination, can be set to small	default | small
     property string size: "default"
     ///< Total number of data items	number
@@ -61,6 +61,7 @@ Control {
 
         readonly property real itemSize: root.size === "small" ? antStyle.itemSizeSM : antStyle.itemSize
         readonly property real jumpInputWith: root.simple === "small" ? 44 : 54
+        readonly property real simpleInputWith: root.simple === "small" ? 44 : 54
         readonly property real itemSpacing: root.size === "small" ? 0 : AntTheme.marginXS
         readonly property int totalPage: Math.ceil(total / pageSize)
         readonly property int step: 5
@@ -68,6 +69,7 @@ Control {
         readonly property int boudingOffset: Math.floor(step/2)
         readonly property int moreIndexModelLength:  10
         readonly property int startIndex: 1
+        readonly property bool isSimple: (typeof simple == "boolean" && simple) || (typeof simple == "object")
         property int dynamicIndex: 0
         readonly property var model: {
             // 1 2 3 4 5 ... 10
@@ -100,45 +102,21 @@ Control {
                 text: {
                     let start = ((root.current - self.startIndex) * root.pageSize)
                     let end = Math.min(start + root.pageSize, root.total)
-                    return root.showTotal(root.total, [start, end])   
-                }
-            }
-            AntButton {
-                type: AntButtonStyle.Type.Text
-                implicitWidth: self.itemSize
-                implicitHeight: self.itemSize
-                enabled: (current > 1)
-                iconOnly: true
-                iconSource: "LeftOutlined"
-                ButtonGroup.group: buttonGroup
-
-                onClicked: current--
-                onDoubleClicked: current--
-            }
-
-            Row {
-                spacing: self.itemSpacing
-                Repeater {
-                    model: self.model
-
-                    delegate: Loader {
-                        readonly property int index: modelData.index
-                        sourceComponent: modelData.comp
-                    }
+                    return root.showTotal(root.total, [start, end])
                 }
             }
 
-            AntButton {
-                type: AntButtonStyle.Type.Text
-                implicitWidth: self.itemSize
-                implicitHeight: self.itemSize
-                enabled: (current < self.totalPage)
-                iconOnly: true
-                iconSource: "RightOutlined"
+            LeftNivBtn {}
 
-                onClicked: current++
-                onDoubleClicked: current++
+            Loader {
+                sourceComponent: {
+                    return self.isSimple ? simpleComp : defaultComp
+                }
             }
+
+
+            RightNivBtn {}
+
             AntSelect {
                 antStyle {
                     size: root.size === "small" ? Ant.Small : Ant.Middle
@@ -171,6 +149,59 @@ Control {
     onCurrentChanged: {
         change(root.current, root.pageSize)
     }
+    Component {
+        id: simpleComp
+        Row {
+            readonly property bool readOnly: (typeof simple === "object" && simple?.readOnly)
+            height: self.itemSize
+            spacing: self.itemSpacing
+            AntInput {
+                antStyle: AntInputStyle {
+                    readonly property color disableBorderColor: "transparent"
+                    readonly property color colorTextDisabled: AntTheme.colorText
+                }
+                enabled: !parent.readOnly
+                width: self.simpleInputWith
+                height: parent.height
+                text: root.current
+                validator: IntValidator {bottom: 1}
+                contentItem.wapper: ({
+                                         content: {
+                                             horizontalAlignment: Text.AlignHCenter
+                                         }
+                                     })
+                onPressEnter: { root.current = Math.min(Number(text), self.totalPage); text = Qt.binding(()=> root.current)}
+            }
+
+            AntText {
+                horizontalAlignment: Text.AlignHCenter
+                height: parent.height
+                text: "/"
+            }
+
+            AntText {
+                leftPadding: self.itemSpacing
+                rightPadding: self.itemSpacing
+                horizontalAlignment: Text.AlignHCenter
+                height: parent.height
+                text: self.totalPage
+            }
+        }
+    }
+    Component {
+        id: defaultComp
+        Row {
+            spacing: self.itemSpacing
+            Repeater {
+                model: self.model
+
+                delegate: Loader {
+                    readonly property int index: modelData.index
+                    sourceComponent: modelData.comp
+                }
+            }
+        }
+    }
 
     Component {
         id: indexBtnComp
@@ -191,6 +222,31 @@ Control {
                 }
             }
         }
+    }
+
+    component LeftNivBtn: AntButton {
+        type: AntButtonStyle.Type.Text
+        implicitWidth: self.itemSize
+        implicitHeight: self.itemSize
+        enabled: (current > 1)
+        iconOnly: true
+        iconSource: "LeftOutlined"
+        ButtonGroup.group: buttonGroup
+
+        onClicked: current--
+        onDoubleClicked: current--
+    }
+
+    component RightNivBtn: AntButton {
+        type: AntButtonStyle.Type.Text
+        implicitWidth: self.itemSize
+        implicitHeight: self.itemSize
+        enabled: (current < self.totalPage)
+        iconOnly: true
+        iconSource: "RightOutlined"
+
+        onClicked: current++
+        onDoubleClicked: current++
     }
 
     Component {

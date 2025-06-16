@@ -34,6 +34,16 @@ Window {
             total: 100
             showQuickJumper: true
         }
+
+        AntPagination {
+            total: 100
+            simple: true
+        }
+
+        AntPagination {
+            total: 100
+            simple: ({readOnly: true})
+        }
     }
 
 }
