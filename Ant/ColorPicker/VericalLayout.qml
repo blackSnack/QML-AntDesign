@@ -161,14 +161,16 @@ MouseArea {
                     z: 1070
                     control.width: d.dropdownWidth
                     currentSelectedKey: ["HEX"]
-                    menu: [
-                        AntCoreUtils.getItem("HEX", "HEX", "", [], "Item"),
-                        AntCoreUtils.getItem("HSV", "HSV", "", [], "Item"),
-                        AntCoreUtils.getItem("RGB", "RGB", "", [], "Item"),
-                    ]
+                    menu.wapper: ({
+                                  items: [
+                                          AntCoreUtils.getItem("HEX", "HEX", "", [], "Item"),
+                                          AntCoreUtils.getItem("HSV", "HSV", "", [], "Item"),
+                                          AntCoreUtils.getItem("RGB", "RGB", "", [], "Item"),
+                                      ]
+                                  })
 
                     Connections {
-                        target: formatDropdown.menuItem
+                        target: formatDropdown.menu.target
 
                         function onClick() {
                             formatDropdown.close()
@@ -245,7 +247,8 @@ MouseArea {
             }
             validator: RegularExpressionValidator  { regularExpression: /^[0-9A-Fa-f]{0,6}$/ }
             text: colorToHex(colorBg.currentColor)
-            onTextChanged: {
+            onChange: {
+                let text = hexInput.text
                 if (text.length == 6 && text !== colorToHex(root.currentColor)) {
                     d.defaultValue = hexToQmlColor(text, alphaSlider.value / alphaSlider.max)
                 }
