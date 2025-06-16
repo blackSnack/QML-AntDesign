@@ -36,6 +36,9 @@ FocusScope {
 
     clip: true
 
+    signal change(var text)
+    signal pressEnter()
+
     Loader {
         id: contentLoader
         anchors.fill: parent
@@ -63,6 +66,11 @@ FocusScope {
                 validator: root.validator
                 text: root.text
                 readOnly: root.readOnly
+                onAccepted: {
+                    root.text = content.text
+                    root.pressEnter()
+                }
+                onTextChanged: root.change(content.text)
             }
             prefix: root.prefix
             suffix: root.suffix
