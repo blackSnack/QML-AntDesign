@@ -4,6 +4,9 @@ import QtQuick.Controls 2.15
 import AntButton 1.0
 import AntCore 1.0
 import AntSelect 1.0
+import AntText 1.0
+import AntInput 1.0
+import AntSpace 1.0
 import "./Style"
 
 Control {
@@ -38,7 +41,7 @@ Control {
     ///< Show page item's title	boolean
     property bool showTitle: true
     ///< To display the total number and range	function(total, range)	-
-    property var showTotal: (total, range) => {}
+    property var showTotal: (total, range) => { return "" }
     ///< Whether to use simple mode	boolean
     property bool simple: false
     ///< Specify the size of Pagination, can be set to small	default | small
@@ -57,6 +60,7 @@ Control {
         id: self
 
         readonly property real itemSize: root.size === "small" ? antStyle.itemSizeSM : antStyle.itemSize
+        readonly property real jumpInputWith: root.simple === "small" ? 44 : 54
         readonly property real itemSpacing: root.size === "small" ? 0 : AntTheme.marginXS
         readonly property int totalPage: Math.ceil(total / pageSize)
         readonly property int step: 5
@@ -90,6 +94,15 @@ Control {
         id: contentLoader
         sourceComponent: Row {
             spacing: self.itemSpacing
+            AntText {
+                height: self.itemSize
+                visible: text != ""
+                text: {
+                    let start = ((root.current - self.startIndex) * root.pageSize)
+                    let end = Math.min(start + root.pageSize, root.total)
+                    return root.showTotal(root.total, [start, end])   
+                }
+            }
             AntButton {
                 type: AntButtonStyle.Type.Text
                 implicitWidth: self.itemSize
@@ -128,9 +141,10 @@ Control {
             }
             AntSelect {
                 antStyle {
-                    size: Ant.Middle
+                    size: root.size === "small" ? Ant.Small : Ant.Middle
                 }
                 width: 120
+                height: self.itemSize
                 value: 1
                 visible: root.showSizeChanger
                 options: (root.pageSizeOptions || []).map((item, index)=>({
@@ -145,6 +159,11 @@ Control {
 
                               showSizeChange(root.current, root.pageSize)
                           }
+            }
+
+            JumpToComp {
+                height: self.itemSize
+                visible: showQuickJumper
             }
         }
     }
@@ -278,6 +297,25 @@ Control {
                     self.dynamicIndex = currentIndex
                 }
             }
+        }
+    }
+
+    component JumpToComp: Row {
+        spacing: self.itemSpacing
+        AntText {
+            height: parent.height
+            text: "Jump to"
+        }
+        AntInput {
+            width: self.jumpInputWith
+            height: parent.height
+            validator: IntValidator {bottom: 1}
+            onPressEnter: { root.current = Math.min(Number(text), self.totalPage); text = ""}
+        }
+
+        AntText {
+            height: parent.height
+            text: "Page"
         }
     }
 

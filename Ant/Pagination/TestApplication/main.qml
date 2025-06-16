@@ -11,13 +11,28 @@ Window {
     title: qsTr("Test_Pagination")
 
     AntSpace {
+        direction: Qt.Vertical
         AntPagination {
             total: 80
         }
 
         AntPagination {
+            total: 100
+
+            showTotal: function(total, range) {
+                return `${range[0]}-${range[1]} Total: ${total}`
+            }
+        }
+
+        AntPagination {
             size: "small"
             total: 100
+        }
+
+        AntPagination {
+            size: "small"
+            total: 100
+            showQuickJumper: true
         }
     }
 
