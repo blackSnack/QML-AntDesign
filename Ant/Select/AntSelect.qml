@@ -181,6 +181,10 @@ Item {
     onValueChanged: {
         let typeStr = typeof value
         if (typeStr === "number") {
+            if (value === -1) {
+                return;
+            }
+            dropdown.currentSelectedKey = []
             dropdown.currentSelectedKey = Qt.binding(()=> [options[value]["value"]]) 
         } else if (typeStr === "string") {
             dropdown.currentSelectedKey = [value]

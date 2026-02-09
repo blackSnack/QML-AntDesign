@@ -40,6 +40,13 @@ AntPopover {
                         currentSelectedTextChanged()
                   }
     }
+
+    onCurrentSelectedKeyChanged: {
+        if (JSON.stringify(currentSelectedKey) !== JSON.stringify(popover.menu.target.selectedKeys)) {
+            popover.menu.target.selectedKeys = []
+            popover.menu.target.selectedKeys = currentSelectedKey
+        }
+    }
 }
 
 
